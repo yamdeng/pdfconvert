@@ -10,7 +10,7 @@ const puppeteer = require("puppeteer");
     {
       url: "http://gw.drcc.co.kr",
       name: "JSESSIONID",
-      value: "DE6DC24B5697523FEBC3E0C681934AB5",
+      value: "123123",
     },
   ];
 
