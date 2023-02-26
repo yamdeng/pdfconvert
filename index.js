@@ -1,7 +1,11 @@
 const puppeteer = require("puppeteer");
 
 (async () => {
-  const browser = await puppeteer.launch();
+
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox']
+  });
 
   // Create a new page
   const page = await browser.newPage();
@@ -10,7 +14,7 @@ const puppeteer = require("puppeteer");
     {
       url: "http://gw.drcc.co.kr",
       name: "JSESSIONID",
-      value: "123123",
+      value: "8CF117A89303EC4C7089DB1C8F70CC6D",
     },
   ];
 
@@ -25,7 +29,7 @@ const puppeteer = require("puppeteer");
   //   await page.emulateMediaType("screen");
 
   const pdf = await page.pdf({
-    path: "result5.pdf",
+    path: "result6.pdf",
     printBackground: false,
     format: "A3",
   });
