@@ -11,6 +11,7 @@
   "dependencies": {
     "html-pdf": "^3.0.1",
     "html-pdf-node": "^1.0.8",
+    "oracledb": "^5.5.0",
     "puppeteer": "^19.6.3"
   }
 }
