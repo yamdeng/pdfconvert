@@ -1,0 +1,5329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ SpeedOffice 5.0 2012-03-08 10:32:37
+  ~ office Module.
+  ~ SqlApp.xml
+  -->
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="app">
+
+	<typeAlias alias="AppDocList" type="com.pns.gw.app.command.AppDocList"/>
+	<typeAlias alias="Appinfo" type="com.pns.gw.app.command.Appinfo"/>
+	<typeAlias alias="ReceiveDeptInfo" type="com.pns.gw.app.command.ReceiveDeptInfo"/>
+	<typeAlias alias="AppLineInfo" type="com.pns.gw.app.command.LineCommand"/>
+	<typeAlias alias="AppSereNo" type="com.pns.gw.app.command.AppSereDocuNoCommand"/>
+	<typeAlias alias="AppDocuInfo" type="com.pns.gw.app.command.DocuInfoCommand"/>
+	<typeAlias alias="AppReceveInfo" type="com.pns.gw.app.command.ReceiveCommand"/>
+	<typeAlias alias="AppDocuReadinfo" type="com.pns.gw.app.command.AppDocuReadinfo"/>
+	<typeAlias alias="AppSaveDocuInfo" type="com.pns.gw.app.command.AppSaveDocuCommand"/>
+	<typeAlias alias="AppSaveDocuTree" type="com.pns.gw.app.command.TreeCommand"/>
+	<typeAlias alias="FileCommand" type="com.pns.gw.app.command.FileCommand"/>
+	<typeAlias alias="AppModifyCommand" type="com.pns.gw.app.command.AppModifyCommand"/>
+	<typeAlias alias="SimpleDeptInfoCommand" type="com.pns.gw.app.command.SimpleDeptInfoCommand"/>
+
+<!--  OA_EAPP_DOCUMAS ****************************************************** -->
+	<insert id="app.insertDocumas" parameterClass="AppDocuInfo">
+		INSERT INTO  OA_EAPP_DOCUMAS
+			(userid,	docuno, 		deptcode, 	formcode, 	regdate, 
+			title, 		attfilenum, 	status, 	appcnt, 	lastapp,
+			nextapp,	sedocuno, 	  	secret , 	important, 	savedoccode,formcorcode, 
+			term,		orisedocuno,	seqdocuno,	content
+			)
+			
+		VALUES
+			(#userid#, 	#docuno#, 		#deptcode#, #formCode#, 	sysdate, 
+			#title#, 	#attfilenum#,	#status#, 	#appcnt#, 		#lastApp#,
+			#nextapp#,	#seDocuno#,		#secret#, 	#important#, 	#savedoccode#, #formcorcode#,
+			
+		<isNotNull property="term">
+			to_date(#term#, 'yyyy-mm-dd')
+		</isNotNull>
+		<isNull property="term">
+			null
+		</isNull>
+			,		#orisedocuno#,	#seqdocuno#,
+			#content:CLOB#
+			)
+	</insert>
+	
+	<insert id="app.insertDocumasAll" parameterClass="AppDocuInfo">
+		INSERT INTO  OA_EAPP_DOCUMAS
+			(userid,	docuno, 		deptcode, 	formcode, 	regdate, 
+			title, 		attfilenum, 	status, 	appcnt, 	lastapp,
+			nextapp,	sedocuno, 	  	secret , 	important, 	savedoccode, formcorcode,
+			term,		orisedocuno,	seqdocuno,
+			linkcode,	linkinfo1,		linkinfo2,	linkinfo3,	
+			content, orgpass
+			)
+		VALUES
+			(#userid#, 	#docuno#, 		#deptcode#, 	#formCode#, 	sysdate, 
+			#title#, 	#attfilenum#,	#status#, 		#appcnt#, 		#lastApp#,
+			#nextapp#,	#seDocuno#,		#secret#, 		#important#, 	#savedoccode#, #formcorcode#,
+
+		<isNotNull property="term">
+			to_date(#term#, 'yyyy-mm-dd')
+		</isNotNull>
+		<isNull property="term">
+			null
+		</isNull>
+			
+			
+			,		#orisedocuno#,	#seqdocuno#,
+			#linkcode#,	#linkinfo1#,	#linkinfo2#,	#linkinfo3#,	
+			#content:CLOB#,#orgpass#
+			)
+	</insert>
+
+	<insert id="app.insertDocumas_teMp" parameterClass="AppDocuInfo">
+		INSERT INTO  OA_EAPP_DOCUMAS
+			( docuno, deptcode, userid, 
+			formcode, regdate, title, attfilenum, 
+			status, appcnt, lastapp, nextapp, 
+			/* sedocuno,*/ 
+			sedept, secret, 
+			/* important, savedoccode, term,*/ 
+			  orisedocuno, seqdocuno,formcorcode
+		/*	, linkcode, linkinfo1, linkinfo2, linkinfo3 */ 
+			)
+		VALUES
+			( #docuno#, #deptcode#, #userid#, 
+			#formCode#, sysdate, #title#, #attfilenum#, 
+			#status#, #appcnt#, #lastApp#, #nextapp#, 
+		/*	#seDocuno#,*/ 
+			#seDept# ,#secret#, 
+			/* #important#, #savedoccode#, to_date(#term#, 'yyyy-mm-dd'), */ 
+			  #orisedocuno#, #seqdocuno#, #formcorcode#
+		/*	, #linkcode#, #linkinfo1#, #linkinfo2#, #linkinfo3# */
+			)
+	</insert>
+
+	<update id="app.updateDocumasSedocuno" parameterClass="AppSereNo">
+		UPDATE OA_EAPP_DOCUMAS 
+		SET sedocuno=#sedocuNo#
+		WHERE docuno=#docuno# 
+	</update>
+
+	<update id="app.updateDocumasSeqDocuno" parameterClass="AppDocuInfo">
+		UPDATE OA_EAPP_DOCUMAS 
+		SET seqdocuno=#seqdocuno#
+		WHERE docuno=#docuno# 
+	</update>
+
+	<update id="app.updateNextapp" parameterClass="AppLineInfo">
+		UPDATE OA_EAPP_DOCUMAS
+		SET nextapp    = #nextapp#
+		WHERE docuno  = #docuno#
+	</update>
+
+	<update id="app.updateAppStatus" parameterClass="AppLineInfo">
+		UPDATE OA_EAPP_DOCUMAS
+        SET status = #appstatus#
+        WHERE docuNo = #docuno#
+	</update>
+
+	<update id="app.updateAppStatusA" parameterClass="AppDocuInfo">
+		UPDATE OA_EAPP_DOCUMAS
+        SET status = 'A'
+        WHERE docuNo = #docuno#
+	</update>
+
+	<update id="app.updateAppCnt" parameterClass="AppLineInfo">
+		UPDATE OA_EAPP_DOCUMAS
+		SET appcnt = #apsize#,
+		lastapp =#nextapp#
+		WHERE docuno =#docuno# 
+	</update>
+
+	<update id="app.updateDocumas" parameterClass="AppDocuInfo">
+		UPDATE OA_EAPP_DOCUMAS
+		SET status = #status#,
+			title = #title#,		
+			lastapp =#lastApp#,
+			attfilenum=#attfilenum#,
+			nextapp=#nextapp#,
+			secret=#secret#,
+			regdate=sysdate		
+		WHERE docuno =#docuno# and status='T'
+	</update>
+
+	<update id="app.updateDocumasT" parameterClass="AppDocuInfo">
+		UPDATE OA_EAPP_DOCUMAS
+		SET title = #title#,
+		regdate=sysdate
+		WHERE docuno =#docuno# AND  status='T'
+	</update>
+
+
+	<delete id="app.deleteDocuMasDocT" parameterClass="AppDocList">
+		DELETE FROM OA_EAPP_DOCUMAS
+		WHERE userid=#userid#
+		and docuno =#docuno#
+		and status='T'
+	</delete>
+
+	<delete id="app.deleteDocuMas" parameterClass="AppDocuInfo">
+		DELETE FROM OA_EAPP_DOCUMAS
+		WHERE docuno =#docuno#
+	</delete>
+
+	<select id="app.checkRecvDocu" resultClass="int" parameterClass="AppDocuInfo">
+		SELECT count(1) as counter
+		FROM OA_EAPP_DOCUMAS
+		where docuno like  #docuno#
+	</select>
+
+	<select id="app.checkTempDocu" resultClass="int" parameterClass="AppDocuInfo">
+		SELECT count(1) as counter
+		FROM OA_EAPP_DOCUMAS
+		where docuno like  #docuno#
+		AND status='T'
+	</select>
+
+	<select id="app.getSeqDocuNo" resultClass="String" parameterClass="AppDocuInfo">
+		SELECT seqDocuNo
+		FROM OA_EAPP_DOCUMAS
+		where  docuno =  #docuno#
+	</select>
+
+	<select id="app.makeSeqDocuNo" resultClass="String" parameterClass="AppDocuInfo">
+		SELECT seqDocuNo
+		FROM OA_EAPP_DOCUMAS
+		where docuno =  #orisedocuno#
+	</select>
+
+	<select id="app.isOrisedocuNo" resultClass="String" parameterClass="AppDocuInfo">
+		SELECT orisedocuno
+		FROM OA_EAPP_DOCUMAS
+		where docuno =  #docuno#
+	</select>
+
+	<select id="app.getSaveDocBoxCode" parameterClass="String" resultClass="String">
+		SELECT savedoccode
+	  	  FROM OA_EAPP_DOCUMAS
+		 WHERE  docuno = #value#
+	</select>
+
+	<select id="app.getDocuStatus" parameterClass="String" resultClass="String">
+    	SELECT 	status
+        FROM 	OA_EAPP_DOCUMAS
+     	WHERE  	docuno = #docuno#
+    </select>
+
+	<select id="app.getDocInfo" parameterClass="String" resultClass="AppDocuInfo">
+		SELECT docuno, formcode, title, userid,  TO_CHAR(regdate,  'YYYY-MM-DD HH24:MI:SS') regdate, attfilenum
+	  	  FROM OA_EAPP_DOCUMAS
+		 WHERE  docuno = #value#
+	</select>
+
+
+<!--  OA_EAPP_APP ****************************************************** -->
+
+	<select id="app.getAppMailInfo" parameterClass="AppDocuInfo" resultClass="hashmap">
+		<![CDATA[
+		SELECT
+				ea.apppos	"apppos",
+				ea.userid  	"userid",
+				email		"email",
+				name		"username",
+				ed.title	"title",
+				ed.userid   "drafter"
+		FROM	OA_EAPP_APP EA
+		LEFT OUTER JOIN
+				O0_USER_MAST UM
+		ON 		(EA.USERID=UM.USERID)
+		LEFT OUTER JOIN
+				OA_EAPP_DOCUMAS ED
+		ON		(EA.DOCUNO=ED.DOCUNO)
+		WHERE 	EA.DOCUNO=#docuno#
+		AND		EA.APPPOS < (SELECT apppos FROM OA_EAPP_APP WHERE DOCUNO=#docuno# AND userid=#userid#)
+		AND		NVL(UM.EMAIL,'_') != '_'
+		ORDER BY EA.APPPOS
+		]]>
+	</select>
+	<!--   AND 	EA.APPDAY IS NULL-->
+
+	<select id="app.getNextAppMailInfo" parameterClass="AppDocuInfo" resultClass="hashmap">
+		SELECT	ea.userid	"userid",
+	   			um.email	"email",
+	   			um.name		"username",
+	   			(SELECT name FROM O0_USER_MAST WHERE userid=ed.userid) "drafter",
+	   			(SELECT email FROM O0_USER_MAST WHERE userid=ed.userid) "draftermail"
+  		FROM
+  				oa_eapp_app ea
+  		LEFT OUTER JOIN
+  				O0_USER_MAST um
+  		ON 		ea.USERID=um.USERID
+  		LEFT OUTER JOIN
+				OA_EAPP_DOCUMAS ED
+		ON		(EA.DOCUNO=ED.DOCUNO)
+  		WHERE 	ea.DOCUNO=#docuno#
+   		AND		ea.APPPOS = (SELECT apppos FROM OA_EAPP_APP WHERE DOCUNO=#docuno# AND userid=#userid#)+1
+   		AND 	NVL(um.email,'')!=''
+	</select>
+
+	<delete id="app.deleteAppInfo" parameterClass="AppDocuInfo">
+		DELETE FROM OA_EAPP_APP
+		WHERE DOCUNO= #docuno#
+	</delete>
+
+	<delete id="app.delete_appInfo" parameterClass="AppLineInfo">
+		DELETE FROM OA_EAPP_APP 
+		WHERE docuno = #docuno#  
+			AND apppos >=  #apppos#
+	</delete>
+
+	<update id="app.updateComment" parameterClass="AppLineInfo">
+   		UPDATE OA_EAPP_APP 
+   		set comments=#comments# 
+   		where docuno=#docuno# 
+	   		and userid	=#userid#
+	</update>
+	<update id="app.updateAppInfoRegDate" parameterClass="AppLineInfo">
+   		UPDATE OA_EAPP_APP 
+   		set appday = sysdate 
+   		where docuno=#docuno# 
+	   		and userid	=#userid#
+	</update>
+	<update id="app.updateAppinfo" parameterClass="AppLineInfo">
+   		UPDATE OA_EAPP_APP 
+   		set  appstatus=#appstatus#,
+   			 appday = sysdate ,
+   			 comments=#comments#
+   		where docuno=#docuno# 
+	   		and userid	=#userid#
+	</update>
+	<update id="app.updateAppinfoAll" parameterClass="AppLineInfo">
+   		UPDATE OA_EAPP_APP 
+   		set  appstatus=#appstatus#,
+   			 appday = sysdate ,
+   			 comments=#comments#,
+   			 deptcode=#deptcode#,
+   			 gradecode=#gradecode#
+   		where docuno=#docuno# 
+   		and userid	=#userid#
+	</update>
+
+	<insert id="app.insertAppInfo" parameterClass="AppLineInfo">
+		INSERT INTO  OA_EAPP_APP
+			(docuno, userid, deptcode, gradecode, appspec, apppos, appstatus, appday, modifyauth, apppara )
+		VALUES
+			( #docuno#,  #userid#,  #deptcode#,  #gradecode#,  #appspec#,  #apppos#,  #appstatus#, #appday#, #modifyauth#,  #apppara#)
+	</insert>
+
+	<select id="app.getModifyPos" parameterClass="AppDocuInfo" resultClass="int">
+		SELECT MIN(apppos)
+		FROM OA_EAPP_APP
+		WHERE docuno=#docuno#
+		AND appday IS null
+		ORDER BY apppos
+	</select>
+
+	<select id="app.getAppSpecH" parameterClass="AppDocuInfo" resultClass="int">
+		SELECT count(*)
+		FROM  OA_EAPP_APP
+		WHERE  docuno = #docuno# 
+		and appspec='H' 
+		and apppos  &lt; #apppos#
+	</select>
+
+	<select id="app.isPostDecision" resultClass="String" parameterClass="AppLineInfo">
+		SELECT userid  
+  		FROM OA_EAPP_APP  
+		WHERE docuno   =#docuno# 
+        	AND userid =#userid#
+        	AND appspec = 'Y' 
+	</select>
+
+	<select id="app.getAllUserInfo" parameterClass="AppLineInfo" resultClass="String">
+		SELECT userid 
+		from OA_EAPP_APP 
+		where 
+			docuno = #docuno# 
+			AND apppos > #apppos#
+	</select>
+
+	<select id="app.getUserId_appInfo" parameterClass="AppLineInfo" resultClass="String">
+		SELECT userid
+		FROM OA_EAPP_APP 
+		WHERE docuno = #docuno# 
+		AND appPos = (#apsize# -1)
+	</select>
+
+	<select id="app.getNextUserId" parameterClass="AppLineInfo" resultClass="String"> 
+		SELECT userId 
+		FROM OA_EAPP_APP 
+		WHERE docuno = #docuno# 
+			AND appPos = (#apppos#+1)
+	</select>
+
+
+	<select id="app.getPreAppPos" parameterClass="AppLineInfo" resultClass="String"> 
+		 SELECT MAX(apppos) 
+		 FROM OA_EAPP_APP  
+		 WHERE docuno=#docuno# 
+			 AND appspec != 'W'
+			 AND apppos &lt; (	 
+			 	SELECT apppos 
+				FROM OA_EAPP_APP 
+				WHERE docuno=#docuno#  AND userid=#userid#) 
+	</select>
+	<!-- select id="app.getAppPos" parameterClass="AppLineInfo" resultClass="String">
+		SELECT apppos 
+		FROM OA_EAPP_APP 
+		WHERE docuno=#docuno#  AND apppos=#apppos# 
+			AND appstatus='P' AND appday IS NOT NULL
+	</select-->
+	<!-- ksr -->
+	<select id="app.getAppPos" parameterClass="AppLineInfo" resultClass="String">
+        select 
+case
+ when NEXTAPP=t2.USERID
+  then '1'
+  else '0'
+  end apppos
+from OA_EAPP_DOCUMAS t1
+inner join OA_EAPP_APP t2
+on t1.DOCUNO =t2.DOCUNO
+where t1.DOCUNO=#docuno#
+and t2.USERID=#userid#
+and appday IS NULL
+AND appstatus IN('P','G')
+  </select>
+
+	<select id="app.isAbleCance" parameterClass="AppLineInfo" resultClass="hashmap">
+	<![CDATA[
+		SELECT userid "userid",
+		 	   nvl(TO_CHAR(appday),' ') "appday"
+		FROM OA_EAPP_APP
+		WHERE docuno=#docuno# 
+			/* AND appday IS NULL */
+			AND apppos='1'
+	]]>
+	</select>
+	<select id="app.isCommant" parameterClass="AppDocuInfo" resultClass="String">
+		SELECT userid 
+		FROM OA_EAPP_APP 
+		WHERE docuno=#docuno# 
+			AND comments IS NOT NULL
+	</select>
+	<select id="app.getHelpCnt" parameterClass="AppDocuInfo" resultClass="int">
+		SELECT COUNT(*) 
+		FROM OA_EAPP_APP 
+		WHERE docuno=#docuno# 
+		and (appspec='H' or appspec='S' or appspec='I')
+		and apppos &lt; #apppos#
+	</select>
+	<select id="app.getPosNotW" parameterClass="AppDocuinfo" resultClass="String">
+		SELECT min(apppos) apppos  
+		FROM OA_EAPP_APP  
+		WHERE apppos > (  
+						SELECT apppos 
+						FROM OA_EAPP_APP 
+						WHERE docuno=#docuno#   AND userid=#userid# )
+			AND docuno=#docuno#   
+			AND appspec != 'W'
+	</select>
+
+	<select id="app.getNextUserStatus" parameterClass="AppDocuinfo" resultClass="String">
+		SELECT appspec 
+		FROM OA_EAPP_APP 
+		WHERE docuno=#docuno#   AND apppos=#apppos#
+	</select>
+
+	<select id="app.getAppspec" parameterClass="AppLineInfo" resultClass="String">
+		SELECT appspec
+		FROM OA_EAPP_APP
+		WHERE docuno=#docuno#
+			AND userid=#userid#
+	</select>
+
+	<select id="app.getAppspecRegsterid" parameterClass="AppLineInfo" resultClass="String">
+		SELECT appspec
+		FROM OA_EAPP_APP
+		WHERE docuno=#docuno#
+			AND userid=#chguserid#
+	</select>
+	
+	<select id="app.getAppPosFromUserId" resultClass="int"  parameterClass="AppLineInfo">
+		SELECT apppos 
+		FROM OA_EAPP_APP
+		WHERE docuno=#docuno#   
+			AND userid=#userid#
+	</select>
+
+	<select id="app.isLast" parameterClass="AppLineInfo" resultClass="String">
+		SELECT a.userid  "userid"
+        FROM OA_EAPP_APP a, OA_EAPP_DOCUMAS m  
+        WHERE a.docuno = m.docuno  
+		AND a.userid  = m.lastapp  
+		AND a.docuno  =#docuno#
+		AND a.userid  = #userid#
+	</select>
+	<select id="app.getComment" parameterClass="AppLineInfo" resultClass="hashmap"><![CDATA[
+			SELECT 
+				a.userid "userid",
+				u.name "name",
+				a.appday "appday",
+				 NVL(a.comments, '-') "comments"		
+			 FROM OA_EAPP_APP a, O0_USER_MAST u  
+			WHERE a.userid=u.userid 
+				AND a.docuno=#docuno#
+			ORDER BY apppos
+	]]></select>
+
+	<select id="app.isMyId" parameterClass="AppLineInfo" resultClass="int">
+		SELECT COUNT(userid)
+		FROM OA_EAPP_APP
+		WHERE docuno=#docuno#
+		and userid=#userid#
+	</select>
+
+
+	<!-- 지정한 결재선 라인 가져오기 -->
+	<!-- and u.corcode=#corcode#  -->
+	<select id="app.getchoiceLineinfo" parameterClass="AppLineInfo" resultClass="hashmap"><![CDATA[
+		SELECT
+			  tg.value "signkind",
+			  a.APPSPEC "signkindVal",
+			  a.USERID "userid",
+			  a.deptcode "deptcode",
+			  a.gradecode "gradecode",
+			  u.name "name",
+			  gp.VALUE "gradename",
+			  dp.VALUE "deptname",
+			  CASE WHEN modifyauth='N' THEN 'false'
+				   WHEN modifyauth='Y' THEN 'true'
+			  END "modifyauth" ,
+			  CASE WHEN apppara='N' THEN 'false'
+				   WHEN apppara='Y' THEN 'true'
+			  END "apppara",
+			  apppos+1 "apppos"
+			  ,appday "appday"
+		FROM OA_EAPP_APP a
+		INNER JOIN O0_USER_MAST u
+			  ON a.USERID=u.USERID AND a.DOCUNO=#docuno#
+		INNER JOIN O0_USER_GRADE g
+			  ON u.corcode=g.corcode AND a.GRADECODE=g.GRADECODE
+		INNER JOIN O0_USER_DEPT d
+			  ON u.corcode=d.corcode AND a.DEPTCODE=d.DEPTCODE
+		INNER JOIN O0_COM_PROPERTY dp
+			  ON d.DEPTNAME=dp.NAME    AND dp.LANG=#lang#
+		INNER JOIN O0_COM_CODE gc
+			  ON g.GRADECODE=gc.CODE_ID
+		INNER JOIN O0_COM_PROPERTY  gp
+			  ON gc.CODE_NM=GP.NAME AND gp.LANG=#lang#
+		INNER JOIN OA_EAPP_GUBUN tg
+		 	  on a.APPSPEC =tg.APPSPEC AND tg.LANG=#lang#
+		ORDER BY apppos
+
+		]]></select>
+
+	<!--  OA_EAPP_SAVELINE ****************************************************** -->
+		<select id="app.getsavelineCode" resultClass="String">
+			SELECT appSaveline_SEQUENCE.nextval FROM dual
+		</select>
+
+		<insert id="app.insertSaveLine" parameterClass="AppLineInfo">
+			INSERT INTO  OA_EAPP_SAVELINE
+				( linecode, registerid, userid, linename, username, deptcode, gradecode, appspec, apppos, modifyauth, apppara )
+			VALUES
+				( #linecode#,  #registerid#, #userid#, #linename#, #username#,  #deptcode#,  #gradecode#,  #appspec#,  #apppos#,   #modifyauth#,  #apppara#)
+		</insert>
+
+		<select id="app.getLineInfoTitle" parameterClass="AppLineInfo" resultClass="hashmap"><![CDATA[
+			select  sum(decode(appspec2,'H',tcnt,0)) "cnt_H",   sum(decode(appspec2,'X',tcnt,0)) "cnt",   linecode "linecode", linename "linename"
+			from
+			(
+			  SELECT COUNT(linecode) tcnt, linecode, linename, decode(appspec ,'H','H','X') appspec2
+					   FROM OA_EAPP_SAVELINE
+			   WHERE  registerid=#registerid#
+						GROUP BY linecode, linename,decode(appspec ,'H','H','X')
+			 )
+			 group by  linecode, linename
+		]]></select>
+
+		<select id="app.getSaveLineInfo" parameterClass="AppDocuInfo" resultClass="hashmap">
+		<![CDATA[
+			SELECT	s.userid "userid",
+				username "name",
+				s.deptcode "deptcode",
+                dp.VALUE "deptname",
+				s.gradecode "gradecode",
+                GP.VALUE  "gradename",
+				appspec "appspec",
+				appspec "signkindVal",
+				apppos  "apppos",
+				modifyauth "modifyauth" ,
+		        apppara "apppara"
+			FROM OA_EAPP_SAVELINE  s,O0_USER_mast m, O0_USER_DEPT d,  O0_COM_PROPERTY dp
+            , O0_COM_CODE gc , O0_COM_PROPERTY  gp
+			WHERE linecode=#linecode#
+			and registerid=#registerid#
+			and s.USERID=m.USERID
+			AND m.CORCODE = d.corcode
+			AND s.DEPTCODE=d.DEPTCODE AND d.DEPTNAME=DP.NAME AND dp.LANG=#lang#
+            AND s.GRADECODE=gc.CODE_ID AND gc.CODE_NM = GP.NAME AND gp.LANG=#lang#
+			order by apppos
+		]]></select>
+
+	<!--  OA_EAPP_SAVEDEPT ****************************************************** -->
+	<insert id="app.insertSaveDept" parameterClass="AppReceveInfo">
+		INSERT INTO OA_EAPP_SAVEDEPT
+			 (register, linecode, deptcode, corcode, deptname)
+		VALUES
+		 (#register#, #linecode#, #deptcode#, #corcode#, #deptname#)
+	</insert>
+
+	<select id="app.getSaveDeptInfo" parameterClass="AppDocuInfo" resultClass="AppReceveInfo">
+			SELECT deptcode, corcode, deptname
+			FROM OA_EAPP_SAVEDEPT
+			WHERE linecode=#linecode#
+				and register=#registerid#
+	</select>
+
+
+
+	<!--  OA_EAPP_PRIDOCU ****************************************************** -->
+	<select id="app.getRegister" parameterClass="AppLineInfo" resultClass="String">
+		SELECT userid 
+		from OA_EAPP_PRIDOCU 
+		where docuno = #docuno#
+			AND boxcode =#boxcode#
+	</select>
+
+
+	<select id="app.preche50" parameterClass="AppLineInfo" resultClass="String">
+		SELECT DISTINCT d.userid "userid" 
+         	 FROM OA_EAPP_PRIDOCU d, OA_EAPP_DOCUMAS m 
+         	 WHERE d.docuno = #docuno# AND d.docuno=m.docuno
+         	 AND d.boxcode = #boxcode#
+         	 AND d.userid = m.nextapp 
+	</select>
+
+	<update id="app.chk50" parameterClass="AppLineInfo">
+		UPDATE OA_EAPP_PRIDOCU 
+		SET boxcode = #boxcode#
+		WHERE docuno = #docuno#
+            AND userid = #chguserid#
+	</update>
+
+	<update id="app.updatePridocu" parameterClass="AppLineInfo">
+		UPDATE OA_EAPP_PRIDOCU
+		SET boxcode = #boxcode#
+		WHERE docuno   = #docuno#
+			AND userid = #userid#
+	</update>
+
+	<update id="app.updatePridocuAC" parameterClass="AppLineInfo">
+		UPDATE OA_EAPP_PRIDOCU
+		SET boxcode = 'AC' 
+		WHERE docuno   = #docuno# 
+			AND userid = #userid#
+	</update>
+
+	<update id="app.updateChargeidAD" parameterClass="AppLineInfo">
+		UPDATE OA_EAPP_PRIDOCU
+		SET boxcode = 'AD'
+		WHERE docuno   = #docuno#
+			AND userid = #chguserid#
+	</update>
+
+	<update id="app.updateChargeidADfromAB" parameterClass="AppDocuInfo">
+		UPDATE OA_EAPP_PRIDOCU
+		SET boxcode = 'AD'
+		WHERE docuno   = #docuno#
+			AND boxcode = 'AB'
+	</update>
+
+	<update id="app.updateNextAllUserBoxcode" parameterClass="AppLineInfo">
+		UPDATE OA_EAPP_PRIDOCU
+		SET boxcode = 'AX'
+		WHERE docuno   = #docuno#
+			AND boxcode = 'AA'
+	</update>
+
+	<update id="app.movePriDocu" parameterClass="AppDocList">
+		UPDATE OA_EAPP_PRIDOCU
+		SET boxcode = #moveboxcode#
+		WHERE docuno   = #docuno#
+			AND userid= #userid#
+			AND boxcode = #boxcode#
+	</update>
+
+	<insert id="app.insertPriDocu" parameterClass="AppLineInfo">
+		INSERT INTO  OA_EAPP_PRIDOCU
+			( docuno, boxcode, userid)
+		VALUES
+			( #docuno#,  #boxcode#,  #userid#)
+	</insert>
+
+
+	<delete id="app.deletePriDocuAll" parameterClass="AppDocuInfo">
+		DELETE FROM OA_EAPP_PRIDOCU
+		WHERE DOCUNO= #docuno#
+	</delete>
+
+	<delete id="app.deletePriDocu" parameterClass="AppDocList">
+		DELETE FROM OA_EAPP_PRIDOCU
+		WHERE DOCUNO= #docuno#
+		AND userid=#userid#
+		and boxcode=#boxcode#
+	</delete>
+
+	<delete id="app.deletePriDocuNotAB" parameterClass="AppDocuInfo">
+		DELETE FROM OA_EAPP_PRIDOCU
+		WHERE DOCUNO= #docuno#
+		and boxcode  &lt;&gt; 'AB'
+	</delete>
+
+	<delete id="app.delete_priDocu" parameterClass="AppLineInfo">
+		DELETE FROM OA_EAPP_PRIDOCU  
+		WHERE 
+			docuNo = #docuno# 
+			AND userId IN
+			<dynamic >
+			<isNotEmpty prepend="" property="userList">
+				<iterate prepend="" property="userList" open="(" close=")" conjunction=",">
+					#userList[]#
+				</iterate>
+			</isNotEmpty>
+		</dynamic>
+	</delete>
+	<!--  OA_EAPP_RECEIVEDEPT ****************************************************** -->
+	<select id="app.getReceiveInfo" parameterClass="AppReceveInfo" resultClass="hashmap"><![CDATA[
+		SELECT corcode "corcode", deptcode "code", deptname "text"
+		FROM  OA_EAPP_RECEIVEDEPT 
+		where formcode=#formcode#
+		and corcode=#corcode#
+		AND DOCUNO= '-'
+		]]></select>
+	<!-- 양식에 저장된 수신처 정보지우기 -->
+	<delete id="app.deleteReceiveDept" parameterClass="com.pns.gw.app.command.FormCommand">
+		DELETE FROM OA_EAPP_RECEIVEDEPT
+		WHERE CORCODE=#corcode#
+		AND formcode=#formcode#
+		AND DOCUNO= '-'
+	</delete>
+	<delete id="app.deleteReceiveInfo" parameterClass="AppDocuInfo">
+		DELETE FROM OA_EAPP_RECEIVEDEPT
+		WHERE CORCODE=#corcode#
+		AND formcode=#formCode#
+		AND DOCUNO= #docuno#
+	</delete>
+	<insert id="app.insertReceiveInfo" parameterClass="AppReceveInfo">
+		INSERT INTO  OA_EAPP_RECEIVEDEPT
+			(corcode, formcode, docuno, deptcode, deptname, subdept)
+		VALUES
+			(#corcode#,  #formcode#,  #docuno#,  #deptcode#,  #deptname#,  #subdept#)
+	</insert
+>
+
+
+	<!--  OA_EAPP_DEPTDOCU ********************************************* -->
+	<!-- 회사 조건 삭제 ed.corcode=#corcode#  AND
+		docuno만으로 조회
+	 -->
+	<select id="app.getReceveDeptInfo" parameterClass="AppReceveInfo" resultClass="hashmap"><![CDATA[
+		SELECT ed.CORCODE "corcode", ed.deptcode "code",  dp.VALUE "text"
+		FROM  OA_EAPP_DEPTDOCU ed,  O0_USER_DEPT ud, O0_COM_PROPERTY dp
+        WHERE  
+        		ed.CORCODE=ud.CORCODE
+			AND DOCUNO=#docuno# 	AND ed.deptcode=ud.deptcode 
+			AND ud.deptname=dp.name AND dp.LANG=#lang# 
+         	AND (boxcode!='BB' and boxcode!='BE')
+	]]></select>
+
+	<select id="app.isRemade" parameterClass="AppLineInfo" resultClass="AppLineInfo">
+		SELECT docuno 
+		FROM OA_EAPP_DEPTDOCU 
+		WHERE draftno  = #docuno#
+			AND corcode  = #corcode#
+           	AND deptcode  = #kiandeptcode#
+	</select>
+
+
+	<!-- 회사코드 필요 -->
+	<select id="app.isRecDept" parameterClass="AppLineInfo" resultClass="String">
+		SELECT docuno
+		FROM OA_EAPP_DEPTDOCU
+		WHERE docuno = #docuno#
+        	AND scorcode = #corcode#
+            AND sdeptcode = #kiandeptcode#
+            AND deptcode &lt;&gt; #kiandeptcode#
+	</select>
+	
+	<!-- 회사코드 필요 -->
+	<select id="app.isRecDeptCnt" parameterClass="AppDocuInfo" resultClass="int">
+		SELECT count(docuno)
+		FROM OA_EAPP_DEPTDOCU
+		WHERE docuno = #docuno#
+        	AND scorcode = #corcode#
+            AND sdeptcode = #deptcode#
+            AND deptcode &lt;&gt; #deptcode#
+	</select>
+
+	<!-- AND d.corcode=#corcode# corcode 제거 -->
+	<select id="app.getDeptDocuInfo" parameterClass="AppDocuInfo" resultClass="hashmap"><![CDATA[
+		SELECT  dp.VALUE "deptname"
+		FROM OA_EAPP_DEPTDOCU d, O0_USER_DEPT d2, O0_COM_PROPERTY dp
+		WHERE docuno =#docuno#
+			AND d.CORCODE=d2.corcode
+			AND d.deptcode=d2.deptcode
+			 AND d2.deptname=dp.name 	AND dp.lang=#lang#
+			AND d.boxcode!='BE' 		AND d.BOXCODE!='BB'
+	]]></select>
+
+	<insert id="app.insertDeptDocu" parameterClass="AppReceveInfo">
+		INSERT INTO OA_EAPP_DEPTDOCU		
+				(corcode, docuno, boxcode, deptcode, scorcode, sdeptcode, recdocuno, suserid, recdate, status, draftno  )	 
+		VALUES	(#corcode#, #docuno#, #boxcode#, #deptcode#, #scorcode#, #sdeptcode#, #recdocuno#, #suserid#, #recdate#, #status#, #draftno# ) 
+	</insert>
+
+	<update id="app.updateDeptDocu" parameterClass="AppDocuInfo">
+		UPDATE OA_EAPP_DEPTDOCU
+		SET boxcode='BX',
+		draftno=#docuno#, 
+		status= 'P'
+		WHERE docuno=#orisedocuno#
+		 AND corcode= #corcode#
+		 AND deptcode= #deptcode#
+		 AND deptcode &lt;&gt; sdeptcode
+	</update>
+
+	<!--
+	부서반송- 아래항목 조건 삭제 
+		AND corcode= #corcode#
+		 AND deptcode= #deptcode#
+	 -->
+	<update id="app.updateDeptDocuBack" parameterClass="AppDocuInfo">
+		UPDATE OA_EAPP_DEPTDOCU
+		SET status= 'I',
+		draftno=#docuno#,
+		boxcode='BC'
+		WHERE docuno=#docuno#
+		 AND boxcode=#boxcode#
+	</update>
+
+	<update id="app.updateRectDeptDocuCode" parameterClass="AppSereNo">
+		UPDATE OA_EAPP_DEPTDOCU 
+		SET recdocuno=#recdocuno#
+        WHERE draftno=#docuno# AND corcode=#corcode# AND deptcode= #deptcode#
+	</update>
+
+	<!-- AND scorcode  = #corcode# 제거 -->
+	<update id="app.updateDeptDocuRecDate" parameterClass="AppLineInfo">
+		UPDATE OA_EAPP_DEPTDOCU
+        SET recdate = sysdate
+        WHERE docuno = #docuno#
+	</update>
+
+	<update id="app.chk83" parameterClass="AppLineInfo">
+		UPDATE OA_EAPP_DEPTDOCU 
+		SET status = #appstatus#, 
+			boxCode = #boxcode#
+		WHERE draftno  = #docuno#
+			AND corcode = #corcode#
+			AND deptcode = #kiandeptcode#
+	</update>
+
+	<update id="app.updateDeptDocuStatus" parameterClass="AppDocuInfo">
+		UPDATE OA_EAPP_DEPTDOCU
+        SET status = null
+        	,boxcode='BA'
+        WHERE docuno = #orisedocuno#
+        	AND deptcode  = #deptcode#
+	</update>
+
+	<update id="app.updateBoxcodeDeptDocu" parameterClass="AppDocuInfo">
+		UPDATE OA_EAPP_DEPTDOCU
+        SET boxcode='BE'
+        WHERE docuno = #docuno#
+        	AND deptcode  = #deptcode#
+        	AND boxcode='BB'
+	</update>
+
+	<delete id="app.deleteDeptDocu" parameterClass="AppLineInfo">
+		DELETE FROM OA_EAPP_DEPTDOCU
+		WHERE docuno = #docuno#  
+		AND corcode = #corcode# 
+		AND boxcode =  'BE'
+	</delete>
+
+	<!-- 		 조건 제거 AND corcode = #corcode# * -->
+	<delete id="app.deleteDeptDocuAll" parameterClass="AppDocuInfo">
+		DELETE FROM OA_EAPP_DEPTDOCU
+		WHERE docuno = #docuno#  
+	</delete>
+
+	<delete id="app.deleteDeptDocuDoc" parameterClass="AppDocuInfo">
+		DELETE FROM OA_EAPP_DEPTDOCU
+		WHERE docuno = #docuno#
+			AND corcode = #corcode#
+			and deptcode=#seDept#
+			and sdeptcode=#deptcode#
+	</delete>
+	<!--  OA_EAPP_AGENTDOCU ********************************************* -->
+	<insert id="app.insertAgentDocu" parameterClass="AppLineInfo">
+		INSERT INTO OA_EAPP_AGENTDOCU 
+				(docuno,  agentid, chargeid)
+		VALUES (#docuno# , #userid# , #chguserid# )
+	</insert>
+	<!--  OA_EAPP_DOCUTRADENO ********************************************* -->
+	<insert id="app.insertDocuDeptCode" parameterClass="AppSereNo">
+		INSERT INTO OA_EAPP_DOCUTRADENO		
+					(corcode, deptcode  )	 
+		VALUES		(#corcode#, #kiandeptcode#   ) 
+	</insert>
+
+	<select id="app.getSendDocuNo" parameterClass="AppSereNo" resultClass="String">
+		SELECT sendDocuNo 
+		FROM OA_EAPP_DOCUTRADENO 
+		WHERE corCode=#corcode# AND deptCode=#kiandeptcode#
+	</select>
+	<update id="app.updateSendDocuTradno" parameterClass="AppSereNo">
+		UPDATE OA_EAPP_DOCUTRADENO 
+		SET sendDocuNo = #sedocuNo#
+		WHERE CORCODE= #corcode# AND deptCode= #kiandeptcode#
+	</update>
+
+	<select id="app.getRecvDocuNo" parameterClass="AppSereNo" resultClass="String">
+		SELECT recdocuno 
+		FROM OA_EAPP_DOCUTRADENO 
+		WHERE corCode=#corcode# AND deptCode=#kiandeptcode#
+	</select>
+	
+	<update id="app.updateRectDeptDocutradeno" parameterClass="AppSereNo">
+		UPDATE OA_EAPP_DOCUTRADENO
+		SET recdocuno=#recdocuno#
+        WHERE corcode=#corcode# AND deptcode= #deptcode#
+	</update>
+
+
+	<!--  OA_EAPP_DOCNUM ****************************************************** -->
+	<select id="app.getSeqDocuNoNextNum" resultClass="String" parameterClass="AppSereNo">
+		SELECT (seqNo+1)
+		FROM OA_EAPP_DOCNUM 
+		where corcode= #corcode# 
+		AND deptcode =  #kiandeptcode# 
+		and YEARNO = to_char(SYSDATE, 'yyyy')
+	</select>
+
+	<insert id="app.insertDocNum" parameterClass="AppSereNo">
+		INSERT INTO OA_EAPP_DOCNUM		(corcode, deptcode, yearno, seqno )	 
+		VALUES			(#corcode#, #kiandeptcode#,  to_char(SYSDATE, 'yyyy') , 1  )
+	</insert>
+	<update id="app.updateDocNum" parameterClass="AppSereNo">
+		UPDATE 	OA_EAPP_DOCNUM	
+		SET 	SEQNO=(SEQNO+1)
+		WHERE 	corcode= #corcode#
+		AND 	deptcode =  #kiandeptcode# 
+		AND 	YEARNO=to_char(SYSDATE, 'yyyy')
+	</update>
+
+	<!--  OA_EAPP_SAVECIRCU ****************************************************** -->
+	<insert id="app.insertSaveCir" parameterClass="com.pns.gw.app.command.CirculationCommand">
+		/* 결재선 저장 ==> 회람자 */
+		INSERT INTO  OA_EAPP_SAVECIRCU
+			(linecode, registerid, userid, username, deptcode, gradecode)
+		VALUES
+		 	(#linecode#, #registerid#, #userid#, #username#, #deptcode#, #gradecode#)
+	</insert>
+
+	<select id="app.getSaveCircuInfo" parameterClass="AppDocuInfo" resultClass="com.pns.gw.app.command.CirculationCommand">
+		/* 결재선 저장 ==> 등록된 회람자 가져오기 */
+			SELECT userid, username, deptcode, gradecode
+			FROM OA_EAPP_SAVECIRCU
+			WHERE linecode=#linecode#
+				and registerid=#registerid#
+	</select>
+
+	<!--  OA_EAPP_CIRCULATIONDOCU ****************************************************** -->
+	<insert id="app.insertCircuInfo" parameterClass="com.pns.gw.app.command.CirculationCommand">
+		INSERT INTO  OA_EAPP_CIRCULATIONDOCU
+			( docuno, userid, deptcode, ischecking )
+		VALUES
+			(  #docuno#,  #userid#,  #deptcode#,  #ischecking#)
+	</insert>
+	
+	<update id="app.updateCirculationDocu" parameterClass="com.pns.gw.app.command.CirculationCommand">
+		UPDATE OA_EAPP_CIRCULATIONDOCU
+		SET ischecking=#ischecking#,
+			checkdate = sysdate
+        WHERE  userid= #userid# and docuno= #docuno#
+	</update>
+
+	<delete id="app.deleteCircuInfo" parameterClass="AppDocuInfo">
+		DELETE FROM OA_EAPP_CIRCULATIONDOCU
+		WHERE DOCUNO= #docuno#
+	</delete>
+
+	<delete id="app.deleteCircuOneUser" parameterClass="AppDocuInfo">
+		DELETE FROM OA_EAPP_CIRCULATIONDOCU
+		WHERE DOCUNO= #docuno#
+		AND userid=#userid#
+		AND ISCHECKING ='N'
+	</delete>
+
+	<select id="app.getCircuInfo" parameterClass="AppDocuInfo" resultClass="hashmap"><![CDATA[
+	 	SELECT c.userid "userid", u.name "name"
+		FROM OA_EAPP_CIRCULATIONDOCU c, O0_USER_MAST u
+		WHERE docuno =#docuno#
+		AND c.USERID=u.USERID
+	]]></select>
+
+	<!-- 	AND u.corcode=#corcode# 제거 -->
+	<select id="app.getCircuLineInfo" parameterClass="com.pns.gw.app.command.CirculationCommand" resultClass="hashmap"><![CDATA[
+	 	  SELECT c.userid 	"userid",u.CORCODE "corcode",
+            	c.deptcode 	"deptcode",
+                u.GRADECODE "gradecode",
+            	u.name 		"name",
+                GP.VALUE 	"gradename",
+                dp.VALUE 	"deptname",
+                ischecking	"ischecking",
+                TO_CHAR(checkdate, 'YYYY-MM-DD HH24:MI')	"checkdate",
+                docuno		"docuno"
+		FROM OA_EAPP_CIRCULATIONDOCU c, O0_USER_MAST u,
+				O0_USER_DEPT d,   O0_COM_PROPERTY dp,
+				O0_USER_GRADE g, O0_COM_CODE gc, O0_COM_PROPERTY gp
+		WHERE c.docuno =#docuno#
+		AND c.USERID=u.USERID 	
+        AND	u.corcode=d.corcode 	AND c.DEPTCODE=d.DEPTCODE AND d.DEPTNAME=dp.NAME AND dp.LANG=#lang#
+        AND u.corcode=g.corcode 	AND g.GRADECODE=u.GRADECODE AND g.GRADECODE=gc.CODE_ID AND gc.CODE_NM=GP.NAME AND gp.LANG=#lang#
+		]]></select>
+
+	<select id="app.getCircuLineFormInfo" parameterClass="com.pns.gw.app.command.CirculationCommand" resultClass="hashmap">
+	 	  SELECT c.userid 	"userid",u.CORCODE "corcode",
+            	u.deptcode 	"deptcode",
+                u.GRADECODE "gradecode",
+            	u.name 		"name",
+                GP.VALUE 	"gradename",
+                dp.VALUE 	"deptname"
+		FROM OA_EAPP_CIRCULATIONFORM c, O0_USER_MAST u,
+				O0_USER_DEPT d,   O0_COM_PROPERTY dp,
+				O0_USER_GRADE g, O0_COM_CODE gc, O0_COM_PROPERTY gp
+		WHERE c.formcode =#formcode#
+		AND c.CORCODE=#corcode#
+		AND c.USERID=u.USERID
+        AND	u.corcode=d.corcode 	AND u.DEPTCODE=d.DEPTCODE AND d.DEPTNAME=dp.NAME AND dp.LANG=#lang#
+        AND u.corcode=g.corcode 	AND g.GRADECODE=u.GRADECODE AND g.GRADECODE=gc.CODE_ID AND gc.CODE_NM=GP.NAME AND gp.LANG=#lang#
+	</select>
+
+	<insert id="app.insertCircuLineFormInfo" parameterClass="com.pns.gw.app.command.CirculationCommand">
+		<selectKey resultClass="int" type="post">
+			SELECT COUNT(*) FROM OA_EAPP_CIRCULATIONFORM WHERE corcode=#corcode# AND formcode=#formcode# AND userid=#userid#
+		</selectKey>
+		INSERT INTO OA_EAPP_CIRCULATIONFORM(CORCODE, FORMCODE, USERID) VALUES(#corcode#,#formcode#,#userid#)
+	</insert>
+
+	<delete id="app.deleteCircuLineFormInfo" parameterClass="com.pns.gw.app.command.CirculationCommand">
+		DELETE FROM OA_EAPP_CIRCULATIONFORM WHERE CORCODE =#corcode# AND FORMCODE=#formcode#
+	</delete>
+
+	<!--  O0_USER_DEPT ****************************************************** -->	
+	<select id="app.getDeptHeader" parameterClass="AppSereNo" resultClass="String">
+		SELECT nickname "nickname" 
+		FROM O0_USER_DEPT 
+        WHERE corcode=#corcode# AND deptcode=#kiandeptcode# AND nickname is not null
+	</select>
+
+	<select id="app.getDeptname" parameterClass="AppDocuInfo" resultClass="String">
+		SELECT  dp.VALUE "deptname" 
+		FROM O0_USER_DEPT , O0_COM_PROPERTY dp
+        WHERE corcode=#corcode# 	AND deptcode=#deptcode#
+         	AND deptname=dp.name 	AND dp.LANG=#lang#
+	</select>
+
+	<select id="app.getGradename" parameterClass="AppDocuInfo" resultClass="String">
+		SELECT gp.VALUE "gradename" 
+		FROM O0_USER_GRADE g , O0_COM_CODE gc, O0_COM_PROPERTY gp
+        WHERE corcode=#corcode# 		AND gradecode=#gradeCode#
+        	AND g.GRADECODE=gc.CODE_ID 	AND gc.CODE_NM=GP.NAME
+        	AND gp.LANG=#lang#
+	</select>
+
+	<!--<select id="app.getOristatus" parameterClass="AppDocuInfo" resultClass="String">
+		SELECT
+				status
+		  FROM
+				OA_EAPP_DOCUMAS
+		 WHERE
+			docuno = (SELECT orisedocuno from OA_EAPP_DOCUMAS WHERE docuno=#docuno#)
+  	</select>-->
+
+	<select id="app.getDeptboxDocuCount" parameterClass="AppDocuInfo" resultClass="int">
+		SELECT
+		 		COUNT(*)
+		  FROM
+		   		OA_EAPP_DEPTDOCU t1
+		  LEFT OUTER JOIN OA_EAPP_DOCUMAS t2
+		  ON 	t1.docuno = t2.docuno
+		 WHERE
+		  		t1.CORCODE=#corcode#
+		   AND  t1.DOCUNO=#docuno#
+		   AND  t1.SDEPTCODE!=t1.DEPTCODE
+		   AND  t1.DEPTCODE=#deptcode#
+		   AND  t2.STATUS='C'
+
+  	</select>
+
+	<select id="app.getOriDeptboxDocuCount" parameterClass="AppDocuInfo" resultClass="int">
+		SELECT
+		 		COUNT(*)
+		  FROM
+		   		OA_EAPP_DEPTDOCU
+		 WHERE
+		  		CORCODE=#corcode#
+		   AND  DOCUNO=#orisedocuno#
+		   AND  SDEPTCODE!=DEPTCODE
+		   AND  DEPTCODE=#deptcode#
+		   AND  DRAFTNO=#docuno#
+  	</select>
+
+
+	<!--  OA_EAPP_FORM / OA_EAPP_FAVORITFORM****************************************************** -->
+	<insert id="app.insertForm" parameterClass="com.pns.gw.app.command.FormCommand">
+		INSERT INTO OA_EAPP_FORM
+			(corcode, formcode, classcode, filename, formname, regdate, 
+			signpos, autosend , preserve, reception, receptdept, appnum,
+			deptcode, getdata, modify_yn, cntdocu, description   )	 
+		VALUES
+		(#corcode#, #formcode#, #classcode#, #filename#, #formname#, SYSDATE,
+		#signpos#, #autosend# , #preserve#, #reception#, #receptdept#, #appnum#,
+		#deptcode#, #getdata#, #modify_yn#, #cntdocu#, #description#   ) 
+	</insert>
+	<!-- 양식폼 수정 -->
+	<update id="app.updateForm" parameterClass="com.pns.gw.app.command.FormCommand">
+		update OA_EAPP_FORM set
+		classcode = #classcode#,
+		<isNotNull property="filename">
+			filename =#filename# ,
+		</isNotNull>
+		formname =#formname#,
+		signpos =  #signpos#,
+		autosend = #autosend#,
+		preserve =#preserve#,
+		reception =#reception#,
+		receptdept =#receptdept#,
+		appnum= #appnum#,
+		deptcode =#deptcode#, 
+		getdata =#getdata#,
+		modify_yn = #modify_yn#,
+		cntdocu = #cntdocu#,
+		description = #description#,
+		regdate =SYSDATE
+		where 
+		corcode =#corcode# and formcode = #formcode#
+	</update>
+	
+	
+	<insert id="app.insertFavoriteForm" parameterClass="com.pns.gw.app.command.FormCommand">
+		INSERT INTO OA_EAPP_FAVORITFORM
+			(corcode, formcode, classcode, filename, formname, userid )	 
+		VALUES
+		(#corcode#, #formcode#, #classcode#, #filename#, #formname#,  #userid#   ) 
+	</insert>
+
+	<delete id="app.delteFavoriteForm" parameterClass="com.pns.gw.app.command.FormCommand">
+		DELETE FROM OA_EAPP_FAVORITFORM
+		WHERE CORCODE=#corcode#
+		AND formcode=#formcode#
+	</delete>
+
+	<update id="app.updateDelForm" parameterClass="com.pns.gw.app.command.FormCommand">
+		<![CDATA[
+			UPDATE
+					OA_EAPP_FORM
+			SET
+					DELETE_YN='Y'
+			WHERE
+					CORCODE=#corcode#
+			AND		formcode=#formcode#
+		]]>
+	</update>
+
+	<delete id="app.deleteForm" parameterClass="com.pns.gw.app.command.FormCommand">
+		DELETE FROM OA_EAPP_FORM
+		WHERE CORCODE=#corcode#
+		AND formcode=#formcode#
+	</delete>
+
+	<select id="app.formG" parameterClass="com.pns.gw.app.command.FormCommand" resultClass="hashmap"><![CDATA[
+		SELECT  f.corcode "corcode", formcode "formcode", classcode "classcode",filename "filename", formname "formname",
+				TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') "regdate",
+				 signpos "signpos", autosend "autosend", preserve "preserve", reception "reception",
+				receptdept "receptdept", appnum "appnum", deptcode "deptcode", getdata "getdata",
+				modify_yn "modify_yn", cntdocu "cntdocu" , description "description" , 
+				b.BOXNAME "boxname", 'N' "favorite"
+		FROM OA_EAPP_FORM f, OA_EAPP_DOCUBOX b 
+		WHERE  f.CORCODE=#corcode# AND f.CORCODE=b.CORCODE
+		AND f.CLASSCODE=b.BOXCODE 
+		AND classcode=#classcode#
+		AND f.DELETE_YN='N'
+		]]></select>
+
+	<select id="app.getViewInfo" parameterClass="com.pns.gw.app.command.FormCommand" resultClass="hashmap">
+        <![CDATA[
+			SELECT A.TITLE AS title,
+				   B.FORMNAME AS formname,
+				   B.FILENAME AS filename,
+				   B.DEPTCODE AS deptcode,
+				   B.DESCRIPTION AS description,
+				   UPPER (B.MODIFY_YN) AS modify_yn,
+				   TO_CHAR (B.REGDATE, 'YYYY-MM-DD') regdate,
+				   (CASE
+					   WHEN B.PRESERVE = '0' THEN '영구'
+					   WHEN B.PRESERVE <> '0' THEN TO_CHAR (B.PRESERVE) || '년'
+					END)  AS presserve,
+				   C.NAME AS username
+			  FROM OA_EAPP_DOCUMAS A, OA_EAPP_FORM B, O0_USER_MAST C
+			 WHERE     A.FORMCODE = B.FORMCODE
+				   AND A.USERID = C.USERID
+				   AND A.DOCUNO = #docuno#
+      	]]>
+    </select>
+
+	<select id="app.formGFavorite" parameterClass="com.pns.gw.app.command.FormCommand" resultClass="hashmap"><![CDATA[
+		SELECT  fa.corcode "corcode", fo.formcode "formcode", fo.classcode "classcode",fo.filename "filename", fo.formname 
+			"formname", TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') "regdate",
+			 signpos "signpos", autosend "autosend", preserve "preserve",
+			reception "reception", receptdept "receptdept", appnum "appnum", deptcode "deptcode", getdata 
+			"getdata", modify_yn "modify_yn", cntdocu "cntdocu" , description "description" , b.BOXNAME "boxname", 'Y' "favorite"
+		FROM OA_EAPP_FAVORITFORM fa, OA_EAPP_FORM fo, OA_EAPP_DOCUBOX b
+		WHERE fa.CORCODE=#corcode# AND fa.CORCODE=fo.CORCODE  AND fa.CORCODE=b.CORCODE
+		AND fa.FORMCODE=fo.FORMCODE 
+		AND fa.CLASSCODE=fo.CLASSCODE AND fo.CLASSCODE=b.BOXCODE
+		AND fa.USERID=#userid#
+		AND fo.DELETE_YN='N'
+		]]></select>
+		
+	<select id="app.getFormCode" parameterClass="String" resultClass="String"> 
+		SELECT MAX(formcode) "formcode" 
+		FROM  OA_EAPP_FORM 
+		where corcode=#corcode#
+	</select>
+
+
+	<!--  OA_EAPP_SAVEDEPTLIST ****************************************************** -->
+	<insert id="saveDeptList">
+		INSERT INTO OA_EAPP_SAVEDEPTLIST
+		(CORCODE, LINENAME, REGISTER, DEPTCODE, DEPTNAME)
+		VALUES
+		(#CORCODE#, #LINENAME#, #REGISTER#, #DEPTCODE#, #DEPTNAME#)
+	</insert>
+
+
+
+	<!--  app.boxTree, app.deptTree 그룹일반,구분,  -->
+	<!--<select id="app.boxTree" parameterClass="com.pns.gw.app.command.TreeCommand" resultClass="hashmap">
+		<![CDATA[
+			/* 양식함 트리 */
+			SELECT treecode "id", boxname "text"  ,
+				CASE WHEN childcnt > 0 THEN 'folder'
+					WHEN childcnt <= 0 THEN  'file'
+					END "cls",
+					CASE WHEN childcnt > 0 THEN 0
+					WHEN childcnt <= 0 		THEN 0
+					END "leaf"
+			FROM OA_EAPP_DOCUBOX
+			WHERE treeup = #node#
+			AND CORCODE=#corcode#
+			AND (userid=#userid# or userid='-')
+			AND boxcode not like 'Z%'
+			ORDER BY treecode
+		]]>
+	</select>-->
+
+	<select id="app.boxTree_agaj" parameterClass="com.pns.gw.app.command.TreeCommand" resultClass="hashmap"><![CDATA[
+		/* 양식함 트리 */
+		SELECT treecode "id",
+		CASE
+		    WHEN RESERVED = 1 THEN (SELECT VALUE FROM O0_COM_PROPERTY WHERE NAME = BOXNAME AND LANG = #lang#)
+		    WHEN RESERVED = 0 THEN boxname
+		END "text",
+         	CASE WHEN childcnt > 0 THEN 'folder'
+            	WHEN childcnt <= 0 THEN  'file'
+            	END "cls",
+            CASE WHEN childcnt > 0 THEN 0
+            	WHEN childcnt <= 0 		THEN 0
+            END "leaf"
+		FROM OA_EAPP_DOCUBOX
+		WHERE treeup = #node#
+		AND CORCODE=#corcode#
+		AND (userid=#userid# or userid='-')
+		AND (boxcode not like 'Z%' and boxcode <> 'AJ' and boxcode <> 'AG')
+		ORDER BY treecode
+		]]></select>
+
+	<select id="app.deptboxTree" parameterClass="com.pns.gw.app.command.TreeCommand" resultClass="hashmap"><![CDATA[
+		/* 양식함 트리 (부서트리 부분만.) */
+		SELECT treecode "id",
+		CASE
+		    WHEN RESERVED = 1 THEN (SELECT VALUE FROM O0_COM_PROPERTY WHERE NAME = BOXNAME AND LANG = #lang#)
+		    WHEN RESERVED = 0 THEN boxname
+		END "text",
+        	CASE WHEN childcnt > 0 THEN 'folder'
+            	WHEN childcnt <= 0 THEN  'file'
+            	END "cls",
+                CASE WHEN childcnt > 0 THEN 0
+            	WHEN childcnt <= 0 		THEN 0
+            	END "leaf"
+		FROM OA_EAPP_DOCUBOX
+		WHERE treeup = #node#
+		AND CORCODE=#corcode#
+		AND boxcode  like 'B%'
+		ORDER BY treecode
+		]]></select>
+
+	<!-- 양식함 트리 -->
+	<select id="app.docuBoxTree" parameterClass="com.pns.gw.app.command.TreeCommand" resultClass="hashmap"><![CDATA[
+		SELECT treecode "id",
+		CASE
+		    WHEN RESERVED = 1 THEN (SELECT VALUE FROM O0_COM_PROPERTY WHERE NAME = BOXNAME AND LANG = #lang#)
+		    WHEN RESERVED = 0 THEN boxname
+		END "text",
+		'folder' "cls", 0  "leaf"  , childcnt "childcnt"
+		FROM OA_EAPP_DOCUBOX
+		WHERE treeup = #node#
+		AND CORCODE=#corcode#
+		AND boxcode like 'Z%'
+		]]></select>
+
+	<select id="app.getNewBoxTreeCode" parameterClass="com.pns.gw.app.command.TreeCommand" resultClass="int">
+		SELECT MAX(SUBSTR(treecode, -1,1))+1
+		FROM OA_EAPP_DOCUBOX
+		WHERE treeup = #treeup#
+		AND corcode=#corcode#
+		AND boxcode like 'Z%'
+	</select>
+
+	<select id="app.checkDocu" parameterClass="com.pns.gw.app.command.TreeCommand" resultClass="int">
+		SELECT count(classcode)
+		FROM  OA_EAPP_FORM
+		WHERE classcode = #boxcode#
+		AND corcode=#corcode#
+	</select>
+
+	<insert id="app.insertBoxTree" parameterClass="com.pns.gw.app.command.TreeCommand">
+		INSERT INTO OA_EAPP_DOCUBOX
+		(corcode, boxcode, userid, boxname, treecode, treeup, childcnt)
+		VALUES
+		(#corcode#, #boxcode#, #userid#, #boxname#, #treecode#, #treeup#, #childcnt#)
+	</insert>
+
+	<update id="app.updateChildCnt" parameterClass="com.pns.gw.app.command.TreeCommand">
+		update OA_EAPP_DOCUBOX
+		set childcnt =#childcnt#
+		where corcode=#corcode#
+		and treecode=#treeup#
+	</update>
+
+	<update id="app.updateFormBox" parameterClass="com.pns.gw.app.command.TreeCommand">
+		update OA_EAPP_DOCUBOX
+		set boxname =#boxname#
+		where corcode=#corcode#
+		and boxcode=#boxcode#
+	</update>
+
+	<delete id="app.deleteFormBox" parameterClass="com.pns.gw.app.command.TreeCommand">
+		delete from OA_EAPP_DOCUBOX
+		where corcode=#corcode#
+		and boxcode=#boxcode#
+	</delete>
+
+	<select id="app.getSubBox" parameterClass="com.pns.gw.app.command.TreeCommand" resultClass="hashmap"><![CDATA[
+		select  boxcode "boxcode", boxname "boxname", treecode "treecode", treeup "treeup"
+		from OA_EAPP_DOCUBOX
+		WHERE corcode=#corcode# and (  (treeup = #boxcode# and userid=#userid# )
+		or boxcode= #boxcode# )
+		]]></select>
+
+	<!--  부서/사용자/직급 관련 ****************************************************** -->
+	<!-- 결재선 지정하기 전 기안자 정보만 가져오기 -->
+	<select id="app.myInfo" parameterClass="AppLineInfo" resultClass="hashmap">
+		<![CDATA[
+			SELECT
+					tg.value "signkind",
+					tg.appspec "signkindVal",
+					u.userid "userid",
+					u.deptcode "deptcode",
+				  	u.gradecode "gradecode",
+					u.name "name",
+					gp.VALUE "gradename",
+					dp.VALUE "deptname",
+				  	'false' "modifyauth",
+					'false' "apppara",
+					'1' "apppos",
+					null "appday"
+			FROM O0_USER_MAST u
+				inner join O0_USER_DEPT d
+					on u.corcode=d.corcode and u.deptcode=d.deptcode
+				inner join O0_USER_GRADE g
+					on u.corcode=g.corcode and u.gradecode=g.gradecode
+				inner join O0_COM_PROPERTY dp
+					on d.DEPTNAME=dp.NAME    AND dp.LANG=#lang#
+				inner join O0_COM_CODE gc
+					on g.GRADECODE=gc.CODE_ID
+				inner join O0_COM_PROPERTY gp
+					on gc.CODE_NM=gp.NAME  AND gp.LANG=#lang#
+				INNER JOIN OA_EAPP_GUBUN tg
+					on tg.LANG=#lang# and tg.appspec='P'
+			where u.CORCODE=#corcode# AND u.userid=#userid#
+		]]>
+	</select>
+		
+	<select id="app.getEmail" parameterClass="AppDocuInfo" resultClass="hashmap"><![CDATA[
+		SELECT email "email", name "username"
+		FROM O0_USER_MAST
+		WHERE CORCODE=#corcode#  and userid = #nextapp#    
+	]]></select>
+	
+	<select id="app.getUserInfo" parameterClass="AppDocuInfo" resultClass="hashmap"><![CDATA[
+		SELECT m.userid "userid", u.name "username", u.email "email", m.title "title"
+		FROM OA_EAPP_DOCUMAS m, O0_USER_MAST u
+		WHERE m.docuno=#docuno# 
+		  AND m.userid =u.userid
+	]]></select>
+
+	<!-- 부서 리스트 -->
+	<select id="app.deptGrid" parameterClass="com.pns.gw.app.command.TreeCommand" resultClass="hashmap"><![CDATA[
+		SELECT deptcode "deptcode", pp.value "deptname" , treecode "treecode", treeup "treeup", path "path" 
+		FROM O0_USER_DEPT d , O0_COM_PROPERTY pp
+		WHERE CORCODE=#corcode# 
+		  AND d.DEPTNAME = pp.NAME
+          AND pp.LANG=#lang#
+          AND d.type='0'
+	]]></select>
+
+	<select id="app.deptGridNotReceive" parameterClass="AppDocList" resultClass="hashmap"><![CDATA[
+		SELECT deptcode "deptcode", pp.value "deptname" , treecode "treecode", treeup "treeup", path "path"
+		FROM O0_USER_DEPT d , O0_COM_PROPERTY pp
+		WHERE CORCODE=#corcode#
+		AND  d.DEPTNAME = pp.NAME
+        AND pp.LANG=#lang#
+        AND d.type='0'
+        AND d.deptcode NOT IN ( SELECT deptcode FROM OA_EAPP_DEPTDOCU dd WHERE docuno=#docuno# AND dd.CORCODE=#corcode#)
+        ORDER BY sortindex
+	]]></select>
+
+	
+	<!-- 부서별 사용자 리스트 -->
+	<select id="app.userG" parameterClass="com.pns.gw.global.Command" resultClass="hashmap">
+    SELECT u.corcode "corcode"
+    , u.userid "userid"
+    , u.name "name"
+    , u.deptcode "deptcode"
+    , u.gradecode "gradecode"
+    , dp.VALUE "deptname"
+    , gp.VALUE "gradename"
+    FROM O0_USER_MAST u 
+    inner join O0_USER_DEPT d
+    on u.corcode=d.corcode AND u.deptcode=d.deptcode
+    inner join O0_USER_GRADE g
+    on u.corcode=g.corcode and u.gradecode=g.gradecode
+    inner join O0_COM_PROPERTY dp
+	on d.DEPTNAME=DP.NAME and dp.LANG=#lang#
+	inner join O0_COM_CODE gc
+	on g.gradecode=gc.CODE_ID
+	inner join O0_COM_PROPERTY gp
+	on gc.CODE_NM=gp.NAME AND gp.LANG=#lang#
+
+	<isNotNull property="name">
+		<isEqual property="corcode" compareValue="-1">
+			WHERE u.name LIKE '%'||#name#||'%'
+		</isEqual>
+		<isNotEqual property="corcode" compareValue="-1">
+			WHERE u.CORCODE=#corcode#  and u.name LIKE '%'||#name#||'%'
+		</isNotEqual>
+	</isNotNull>
+	<isNull property="name">
+		WHERE u.CORCODE=#corcode#  and u.deptcode = #deptcode#
+	</isNull>
+    order by gradesort
+	</select>
+
+
+	
+	
+	<select id="app.userGCnt" parameterClass="com.pns.gw.global.Command" resultClass="int">
+	    SELECT count(*)
+	    FROM O0_USER_MAST
+	     
+		<isNotNull property="name">
+			<isEqual property="corcode" compareValue="-1">
+				WHERE name LIKE '%'||#name#||'%'
+			</isEqual>
+			<isNotEqual property="corcode" compareValue="-1">
+				WHERE CORCODE=#corcode#  and name LIKE '%'||#name#||'%'
+			</isNotEqual>
+		</isNotNull>
+		<isNull property="name">
+			WHERE CORCODE=#corcode#  and deptcode = #deptcode#
+		</isNull>
+	</select>
+
+
+	<select id="app.addDeptCnt" resultClass="int" parameterClass="AppDocuInfo">
+		SELECT COUNT(*) 
+		FROM O0_USER_DEPT_ADD
+		WHERE USERID=#userid#
+	</select>
+
+
+	<select id="app.getAddGradeInfo" resultClass="String" parameterClass="AppDocuInfo">
+		SELECT gradecode
+		FROM O0_USER_DEPT_ADD
+		WHERE USERID=#userid#	and deptcode=#deptcode#
+	</select>
+
+
+	<!-- and u.corcode=#corcode# 제거 -->
+	<select id="app.getdocumasinfo" parameterClass="AppDocuInfo" resultClass="AppDocuReadinfo">
+			SELECT  m.formcode formcode,
+					m.title title,
+					m.attfilenum attfilenum,
+					m.status status,
+					m.appcnt appcnt,
+					m.lastapp lastApp,
+					TO_CHAR(m.regdate, 'YYYY-MM-DD HH24:MI') regdate,
+					u.name 	username,
+					a.appspec appspec,
+					a.appday appday,
+					a.apppara apppara,
+                    a.modifyauth modifyauth,
+					m.orisedocuno orisedocuno,
+					a.apppos apppos ,
+					m.docuno docuno,
+					m.deptcode deptcode,
+					m.nextapp nextapp,
+					nvl(formcorcode,u.CORCODE) formcorcode
+			FROM OA_EAPP_DOCUMAS m,O0_USER_MAST u,OA_EAPP_APP a
+ 			 WHERE m.userid =u.userid 
+			 AND a.docuno =  m.docuno
+			 AND a.userid = #userid#
+			 AND m.docuno = #docuno#
+	</select>
+
+	<!-- AND u.corcode =#corcode#회사코드제거 -->
+	<select id="app.getdocumasinfo_read" parameterClass="AppDocuInfo" resultClass="AppDocuReadinfo">
+			SELECT  m.formcode formcode,u.corcode,
+					m.formcorcode,
+					m.title title,
+					m.attfilenum attfilenum,
+					m.status status,
+					m.appcnt appcnt,
+					m.lastapp lastApp,
+					TO_CHAR(m.regdate, 'YYYY-MM-DD HH24:MI') regdate,
+					u.name username,
+					m.docuno docuno,
+					m.deptcode deptcode,
+					m.nextapp nextapp
+			FROM OA_EAPP_DOCUMAS m,O0_USER_MAST u
+ 			WHERE m.docuno = #docuno#  
+ 			AND m.userid = u.userid
+	</select>
+
+
+	<select id="app.getComSign" parameterClass="String" resultClass="hashmap"><![CDATA[
+		select corcode "corcode", signcode "signcode", signname "signname", signfilename "signfilename"
+		from OA_EAPP_COMSIGN
+		where corcode=#value#
+	]]></select>
+
+
+	<select id="app.getPasswd" parameterClass="AppLineInfo" resultClass="hashmap"><![CDATA[
+		select passwd "passwd", addcol "appPasswd"
+		from O0_USER_MAST
+		where corcode=#corcode#
+		and userid=#userid#
+	]]></select>
+
+	<!--  OA_EAPP_ATTACHDOCFILE / Doc ****************************************************** -->
+	<insert id="app.insertAttachFile" parameterClass="FileCommand">
+		INSERT INTO  OA_EAPP_ATTACHFILE
+        	(corcode,	docuno, 	filecode, 	filesize, 	orifilename, 	newfilename	)
+        VALUES
+			(#corcode#, #docuno#, 	#filecode#, #filesize#, #orifilename#,	#newfilename#		)
+	</insert>
+
+	<delete id="app.deleteAttachFileAll" parameterClass="FileCommand">
+		DELETE FROM 	OA_EAPP_ATTACHFILE
+		where corcode=#corcode#
+		and docuno=#docuno#
+	</delete>
+
+	<delete id="app.deleteAttachFile" parameterClass="FileCommand">
+		DELETE FROM 	OA_EAPP_ATTACHFILE
+		where corcode=#corcode#
+		and docuno=#docuno#
+		and filecode=#filecode#
+	</delete>
+
+	<select id="app.getAttachFile" parameterClass="AppDocuInfo" resultClass="hashmap"><![CDATA[
+		SELECT corcode "corcode" , filecode "filecode", filesize "filesize", orifilename "orifilename", newfilename "newfilename"
+		FROM OA_EAPP_ATTACHFILE
+		WHERE docuno=#docuno#
+	]]></select>
+
+	<select id="app.getAttachDoc" parameterClass="FileCommand" resultClass="hashmap"><![CDATA[
+		SELECT docuno "docuno", attdocuno "attdocno", attdocutitle "attdocuTitle"
+		FROM OA_EAPP_ATTACHDOCFILE
+		WHERE CORCODE=#corcode#
+		and docuno=#docuno#
+	]]></select>
+
+	<select id="app.getAttachFileJSON" parameterClass="FileCommand" resultClass="hashmap"><![CDATA[
+		SELECT ROWNUM 			"id",
+				corcode			"corcode",
+				docuno 			"docuno",
+				filecode 		"fileid",
+				filesize 		"size",
+				orifilename 	"name" ,
+				'completed' 	"status",
+				'100' 			"progress"
+		FROM OA_EAPP_ATTACHFILE
+		WHERE docuno=#docuno#
+	]]></select>
+
+	<select id="app.getCntAttach" parameterClass="AppDocuInfo" resultClass="int">
+	SELECT SUM(filecnt)
+	FROM
+		(
+			SELECT COUNT(*) filecnt
+			FROM OA_EAPP_ATTACHDOCFILE
+	  		WHERE CORCODE=#corcode# AND  docuno=#docuno#
+	UNION ALL
+	  		SELECT COUNT(*) filecnt
+	  		FROM OA_EAPP_ATTACHFILE
+	  		WHERE CORCODE=#corcode# AND  docuno=#docuno#
+		)
+	</select>
+
+	<select id="app.selectAttachDocDetail" parameterClass="FileCommand" resultClass="FileCommand">
+		select corcode,docuno,attdocuno,attdocutitle from OA_EAPP_ATTACHDOCFILE
+		where corcode=#corcode# and docuno =#docuno# and attdocuno =#attdocno#
+	</select>
+
+	<delete id="app.deleteAttachDocAll" parameterClass="FileCommand">
+		DELETE FROM 	OA_EAPP_ATTACHDOCFILE
+		where corcode=#corcode#
+		and docuno=#docuno#
+	</delete>
+
+	<delete id="app.deleteAttachDoc" parameterClass="FileCommand">
+		DELETE FROM 	OA_EAPP_ATTACHDOCFILE
+		where corcode=#corcode#
+		and docuno=#docuno#
+		and attdocuno=#attdocno#
+	</delete>
+
+	<insert id="app.insertAttachDoc" parameterClass="FileCommand">
+		INSERT INTO  OA_EAPP_ATTACHDOCFILE
+        	(corcode,	docuno, 	attdocuno, 	attdocutitle)
+        VALUES
+			(#corcode#, #docuno#, 	#attdocno#, #attdocuTitle#	)
+	</insert>
+
+	<insert id="app.copyAttachFile" parameterClass="AppDocuInfo">
+		INSERT INTO  OA_EAPP_ATTACHFILE
+        	(corcode,	docuno, 	filecode, 	filesize, 	orifilename, 	newfilename	)
+			SELECT corcode, #docuno#, filecode, filesize, orifilename, newfilename FROM OA_EAPP_ATTACHFILE WHERE docuno =#orisedocuno#
+	</insert>
+
+	<insert id="app.copyAttachDoc" parameterClass="AppDocuInfo">
+		INSERT INTO  OA_EAPP_ATTACHDOCFILE
+        	(corcode,	docuno, 	attdocuno, 	attdocutitle)
+			SELECT corcode, #docuno#, attdocuno,attdocutitle FROM OA_EAPP_ATTACHDOCFILE WHERE docuno =#orisedocuno#
+	</insert>
+
+
+	<!-- ********* 문서리스트 ********* -->
+	<!-- ********* 문서리스트 ********* -->
+
+
+	<!-- (u.corcode = #corcode# AND 회사코드제거 -->
+	<!--signlistAAType :B이면 미결중인것만표기, A이면 진행중포함인데,일단 조건제외  -->
+	<select id="app.doc_AA_list_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.doc_AA_list_totalCount 미결함 total*/
+		SELECT count(1)
+		  FROM OA_EAPP_DOCUMAS m,
+		             O0_USER_MAST    u,
+		             OA_EAPP_APP a,
+		             OA_EAPP_FORM f,
+		             (
+		             	select oep.*
+		             	 from OA_EAPP_PRIDOCU oep
+		               where (oep.userid = #userid#)
+		               UNION ALL
+		               select oep.*
+		                 from OA_EAPP_PRIDOCU oep
+		                          ,(SELECT USERID FROM OA_EAPP_ABSENCE WHERE AGENTID = #userid# AND AFLAG = 'y' AND sysdate between sdate and edate ) oea
+		                where oep.userid = oea.userid AND boxcode='AA'
+		             ) p
+	   WHERE  p.boxcode = #boxcode#
+		    AND (m.docuno = p.docuno)
+		    AND m.userid = u.userid
+		    AND (m.docuno = a.docuno and a.userid = p.userid)
+		    AND ((m.status = 'C' and a.appspec = 'W' and a.appday is null) or (a.APPSPEC != 'W'))
+		    AND m.status not in ('T' ,'A')
+		    AND (f.formcode = m.formcode and f.CORCODE = m.formcorcode)
+			<isEqual property="signlistAAType" compareValue="B" prepend="AND">
+						<![CDATA[
+	                (NEXTAPP=#userid# or NEXTAPP=(SELECT USERID FROM OA_EAPP_ABSENCE WHERE  AGENTID = #userid# AND AFLAG = 'y' AND sysdate between sdate and edate))
+	              ]]>
+			</isEqual>
+		
+		    <isNotEmpty property="keyword">
+		    	<isNotEmpty property="searchType">
+		    		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+		    			<![CDATA[
+		    				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+		    			]]>
+		    		</isEqual>
+		    		<isEqual property="searchType" compareValue="title" prepend="AND">
+		    			<![CDATA[
+		    				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+		    			]]>
+		    		</isEqual>
+		    		<isEqual property="searchType" compareValue="username" prepend="AND">
+		    			<![CDATA[
+		    				LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+		    			]]>
+		    		</isEqual>
+		    		<isEqual property="searchType" compareValue="formname" prepend="AND">
+		    			<![CDATA[
+		    				LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+		    			]]>
+		    		</isEqual>
+		    	</isNotEmpty>
+		    </isNotEmpty>
+	</select>
+	
+	<!-- (u.corcode = #corcode# AND 회사코드 -->
+	<select id="app.doc_AA_list" resultClass="hashmap" parameterClass="AppDocList">
+		/*app.doc_AA_list 미결함 조회*/
+		select docuno "docuno",
+		       title "title",
+		       attfilenum "attfilenum",
+		       regdate "regdate",
+		       status "status",
+		       username "username",
+		       nextapp "nextapp",
+		       userid "userid",
+		       seqdocuno "seqdocuno",
+		       appspec "appspec",
+		       comments "comments",
+			   CASE WHEN commentcnt>0 THEN 'Y' ELSE 'N' END "comments_flag",
+		       formname "formname",
+			   important "important",
+			   TO_CHAR(term, 'YYYYMMDD')  "term",
+			   TO_CHAR(term, 'YYYY-MM-DD')  "display_term",
+			   secret "secret"
+		  from (select rownum rnum,
+		               docuno,
+		               title,
+		               attfilenum,
+		               regdate,
+		               status,
+		               username,
+		               nextapp,
+		               userid,
+		               seqdocuno,
+		               appspec,
+		               comments,
+					   (select COUNT(1) from OA_EAPP_APP where docuno=docuno AND COMMENTS NOT IN ('-','')) commentcnt,
+		               formname
+		               , important, term, secret
+		          from (SELECT p.docuno,
+		                       m.title title,
+		                       m.attfilenum attfilenum,
+		                       TO_CHAR(m.regdate, 'YYYY-MM-DD HH24:MI') regdate,
+		                       m.status status,
+		                       u.name username,
+		                       m.nextapp nextapp,
+		                       m.userid userid,
+		                       m.seqdocuno seqdocuno,
+		                       a.appspec appspec,
+		                       a.comments,
+		                       f.formname
+		                       , m.IMPORTANT, m.TERM, m.SECRET
+		                  FROM OA_EAPP_DOCUMAS m,
+		                       O0_USER_MAST    u,
+		                       OA_EAPP_APP a,
+		                       OA_EAPP_FORM f,
+								(
+								select oep.*
+								  from OA_EAPP_PRIDOCU oep
+								 where (oep.userid = #userid#)
+								UNION ALL
+								select oep.*
+								  from OA_EAPP_PRIDOCU oep
+								       ,(SELECT USERID FROM OA_EAPP_ABSENCE WHERE  AGENTID = #userid# AND AFLAG = 'y' AND sysdate between sdate and edate) oea
+								 where  oep.userid = oea.userid AND boxcode='AA'
+								) p
+		                 WHERE  p.boxcode = #boxcode#
+		                   AND (m.docuno = p.docuno)
+		                   AND m.userid = u.userid
+		                   AND (m.docuno = a.docuno and a.userid = p.userid)
+		                   AND ((m.status = 'C' and a.appspec = 'W' and a.appday is null) or (a.APPSPEC != 'W'))
+						   AND m.status not in ('T' ,'A')
+		                   AND ( f.formcode = m.formcode and f.CORCODE =  m.formcorcode)
+		                   <isEqual property="signlistAAType" compareValue="B" prepend="AND">
+							<![CDATA[
+				                (NEXTAPP=#userid# or NEXTAPP=(SELECT USERID FROM OA_EAPP_ABSENCE WHERE  AGENTID = #userid# AND AFLAG = 'y' AND sysdate between sdate and edate))
+				              ]]>
+							</isEqual>
+					     <isNotEmpty property="keyword">
+					     	<isNotEmpty property="searchType">
+					     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+					     			<![CDATA[
+					     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+					     			]]>
+					     		</isEqual>
+					     		<isEqual property="searchType" compareValue="title" prepend="AND">
+						     		<![CDATA[
+						     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+						     		]]>
+					     		</isEqual>
+					     		<isEqual property="searchType" compareValue="username" prepend="AND">
+						     		<![CDATA[
+						     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+						     		]]>
+					     		</isEqual>
+					     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+						     		<![CDATA[
+						     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+						     		]]>
+					     		</isEqual>
+					     	</isNotEmpty>
+					     </isNotEmpty>
+		                 ORDER BY 
+						<isNotEmpty property="sort">
+							<isEqual property="sort" compareValue="title">
+								<![CDATA[
+									m.title $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="regdate">
+								<![CDATA[
+									m.regdate $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="username">
+								<![CDATA[
+								  	u.name $dir$
+								]]>
+							</isEqual>
+
+							<isEqual property="sort" compareValue="display_term">
+								<![CDATA[
+								  	m.TERM $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="formname">
+								<![CDATA[
+								  	f.formname $dir$
+								]]>
+							</isEqual>
+						</isNotEmpty>
+						<isEmpty property="sort">
+							m.regdate DESC
+						</isEmpty>
+		                 ))
+		 where rnum between #startRow#+1 and #startRow#+#endRow#
+	</select>
+	
+	
+	
+	<select id="app.doc_appinfo_list" resultClass="hashmap" parameterClass="Appinfo">
+		/*app.doc_appinfo_list 결재자 정보 조회*/
+		select a.apppos "apppos"
+		       , a.userid "userid"
+		       , u.name "username"
+		       , a.gradecode "gradecode"
+		       , gp.VALUE "gradename"
+		       , a.deptcode "deptcode"
+		       , dp.VALUE "deptname"
+		       , a.appstatus "appstatus"
+		       , TO_CHAR(a.appday, 'YYYY-MM-DD HH24:MI') "appday"
+		  from OA_EAPP_APP a,
+		       O0_USER_MAST    u,
+		       O0_USER_DEPT    d,
+		       O0_USER_GRADE    g
+		        , O0_COM_PROPERTY dp
+               , O0_COM_CODE gc, O0_COM_PROPERTY gp
+		 where a.docuno = #docuno#
+		   and u.userid = a.userid
+		   AND d.corcode=u.corcode 		and d.deptcode = a.deptcode		   AND d.DEPTNAME=dp.name 		AND dp.LANG=#lang#
+		   AND g.corcode=u.corcode		and g.gradecode = a.gradecode	   AND g.GRADECODE=gc.code_id 	AND gc.CODE_NM=gp.NAME 	AND gp.LANG=#lang#
+		order by a.apppos	
+	</select>
+
+ 
+	<!--  AND d.corcode = #corcode#  회사코드 제거-->
+	<select id="app.doc_receive_dept" resultClass="hashmap" parameterClass="ReceiveDeptinfo">
+		/*app.doc_receive_dept 수신처 정보 조회*/
+		SELECT NVL(dp.VALUE, '- - -') "deptname",
+		       m.sedocuno "sedocuno",
+		       dd.corcode "corcode",
+		       dd.draftno "draftno",
+		       recdate "recdate",
+		       dd.status "status",
+		       dd.docuno "docuno",
+		       dd.DEPTCODE "deptcode"
+		  FROM O0_USER_DEPT d, OA_EAPP_DEPTDOCU dd, OA_EAPP_DOCUMAS m , O0_COM_PROPERTY dp
+		 WHERE dd.docuno = m.docuno
+		   AND dd.deptcode = d.deptcode
+		   AND dd.corcode = d.corcode
+		   AND dd.sdeptcode &lt;&gt; dd.deptcode
+		   AND m.docuno = #docuno#
+		   AND d.DEPTNAME=DP.NAME
+		   AND dp.LANG=#lang#
+	</select>
+
+	<select id="app.doc_AB_AC_AD_list_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.doc_AB_AC_AD_list_totalCount 기안함_기결함_완료함 total*/
+		SELECT count(1)
+		  FROM (SELECT p.docuno,
+		  						 m.title title,
+		  						 m.attfilenum attfilenum,
+		  						 TO_CHAR(m.regdate, 'YYYY-MM-DD HH24:MI') regdate,
+		  						 m.status status,
+		  						 u.name username,
+		  						 m.seqdocuno seqdocuno
+		  			  FROM OA_EAPP_PRIDOCU p,
+		  			  			OA_EAPP_DOCUMAS m,
+		  			  			O0_USER_MAST    u,
+		  			  			OA_EAPP_FORM f
+		  			WHERE  p.userid = #userid#
+		  			    AND p.boxcode = #boxcode#
+		  			    AND ( m.docuno = p.docuno)
+		  			    AND m.userid = u.userid
+		  			    AND (f.corcode = m.formcorcode AND f.formcode = m.formcode) 
+						<isNotEmpty property="keyword">
+							<isNotEmpty property="searchType">
+								<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+									<![CDATA[
+										LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+								<isEqual property="searchType" compareValue="title" prepend="AND">
+									<![CDATA[
+										LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+								<isEqual property="searchType" compareValue="username" prepend="AND">
+									<![CDATA[
+										LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+								<isEqual property="searchType" compareValue="formname" prepend="AND">
+									<![CDATA[
+										LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+							</isNotEmpty>
+						</isNotEmpty>
+                   ) m
+            LEFT OUTER JOIN OA_EAPP_AGENTDOCU A ON (m.docuno = A.docuno AND A.chargeid = #userid#)
+	</select>
+	
+	<select id="app.doc_AB_AC_AD_list" resultClass="hashmap" parameterClass="AppDocList">
+		/*app.doc_AB_AC_AD_list 기안함_기결함_완료함 조회*/
+		SELECT 	"docuno",
+				"title",
+				"attfilenum",
+				"regdate",
+				"status",
+				"username",
+				"nextapp",
+				"nextappname",
+				"seqdocuno",
+				"formname",
+				"important",
+				"term",
+				"secret",
+				"waiting",
+				"rev"
+		FROM   (SELECT docuno "docuno",
+						title "title",
+						attfilenum "attfilenum",
+						TO_CHAR (regdate, 'YYYY-MM-DD HH24:MI') "regdate",
+						status "status",
+						username "username",
+						nextapp "nextapp",
+						nextappname "nextappname",
+						seqdocuno "seqdocuno",
+						formname "formname",
+						important "important",
+						term "term",
+						secret "secret",
+					<isEqual property="lang" compareValue="ko">
+						TRUNC ( (SYSDATE) - (regdate))|| ' 일 '
+						|| TRUNC (MOD ( ( (SYSDATE) - (regdate)), 1) * 24)
+						|| ' 시간 '
+						|| TRUNC (MOD ( ( (SYSDATE) - (regdate)) * 24, 1) * 60)
+						|| ' 분 '
+						"waiting",
+					</isEqual>
+					<isNotEqual property="lang" compareValue="ko">
+						TRUNC ( (SYSDATE) - (regdate))|| ' day '
+						|| TRUNC (MOD ( ( (SYSDATE) - (regdate)), 1) * 24)
+						|| ' hour '
+						|| TRUNC (MOD ( ( (SYSDATE) - (regdate)) * 24, 1) * 60)
+						|| ' minute '
+						"waiting",
+					</isNotEqual>
+						rev "rev"
+				FROM   (SELECT ROWNUM rnum,
+								docuno,
+								title,
+								attfilenum,
+								regdate,
+								status,
+								username,
+								nextapp,
+								nextappname,
+								seqdocuno,
+								formname,
+								important,
+								term,
+								secret,
+								rev
+						FROM   (SELECT r2.docuno docuno,
+										title title,
+										attfilenum attfilenum,
+										regdate regdate,
+										status status,
+										username username,
+										nextapp nextapp,
+										nextappname nextappname,
+										seqdocuno seqdocuno,
+										formname formname,
+										important important,
+										term term,
+										secret secret,
+										rev rev
+								FROM   (SELECT docuno docuno,
+												title title,
+												attfilenum attfilenum,
+												regdate regdate,
+												status status,
+												username username,
+												nextapp nextapp,
+												u1.name nextappname,
+												seqdocuno seqdocuno,
+												formname formname,
+												important important,
+												term term,
+												secret secret
+										FROM   (SELECT p.docuno docuno,
+														m.title title,
+														m.attfilenum attfilenum,
+														m.regdate regdate,
+														m.status status,
+														u.name username,
+														m.nextapp nextapp,
+														m.seqdocuno seqdocuno,
+														f.formname formname,
+														important important,
+														term term,
+														secret secret
+												FROM 	OA_EAPP_PRIDOCU p,
+														OA_EAPP_DOCUMAS m,
+														O0_USER_MAST u,
+														OA_EAPP_FORM f
+												WHERE   p.userid = #userid#
+												AND 	p.boxcode = #boxcode#
+												AND 	(m.docuno = p.docuno)
+												AND 	m.userid = u.userid
+												AND 	(f.corcode = m.formcorcode AND f.formcode = m.formcode)
+												<isNotEmpty property="keyword">
+													<isNotEmpty property="searchType">
+														<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+																 LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(p.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+														</isEqual>
+														<isEqual property="searchType" compareValue="title" prepend="AND">
+																 LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+														</isEqual>
+														<isEqual property="searchType" compareValue="docuno" prepend="AND">
+																 LOWER(p.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+														</isEqual>
+														<isEqual property="searchType" compareValue="username" prepend="AND">
+																 LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+														</isEqual>
+														<isEqual property="searchType" compareValue="formname" prepend="AND">
+																 LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+														</isEqual>
+													</isNotEmpty>
+												</isNotEmpty>
+												) r1
+										LEFT OUTER JOIN O0_USER_MAST u1
+										ON (r1.nextapp = u1.userid)
+										) r2
+								LEFT OUTER JOIN OA_EAPP_AGENTDOCU A
+								ON (    r2.docuno = A.docuno AND A.chargeid = #userid#)
+								LEFT OUTER JOIN (SELECT docuno, MAX (rev) rev FROM OA_EAPP_DOCUMODIFY GROUP BY docuno) modi
+								ON (r2.docuno = modi.docuno)
+
+							ORDER BY
+							<isNotEmpty property="sort">
+								<isEqual property="sort" compareValue="title">
+									r2.title $dir$
+								</isEqual>
+								<isEqual property="sort" compareValue="regdate">
+									r2.regdate $dir$
+								</isEqual>
+								<isEqual property="sort" compareValue="username">
+									r2.username $dir$
+								</isEqual>
+								<isEqual property="sort" compareValue="display_term">
+									r2.term $dir$
+								</isEqual>
+								<isEqual property="sort" compareValue="formname">
+									r2.formname $dir$
+								</isEqual>
+								<isEqual property="sort" compareValue="status">
+									r2.status $dir$
+								</isEqual>
+							</isNotEmpty>
+							<isEmpty property="sort">
+								r2.regdate DESC
+							</isEmpty>
+						)r3
+					)
+				WHERE rnum BETWEEN #startRow# + 1 AND #startRow# + #endRow#
+				) r4
+
+	</select>
+
+	<select id="app.doc_AE_list_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.doc_AE_list_totalCount 대결함 total*/
+		SELECT count(1)
+		FROM OA_EAPP_AGENTDOCU A
+		LEFT OUTER JOIN (SELECT distinct (m.docuno) docuno,
+								m.title title,
+								m.attfilenum attfilenum,
+								m.regdate regdate,
+								m.status status,
+								u.name username,
+								m.userid userid
+						FROM OA_EAPP_DOCUMAS m, O0_USER_MAST u
+						WHERE m.userid = u.userid
+						AND u.corcode = #corcode#
+						<isNotEmpty property="keyword">
+							<isNotEmpty property="searchType">
+								<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+									<![CDATA[
+										LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(p.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+								<isEqual property="searchType" compareValue="title" prepend="AND">
+									<![CDATA[
+										LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+								<isEqual property="searchType" compareValue="docuno" prepend="AND">
+									<![CDATA[
+										LOWER(p.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+								<isEqual property="searchType" compareValue="username" prepend="AND">
+									<![CDATA[
+										LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+								<isEqual property="searchType" compareValue="formname" prepend="AND">
+									<![CDATA[
+										LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+							</isNotEmpty>
+						</isNotEmpty>
+						) m ON (A.docuno = m.docuno)
+		WHERE A.agentid= #userid#
+	</select>
+
+	<select id="app.doc_AE_list" resultClass="hashmap" parameterClass="AppDocList">
+		/*app.doc_AE_list 대결함 조회*/
+		select docuno 	"docuno",
+				formcode "formcode",
+				formname "formname",
+				title 	"title",
+				attfilenum 	"attfilenum",
+				TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') "regdate",
+				status 	"status",
+				username 	"username",
+				agentid  	"agentid",
+				chargeid "chargeid",
+				seqDocuNo "seqDocuNo"
+		from (select rownum rnum,
+						docuno,
+						formcode,
+						formname,
+						title,
+						attfilenum,
+						regdate,
+						status,
+						username,
+						agentid,
+						chargeid,
+						seqDocuNo
+				from (SELECT A.docuno,
+								formcode,
+								formname,
+								title,
+								attfilenum,
+								regdate,
+								status,
+								username,
+								agentid,
+								chargeid,
+								seqDocuNo
+						FROM OA_EAPP_AGENTDOCU A
+							LEFT OUTER JOIN (
+								SELECT	docuno, m.formcode formcode, f.formname formname, title, attfilenum, m.regdate, status, username, userid, seqDocuNo
+								FROM (
+											SELECT distinct (m.docuno) docuno,
+													m.title title,
+													m.formcode,
+													m.attfilenum attfilenum,
+													m.regdate regdate,
+													m.status status,
+													u.name username,
+													m.userid userid,
+													m.seqDocuNo seqDocuNo
+											FROM OA_EAPP_DOCUMAS m, O0_USER_MAST u
+											WHERE m.userid = u.userid
+											AND u.corcode = #corcode#
+											<isNotEmpty property="keyword">
+												<isNotEmpty property="searchType">
+													<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+														<![CDATA[
+																							LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(p.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+																						]]>
+													</isEqual>
+													<isEqual property="searchType" compareValue="title" prepend="AND">
+														<![CDATA[
+																							LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+																						]]>
+													</isEqual>
+													<isEqual property="searchType" compareValue="docuno" prepend="AND">
+														<![CDATA[
+																							LOWER(p.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+																						]]>
+													</isEqual>
+													<isEqual property="searchType" compareValue="username" prepend="AND">
+														<![CDATA[
+																							LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+																						]]>
+													</isEqual>
+													<isEqual property="searchType" compareValue="formname" prepend="AND">
+														<![CDATA[
+																							LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+																						]]>
+													</isEqual>
+												</isNotEmpty>
+											</isNotEmpty>
+								)m left outer JOIN OA_EAPP_FORM f ON(m.FORMCODE=f.FORMCODE and f.corcode=#corcode#)
+							) m ON (A.docuno = m.docuno)
+						WHERE A.agentid= #userid#
+						ORDER BY
+						<isNotEmpty property="sort">
+							<isEqual property="sort" compareValue="title">
+								<![CDATA[
+									m.title $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="regdate">
+								<![CDATA[
+									m.regdate $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="username">
+								<![CDATA[
+								  username $dir$
+								]]>
+							</isEqual>
+
+							<isEqual property="sort" compareValue="formname">
+								<![CDATA[
+								  formname $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="docuno">
+								<![CDATA[
+								  docuno $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="status">
+								<![CDATA[
+								  status $dir$
+								]]>
+							</isEqual>
+
+						</isNotEmpty>
+						<isEmpty property="sort">
+							m.regdate DESC
+						</isEmpty>
+				))
+		where rnum between #startRow#+1 and #startRow#+#endRow#
+	</select>
+
+
+
+
+	<select id="app.doc_AF_list_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.doc_AF_list_totalCount 회람함 total*/
+  		SELECT count(1)
+  		  FROM OA_EAPP_CIRCULATIONDOCU A
+  		       LEFT OUTER JOIN (SELECT distinct (m.docuno) docuno,
+  		       						   m.title title,
+  		       						   m.attfilenum attfilenum,
+  		       						   m.regdate regdate,
+  		       						   m.status status,
+  		       						   u.name username,
+  		       						   m.userid userid,
+  		       						   m.seqDocuNo seqDocuNo
+  		       					  FROM OA_EAPP_DOCUMAS m, O0_USER_MAST u, OA_EAPP_FORM f
+  		       					 WHERE m.userid = u.userid
+								AND     m.formcode = f.formcode
+								AND     f.corcode = #corcode#
+  		       			<isNotEmpty property="keyword">
+  		       				<isNotEmpty property="searchType">
+  		       					<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+  		       						<![CDATA[
+  		       							LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+  		       						]]>
+  		       					</isEqual>
+  		       					<isEqual property="searchType" compareValue="title" prepend="AND">
+  		       						<![CDATA[
+  		       							LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+  		       						]]>
+  		       					</isEqual>
+  		       					<isEqual property="searchType" compareValue="username" prepend="AND">
+  		       						<![CDATA[
+  		       							LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+  		       						]]>
+  		       					</isEqual>
+  		       					<isEqual property="searchType" compareValue="formname" prepend="AND">
+  		       						<![CDATA[
+  		       							LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+  		       						]]>
+  		       					</isEqual>
+  		       				</isNotEmpty>
+  		       			</isNotEmpty>
+  		       			        ) m ON (A.docuno = m.docuno)
+  		WHERE A.userid = #userid#
+  		  AND status = 'C'
+	</select>
+		
+	<select id="app.doc_AF_list" resultClass="hashmap" parameterClass="AppDocList">
+		/*app.doc_AF_list 회람함 조회*/
+		select docuno "docuno",
+			   title "title",
+			   attfilenum "attfilenum",
+			   TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') "regdate",
+			   status "status",
+			   username "username",
+			   userid "userid",
+			   ischecking "ischecking",
+			   checkdate "checkdate",
+			   seqDocuNo "seqDocuNo",
+		 	   formname "formname"
+		  from (select rownum rnum,
+		  			   docuno,
+		  			   title,
+		  			   attfilenum,
+		  			   regdate,
+		  			   status,
+		  			   username,
+					   userid,
+		  			   ischecking,
+		  			   checkdate,
+		  			   seqDocuNo,
+					   formname
+				  from (SELECT A.docuno,
+		  		  			   title,
+		  		  			   attfilenum,
+		  		  			   regdate,
+		  		  			   status,
+		  		  			   username,
+							   m.userid userid,
+		  		  			   ischecking,
+		  		  			   checkdate,
+		  		  			   seqDocuNo,
+							   formname
+		  		  		  FROM OA_EAPP_CIRCULATIONDOCU A
+		  		  		       LEFT OUTER JOIN (
+									SELECT distinct (m.docuno) docuno,
+		  		  		       						   m.title title,
+		  		  		       						   m.attfilenum attfilenum,
+		  		  		       						   m.regdate regdate,
+		  		  		       						   m.status status,
+		  		  		       						   u.name username,
+		  		  		       						   m.userid userid,
+		  		  		       						   m.seqDocuNo seqDocuNo,
+													   f.formname formname
+		  		  		       					  FROM OA_EAPP_DOCUMAS m, O0_USER_MAST u, OA_EAPP_FORM f
+		  		  		       					 WHERE m.userid = u.userid
+												   AND m.formcode = f.formcode
+												   AND f.corcode = #corcode#
+		  		  		       			<isNotEmpty property="keyword">
+		  		  		       				<isNotEmpty property="searchType">
+		  		  		       					<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+		  		  		       						<![CDATA[
+		  		  		       							LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+		  		  		       						]]>
+		  		  		       					</isEqual>
+		  		  		       					<isEqual property="searchType" compareValue="title" prepend="AND">
+		  		  		       						<![CDATA[
+		  		  		       							LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+		  		  		       						]]>
+		  		  		       					</isEqual>
+		  		  		       					<isEqual property="searchType" compareValue="username" prepend="AND">
+		  		  		       						<![CDATA[
+		  		  		       							LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+		  		  		       						]]>
+		  		  		       					</isEqual>
+		  		  		       					<isEqual property="searchType" compareValue="formname" prepend="AND">
+		  		  		       						<![CDATA[
+		  		  		       							LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+		  		  		       						]]>
+		  		  		       					</isEqual>
+		  		  		       				</isNotEmpty>
+		  		  		       			</isNotEmpty>
+										) m ON (A.docuno = m.docuno)
+		  		  		WHERE A.userid = #userid#
+		  		  		  AND status = 'C'
+		  		  		ORDER BY 
+		  		  		<isNotEmpty property="sort">
+		  		  			<isEqual property="sort" compareValue="title">
+		  		  				<![CDATA[
+		  		  					m.title $dir$
+		  		  				]]>
+		  		  			</isEqual>
+		  		  			<isEqual property="sort" compareValue="regdate">
+		  		  				<![CDATA[
+		  		  					m.regdate $dir$
+		  		  				]]>
+		  		  			</isEqual>
+							<isEqual property="sort" compareValue="formname">
+								<![CDATA[
+								  	formname $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="username">
+								<![CDATA[
+									username $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="checkdate">
+								<![CDATA[
+								  	checkdate $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="ischecking">
+								<![CDATA[
+									ischecking $dir$
+								]]>
+							</isEqual>
+		  		  		</isNotEmpty>
+		  		  		<isEmpty property="sort">
+		  		  			m.regdate DESC
+		  		  		</isEmpty>
+                ))
+		 where rnum between #startRow#+1 and #startRow#+#endRow#		
+	</select>	
+
+
+	<select id="app.doc_AG_AH_AJ_list_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.doc_AG_AH_AJ_list_totalCount 법규심사함_검사함_협조함 total*/
+		SELECT count(1)
+		  FROM (SELECT p.docuno,
+		  						 m.title title,
+		  						 m.attfilenum attfilenum,
+		  						 TO_CHAR(m.regdate, 'YYYY-MM-DD HH24:MI') regdate,
+		  						 m.status status,
+		  						 u.name username,
+		  						 m.seqdocuno seqdocuno
+		  			  FROM OA_EAPP_PRIDOCU p,
+		  			  			OA_EAPP_DOCUMAS m,
+		  			  			O0_USER_MAST    u,
+		  			  			OA_EAPP_FORM f
+		  			WHERE  p.userid = #userid#
+		  			    AND p.boxcode = #boxcode#
+		  			    AND (m.docuno = p.docuno)
+		  			    AND m.userid = u.userid
+		  			    AND (f.corcode = m.formcorcode AND f.formcode = m.formcode) 
+						<isNotEmpty property="keyword">
+							<isNotEmpty property="searchType">
+								<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+									<![CDATA[
+												LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+								<isEqual property="searchType" compareValue="title" prepend="AND">
+									<![CDATA[
+										LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+								<isEqual property="searchType" compareValue="username" prepend="AND">
+									<![CDATA[
+										LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+								<isEqual property="searchType" compareValue="formname" prepend="AND">
+									<![CDATA[
+										LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+									]]>
+								</isEqual>
+							</isNotEmpty>
+						</isNotEmpty>
+                   ) m
+            LEFT OUTER JOIN OA_EAPP_AGENTDOCU A ON (m.docuno = A.docuno AND A.chargeid = #userid#)
+	</select>
+	
+	<select id="app.doc_AG_AH_AJ_list" resultClass="hashmap" parameterClass="AppDocList">
+		/*app.doc_AG_AH_AJ_list 법규심사함_검사함_협조함 조회*/
+	    select docuno "docuno",
+	           title "title",
+	           attfilenum "attfilenum",
+	           regdate "regdate",
+	           status "status",
+	           username "username",
+	           agentid "agentid",
+	           chargeid "chargeid",
+	           seqdocuno "seqdocuno",
+	           formname "formname"
+	      from (select rownum rnum,
+	                   docuno,
+	                   title,
+	                   attfilenum,
+	                   regdate,
+	                   status,
+	                   username,
+	                   agentid,
+	                   chargeid,
+	                   seqdocuno,
+	                   formname
+	              from (SELECT m.docuno,
+	                           title,
+	                           attfilenum,
+	                           regdate,
+	                           status,
+	                           username,
+	                           agentid,
+	                           chargeid,
+	                           seqdocuno,
+	                           formname
+	                      FROM (SELECT p.docuno,
+	                                   m.title title,
+	                                   m.attfilenum attfilenum,
+	                                   TO_CHAR(m.regdate, 'YYYY-MM-DD HH24:MI') regdate,
+	                                   m.status status,
+	                                   u.name username,
+	                                   m.seqdocuno seqdocuno,
+	                                   f.formname formname
+	                              FROM OA_EAPP_PRIDOCU p,
+	                                   OA_EAPP_DOCUMAS m,
+	                                   O0_USER_MAST    u,
+	                                   OA_EAPP_FORM f
+	                             WHERE p.userid = #userid#
+	                               AND p.boxcode = #boxcode#
+	                               AND (m.docuno = p.docuno)
+	                               AND m.userid = u.userid
+	                               AND (f.corcode = m.formcorcode AND f.formcode = m.formcode) 
+						     <isNotEmpty property="keyword">
+						     	<isNotEmpty property="searchType">
+						     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+						     			<![CDATA[
+						     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' 
+						     			]]>
+						     		</isEqual>
+						     		<isEqual property="searchType" compareValue="title" prepend="AND">
+							     		<![CDATA[
+							     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+							     		]]>
+						     		</isEqual>
+						     		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+							     		<![CDATA[
+							     			LOWER(p.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+							     		]]>
+						     		</isEqual>
+						     		<isEqual property="searchType" compareValue="username" prepend="AND">
+							     		<![CDATA[
+							     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+							     		]]>
+						     		</isEqual>
+						     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+							     		<![CDATA[
+							     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+							     		]]>
+						     		</isEqual>
+						     	</isNotEmpty>
+						     </isNotEmpty>
+	                             ) m
+	                      LEFT OUTER JOIN OA_EAPP_AGENTDOCU A ON (m.docuno = A.docuno AND A.chargeid = #userid#)
+			                 ORDER BY 
+							<isNotEmpty property="sort">
+								<isEqual property="sort" compareValue="title">
+									<![CDATA[
+										m.title $dir$
+									]]>
+								</isEqual>
+								<isEqual property="sort" compareValue="regdate">
+									<![CDATA[
+										m.regdate $dir$
+									]]>
+								</isEqual>
+								<isEqual property="sort" compareValue="formname">
+									<![CDATA[
+										formname $dir$
+									]]>
+								</isEqual>
+								<isEqual property="sort" compareValue="username">
+									<![CDATA[
+										username $dir$
+									]]>
+								</isEqual>
+								<isEqual property="sort" compareValue="status">
+									<![CDATA[
+										m.status $dir$
+									]]>
+								</isEqual>
+							</isNotEmpty>
+							<isEmpty property="sort">
+								m.regdate DESC
+							</isEmpty>
+	                     ))
+	     where rnum between #startRow#+1 and #startRow#+#endRow#
+	</select>	
+	
+	<select id="app.doc_BA_user_checking" resultClass="String" parameterClass="AppDocList">
+		/*app.doc_BA_user_checking 미처리 문서 담당자 조회*/
+		SELECT USERID
+		  FROM OA_EAPP_DEPTDOCMANAGER
+		 WHERE CORCODE = #corcode#
+		   AND DEPTCODE = #deptcode#
+	</select>
+
+	<select id="app.doc_BA_list_1_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.doc_BA_list_1_totalCount 미접수문서함 totalCount(미처리 문서 담당자가 존재 할때 )*/
+		SELECT count(1)
+		  FROM OA_EAPP_DEPTDOCMANAGER N
+		 RIGHT OUTER JOIN (select docuno,
+		                          suserid,
+		                          title,
+		                          attfilenum,
+		                          regdate,
+		                          status,
+		                          sedocuno,
+		                          recdate,
+		                          sdeptcode,
+		                          username,
+		                          deptcode, 
+		                          formname
+		                     from (select rownum rnum,
+		                                  docuno,
+		                                  suserid,
+		                                  title,
+		                                  attfilenum,
+		                                  regdate,
+		                                  status,
+		                                  sedocuno,
+		                                  recdate,
+		                                  sdeptcode,
+		                                  username,
+		                                  deptcode,
+		                                  formname
+		                             from (SELECT d.docuno,
+		                                          d.suserid,
+		                                          m.title,
+		                                          m.attfilenum,
+		                                          m.regdate,
+		                                          m.status,
+		                                          m.sedocuno,
+		                                          d.recdate,
+		                                          d.sdeptcode,
+		                                          u.name username,
+		                                          d.deptcode,
+		                                          f.formname formname
+		                                     FROM OA_EAPP_DEPTDOCU d,
+		                                          OA_EAPP_DOCUMAS  m,
+		                                          O0_USER_MAST     u,
+		                                          OA_EAPP_FORM f
+		                                    WHERE d.corcode = #corcode#
+		                                      AND d.deptcode = #deptcode#
+		                                      AND d.boxcode = #boxcode#
+		                                      AND d.recdate IS NOT NULL
+		                                      AND d.status IS NULL
+		                                      AND (d.docuno = m.docuno)
+		                                      AND m.userid = u.userid
+		                                      AND (f.corcode = m.formcorcode  AND f.formcode = m.formcode) 
+									     <isNotEmpty property="keyword">
+									     	<isNotEmpty property="searchType">
+									     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+									     			<![CDATA[
+									     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' 
+									     			]]>
+									     		</isEqual>
+									     		<isEqual property="searchType" compareValue="title" prepend="AND">
+										     		<![CDATA[
+										     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+										     		]]>
+									     		</isEqual>
+									     		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+										     		<![CDATA[
+										     			LOWER(d.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+										     		]]>
+									     		</isEqual>
+									     		<isEqual property="searchType" compareValue="username" prepend="AND">
+										     		<![CDATA[
+										     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+										     		]]>
+									     		</isEqual>
+									     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+										     		<![CDATA[
+										     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+										     		]]>
+									     		</isEqual>
+									     	</isNotEmpty>
+									     </isNotEmpty>
+		                                    )) 
+		       ) J
+		    ON N.DEPTCODE = J.DEPTCODE
+		 <dynamic prepend="WHERE">
+		 	<isNotEmpty prepend="N.USERID IN" property="docManagerList">
+		 		<iterate prepend="N.USERID IN"  property="docManagerList" open="(" close=")" conjunction=",">
+		 		#docManagerList[]#
+		 		</iterate>
+		 	</isNotEmpty>
+		 </dynamic>
+
+	</select>
+	
+	<select id="app.doc_BA_list_1" resultClass="AppDocList" parameterClass="AppDocList">
+		/*app.doc_BA_list_1 미접수문서함 조회(미처리 문서 담당자가 존재 할때 )*/
+		SELECT docuno "docuno",
+			   scorname "scorname",
+			   sdeptname "sdeptname",
+		       suserid "suserid",
+		       title "title",
+		       attfilenum "attfilenum",
+			   TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') "regdate",
+		       status "status",
+		       sedocuno "sedocuno",
+			   TO_CHAR(recdate, 'YYYY-MM-DD HH24:MI') "recdate",
+		       sdeptcode "sdeptcode",
+		       username "username",
+		       formname "formname",
+			   important "important",
+			   secret "secret"
+		  FROM OA_EAPP_DEPTDOCMANAGER N
+		 RIGHT OUTER JOIN (select docuno,
+								  scorcode,
+								  scorname,
+								  sdeptname,
+		                          suserid,
+		                          title,
+		                          attfilenum,
+		                          regdate,
+		                          status,
+		                          sedocuno,
+		                          recdate,
+		                          sdeptcode,
+		                          username,
+		                          deptcode,
+		                          formname
+									, important, secret
+		                     from (select rownum rnum,
+		                                  docuno,
+										  scorcode,
+										  scorname,
+										  sdeptname,
+		                                  suserid,
+		                                  title,
+		                                  attfilenum,
+		                                  regdate,
+		                                  status,
+		                                  sedocuno,
+		                                  recdate,
+		                                  sdeptcode,
+		                                  username,
+		                                  deptcode,
+		                                  formname
+										, important, secret
+		                             from (SELECT d.docuno,
+												  d.scorcode,
+												  (SELECT CORNAME FROM O0_CORPORATION WHERE CORCODE=d.scorcode) scorname,
+												  (SELECT value FROM O0_COM_PROPERTY WHERE name=(select deptname from O0_USER_DEPT where CORCODE=d.scorcode and DEPTCODE=d.sdeptcode) AND lang=#lang#) sdeptname,
+		                                          d.suserid,
+		                                          m.title,
+		                                          m.attfilenum,
+		                                          m.regdate,
+		                                          m.status,
+		                                          m.sedocuno,
+		                                          d.recdate,
+		                                          d.sdeptcode,
+		                                          u.name username,
+		                                          d.deptcode,
+		                                          f.formname
+												,m.important, m.secret
+		                                     FROM OA_EAPP_DEPTDOCU d,
+		                                          OA_EAPP_DOCUMAS  m,
+		                                          O0_USER_MAST     u,
+		                                          OA_EAPP_FORM f
+		                                    WHERE d.corcode = #corcode#
+		                                      AND d.deptcode = #deptcode#
+		                                      AND d.boxcode = #boxcode#
+		                                      AND d.recdate IS NOT NULL
+		                                      AND d.status IS NULL
+		                                      AND (d.docuno = m.docuno)
+		                                      AND m.userid = u.userid 
+		                                      AND (f.corcode = m.formcorcode  AND f.formcode = m.formcode) 
+									     <isNotEmpty property="keyword">
+									     	<isNotEmpty property="searchType">
+									     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+									     			<![CDATA[
+									     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' 
+									     			]]>
+									     		</isEqual>
+									     		<isEqual property="searchType" compareValue="title" prepend="AND">
+										     		<![CDATA[
+										     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+										     		]]>
+									     		</isEqual>
+									     		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+										     		<![CDATA[
+										     			LOWER(d.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+										     		]]>
+									     		</isEqual>
+									     		<isEqual property="searchType" compareValue="username" prepend="AND">
+										     		<![CDATA[
+										     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+										     		]]>
+									     		</isEqual>
+									     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+										     		<![CDATA[
+										     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+										     		]]>
+									     		</isEqual>
+									     	</isNotEmpty>
+									     </isNotEmpty>
+		                                    ORDER BY
+											<isNotEmpty property="sort">
+												<isEqual property="sort" compareValue="title">
+													<![CDATA[
+														m.title $dir$
+													]]>
+												</isEqual>
+												<isEqual property="sort" compareValue="regdate">
+													<![CDATA[
+														m.regdate $dir$
+													]]>
+												</isEqual>
+												<isEqual property="sort" compareValue="scorname">
+													<![CDATA[
+														scorname $dir$
+													]]>
+												</isEqual>
+												<isEqual property="sort" compareValue="sdeptname">
+													<![CDATA[
+														sdeptname $dir$
+													]]>
+												</isEqual>
+												<isEqual property="sort" compareValue="status">
+													<![CDATA[
+														m.status $dir$
+													]]>
+												</isEqual>
+											</isNotEmpty>
+											<isEmpty property="sort">
+												m.regdate DESC
+											</isEmpty>
+		                                    ))
+		                    WHERE RNUM BETWEEN #startRow#+1 and #startRow#+#endRow# ) J
+		    ON N.DEPTCODE = J.DEPTCODE
+		 <dynamic prepend="WHERE">
+		 	<isNotEmpty prepend="N.USERID" property="docManagerList">
+		 		<iterate prepend="N.USERID IN " property="docManagerList" open="(" close=")" conjunction=",">
+		 		#docManagerList[]#
+		 		</iterate>
+		 	</isNotEmpty>
+		 </dynamic>
+	</select>
+
+	
+	<select id="app.doc_BA_list_2_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.app.doc_BA_list_2_totalCount 미접수문서함 totalCount(미처리 문서 담당자가 존재 하지 않을때 )*/
+		SELECT /*+ index(d OA_EAPPDEPTDOCU_PK) */ count(1)
+		  FROM OA_EAPP_DEPTDOCU d, OA_EAPP_DOCUMAS m, O0_USER_MAST u, OA_EAPP_FORM f
+		 WHERE d.corcode = #corcode#
+		   AND d.deptcode = #deptcode#
+		   AND d.boxcode = #boxcode#
+		   AND d.recdate IS NOT NULL
+		   AND d.status IS NULL
+		   AND (d.docuno = m.docuno)
+		   AND m.userid = u.userid
+		   AND (f.corcode = m.formcorcode  AND f.formcode = m.formcode)
+	     <isNotEmpty property="keyword">
+	     	<isNotEmpty property="searchType">
+	     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+	     			<![CDATA[
+	     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' 
+	     			]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="title" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(d.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="username" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     	</isNotEmpty>
+	     </isNotEmpty>
+	</select>
+	
+	<select id="app.doc_BA_list_2" resultClass="AppDocList" parameterClass="AppDocList">
+		/*app.app.doc_BA_list_2 미접수문서함 조회(미처리 문서 담당자가 존재 하지 않을때 )*/
+		select docuno "docuno",
+			  scorname "scorname",
+			  sdeptname "sdeptname",
+		      suserid "suserid",
+		      title "title",
+		      attfilenum "attfilenum",
+			  TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') "regdate",
+		      status "status",
+		      sedocuno "sedocuno",
+		      recdate "recdate",
+		      sdeptcode "sdeptcode",
+		      username "username",
+		      formname "formname",
+			  important "important",
+			  secret "secret"
+		 from (select rownum rnum,
+		              docuno,
+		              suserid,
+					  scorcode,
+					  scorname,
+					  sdeptname,
+		              title,
+		              attfilenum,
+		              regdate,
+		              status,
+		              sedocuno,
+		              recdate,
+		              sdeptcode,
+		              username,
+		              formname
+					, important, secret
+		         from (SELECT d.docuno,
+							  d.scorcode,
+							  (SELECT CORNAME FROM O0_CORPORATION WHERE CORCODE=d.scorcode) scorname,
+							  (SELECT value FROM O0_COM_PROPERTY WHERE name=(select deptname from O0_USER_DEPT where CORCODE=d.scorcode and DEPTCODE=d.sdeptcode) AND lang=#lang#) sdeptname,
+							  d.suserid,
+		                      m.title,
+		                      m.attfilenum,
+		                      m.regdate,
+		                      m.status,
+		                      m.sedocuno,
+		                      d.recdate,
+		                      d.sdeptcode,
+		                      u.name username,
+		                      f.formname
+							, m.important, m.secret
+						FROM OA_EAPP_DEPTDOCU d, OA_EAPP_DOCUMAS m, O0_USER_MAST u, OA_EAPP_FORM f
+		                WHERE d.corcode = #corcode#
+		                  AND d.deptcode = #deptcode#
+		                  AND d.boxcode = #boxcode#
+		                  AND d.recdate IS NOT NULL
+		                  AND d.status IS NULL
+		                  AND (d.docuno = m.docuno)
+		                  AND m.userid = u.userid
+		                  AND (f.corcode = m.formcorcode  AND f.formcode = m.formcode)
+				     <isNotEmpty property="keyword">
+				     	<isNotEmpty property="searchType">
+				     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+				     			<![CDATA[
+				     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' 
+				     			]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="title" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(d.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="username" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     	</isNotEmpty>
+				     </isNotEmpty>
+		                ORDER BY 
+						<isNotEmpty property="sort">
+							<isEqual property="sort" compareValue="formname">
+								<![CDATA[
+									f.formname $dir$
+							  	]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="title">
+								<![CDATA[
+									m.title $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="username">
+								<![CDATA[
+									username $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="regdate">
+								<![CDATA[
+									m.regdate $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="recdate">
+								<![CDATA[
+									d.recdate $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="scorname">
+								<![CDATA[
+									scorname $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="sdeptname">
+								<![CDATA[
+									sdeptname $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="status">
+								<![CDATA[
+									m.status $dir$
+								]]>
+							</isEqual>
+						</isNotEmpty>
+						<isEmpty property="sort">
+							m.regdate DESC
+						</isEmpty>
+		                ))
+		WHERE RNUM BETWEEN #startRow#+1 and #startRow#+#endRow#
+	</select>
+
+	<select id="app.doc_BB_list_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.doc_BB_list_totalCount 발신 문서함(BB) totalCount*/
+		SELECT /*+ index(d OA_EAPPDEPTDOCU_PK) */ count(1)
+		  FROM OA_EAPP_DEPTDOCU d, OA_EAPP_DOCUMAS m, O0_USER_MAST u, OA_EAPP_FORM f
+		 WHERE d.corcode = #corcode#
+		    AND d.deptcode = #deptcode#
+		    AND d.boxcode = #boxcode#
+		    AND d.recdate IS NOT NULL
+		    AND (d.docuno = m.docuno)
+		    AND m.userid = u.userid
+		    AND (f.corcode = m.formcorcode AND f.formcode = m.formcode)
+		    <isNotEmpty property="keyword">
+		    	<isNotEmpty property="searchType">
+		    		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+		    			<![CDATA[
+		    				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+		    			]]>
+		    		</isEqual>
+		    		<isEqual property="searchType" compareValue="title" prepend="AND">
+		    			<![CDATA[
+		    				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+		    			]]>
+		    		</isEqual>
+		    		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+		    			<![CDATA[
+		    				LOWER(d.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+		    			]]>
+		    		</isEqual>
+		    		<isEqual property="searchType" compareValue="username" prepend="AND">
+		    			<![CDATA[
+		    				LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+		    			]]>
+		    		</isEqual>
+		    		<isEqual property="searchType" compareValue="formname" prepend="AND">
+		    			<![CDATA[
+		    				LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+		    			]]>
+		    		</isEqual>
+		    	</isNotEmpty>
+		    </isNotEmpty>
+	</select>
+		
+	<select id="app.doc_BB_list" resultClass="AppDocList" parameterClass="AppDocList">
+		/*app.doc_BB_list 발신 문서함(BB) 조회*/
+		select docuno,
+		       corcode,
+		       boxcode,
+		       suserid,
+		       title,
+		       attfilenum,
+		       sedocuno,
+		       lastapp,
+		       username,
+		       recdate,
+		       scorcode,
+		       status,
+		       sedept,
+		       orisedocuno,
+		       nextapp,
+		       formname,
+			   userid,
+			   TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') regdate ,
+			   important, secret
+		  from (select rownum rnum,
+		               docuno,
+		               corcode,
+		               boxcode,
+		               suserid,
+		               title,
+		               attfilenum,
+		               sedocuno,
+		               lastapp,
+		               username,
+		               recdate,
+		               scorcode,
+		               status,
+		               sedept,
+		               orisedocuno,
+		               nextapp,
+		               formname
+						, userid ,regdate , important, secret
+		          from (SELECT d.docuno,
+		                       d.corcode,
+		                       d.boxcode,
+		                       d.suserid,
+		                       m.title,
+		                       m.attfilenum,
+		                       m.sedocuno,
+		                       m.lastapp,
+		                       u.name username,
+		                       d.recdate,
+		                       d.scorcode,
+		                       d.status,
+		                       m.sedept,
+		                       m.orisedocuno,
+		                       m.nextapp,
+		                       f.formname
+							,m.userid , m.regdate , m.important, m.secret
+		                  FROM OA_EAPP_DEPTDOCU d, OA_EAPP_DOCUMAS m, O0_USER_MAST u, OA_EAPP_FORM f
+		                 WHERE d.corcode = #corcode#
+		                   AND d.deptcode = #deptcode#
+		                   AND d.boxcode = #boxcode#
+		                   AND d.recdate IS NOT NULL
+		                   AND (d.docuno = m.docuno)
+		                   AND m.userid = u.userid
+		                   AND (f.corcode = m.formcorcode AND f.formcode = m.formcode)
+				     <isNotEmpty property="keyword">
+				     	<isNotEmpty property="searchType">
+				     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+				     			<![CDATA[
+				     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' 
+				     			]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="title" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(d.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="username" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     	</isNotEmpty>
+				     </isNotEmpty>
+		                ORDER BY 
+						<isNotEmpty property="sort">
+							<isEqual property="sort" compareValue="formname">
+								<![CDATA[
+									f.formname $dir$
+						   		]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="title">
+								<![CDATA[
+									m.title $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="username">
+								<![CDATA[
+									username $dir$
+							    ]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="regdate">
+								<![CDATA[
+									m.regdate $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="recdate">
+								<![CDATA[
+									d.recdate $dir$
+								  ]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="status">
+								<![CDATA[
+									d.status $dir$
+								  ]]>
+							</isEqual>
+						</isNotEmpty>
+						<isEmpty property="sort">
+							m.regdate DESC
+						</isEmpty>
+		                 ))
+		 WHERE RNUM BETWEEN #startRow#+1 and #startRow#+#endRow#
+	</select>
+	
+	
+	<select id="app.doc_BC_list_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.doc_BC_list_totalCount 수신 문서함(BC) totalCount*/		
+		SELECT /*+ index(d OA_EAPPDEPTDOCU_PK) */ count(1)
+		  FROM OA_EAPP_DEPTDOCU d,
+		       OA_EAPP_DOCUMAS m,
+		       O0_USER_MAST u,
+		       OA_EAPP_FORM f,
+		       ( SELECT deptcode, deptname FROM O0_USER_DEPT WHERE corcode = #corcode#   ) dd
+		 WHERE d.corcode = #corcode#
+		   AND d.deptcode = #deptcode#
+		   AND d.boxcode = #boxcode#
+		   AND d.recdate IS NOT NULL
+		   AND (d.draftno = m.docuno)
+		   AND (m.userid = u.userid AND d.sdeptcode = dd.deptcode)
+		   AND (f.corcode = m.formcorcode AND f.formcode = m.formcode)
+	     <isNotEmpty property="keyword">
+	     	<isNotEmpty property="searchType">
+	     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+	     			<![CDATA[
+	     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(dd.deptname) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+	     			]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="title" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="deptname" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(dd.deptname) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     	</isNotEmpty>
+	     </isNotEmpty>
+	</select>
+
+	<select id="app.doc_BC_list" resultClass="AppDocList" parameterClass="AppDocList">
+		/*app.doc_BC_list 수신 문서함(BC) 조회*/		
+		select docuno,
+		       suserid,
+		       draftno,
+		       title,
+		       attfilenum,
+			   TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') regdate,
+		       status,
+		       sedocuno,
+		       lastapp,
+		       recdocuno,
+		       sdeptcode,
+		       username,
+		       formname,
+		       deptname
+		  from (select rownum rnum,
+		               docuno,
+		               suserid,
+		               draftno,
+		               title,
+		               attfilenum,
+		               regdate,
+		               status,
+		               sedocuno,
+		               lastapp,
+		               recdocuno,
+		               sdeptcode,
+		               username,
+		               formname,
+		               deptname
+		          from (SELECT d.docuno,
+		                       d.suserid,
+		                       d.draftno,
+		                       m.title,
+		                       m.attfilenum,
+		                       m.regdate,
+		                       d.status, /* m.status,*/
+		                       m.sedocuno,
+		                       m.lastapp,
+		                       d.recdocuno,
+		                       d.sdeptcode,
+		                       u.name username,
+		                       f.formname,
+		                       dd.deptname
+		                  FROM OA_EAPP_DEPTDOCU d,
+		                       OA_EAPP_DOCUMAS m,
+		                       O0_USER_MAST u,
+		                       OA_EAPP_FORM f,
+		                       (	SELECT deptcode, dp.VALUE deptname 
+		                       		FROM O0_USER_DEPT  , O0_COM_PROPERTY dp  
+		                       		WHERE corcode = #corcode# 	AND deptname=dp.NAME 	AND dp.LANG=#lang# ) dd
+		                 WHERE d.corcode = #corcode#
+		                   AND d.deptcode = #deptcode#
+		                   AND d.boxcode = #boxcode#
+		                   AND d.recdate IS NOT NULL
+		                   AND (d.draftno = m.docuno)
+		                   AND (m.userid = u.userid AND d.sdeptcode = dd.deptcode)
+		                   AND (f.corcode = m.formcorcode AND f.formcode = m.formcode)
+				     <isNotEmpty property="keyword">
+				     	<isNotEmpty property="searchType">
+				     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+				     			<![CDATA[
+				     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(dd.deptname) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+				     			]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="title" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="deptname" prepend="AND">
+					     		<![CDATA[
+					     			LOWEr(dd.deptname) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     	</isNotEmpty>
+				     </isNotEmpty>
+		                ORDER BY 
+						<isNotEmpty property="sort">
+							<isEqual property="sort" compareValue="formname">
+								<![CDATA[
+									f.formname $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="title">
+								<![CDATA[
+									m.title $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="regdate">
+								<![CDATA[
+									m.regdate $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="deptname">
+								<![CDATA[
+									dd.deptname $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="status">
+								<![CDATA[
+									d.status $dir$
+								]]>
+							</isEqual>
+						</isNotEmpty>
+						<isEmpty property="sort">
+							m.regdate DESC
+						</isEmpty>
+		                 ))
+		 WHERE RNUM BETWEEN #startRow#+1 and #startRow#+#endRow#
+	</select>
+
+	
+	<select id="app.doc_BD_list_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.doc_BD_list_totalCount 반송 문서함(BD) totalCount*/
+        SELECT /*+ index(d OA_EAPPDEPTDOCU_PK) */ count(1)
+          FROM OA_EAPP_DEPTDOCU d,
+               OA_EAPP_DOCUMAS m,
+               O0_USER_MAST u,
+               OA_EAPP_FORM f,
+               (SELECT deptcode, deptname FROM O0_USER_DEPT WHERE corcode = #corcode#
+               ) od
+         WHERE d.corcode = #corcode#
+           AND d.deptcode = #deptcode#
+           AND d.boxcode = #boxcode#
+           AND d.recdate IS NOT NULL
+           AND (d.draftno = m.docuno)
+           AND (d.sdeptcode = od.deptcode)
+           AND m.userid = u.userid
+           AND (f.corcode = m.formcorcode AND f.formcode = m.formcode)
+	     <isNotEmpty property="keyword">
+	     	<isNotEmpty property="searchType">
+	     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+	     			<![CDATA[
+	     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' 
+	     			]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="title" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(d.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="username" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     	</isNotEmpty>
+	     </isNotEmpty>
+	</select>
+	
+	<select id="app.doc_BD_list" resultClass="AppDocList" parameterClass="AppDocList">
+		/*app.doc_BD_list 반송 문서함(BD) 조회*/
+		select docuno,
+		       mdocuno,
+		       corcode,
+		       userid,
+		       title,
+		       attfilenum,
+			   TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') regdate,
+		       status,
+		       username,
+		       sedocuno,
+		       lastapp,
+		       formname,
+		       deptname
+		  from (select rownum rnum,
+		               docuno,
+		               mdocuno,
+		               corcode,
+		               userid,
+		               title,
+		               attfilenum,
+		               regdate,
+		               status,
+		               username,
+		               sedocuno,
+		               lastapp,
+		               formname,
+		               deptname
+		          from (SELECT d.docuno,
+		                       m.docuno mdocuno,
+		                       d.corcode,
+		                       m.userid,
+		                       m.title,
+		                       m.attfilenum,
+		                       m.regdate,
+		                       m.status,
+		                       u.name username,
+		                       m.sedocuno,
+		                       m.lastapp,
+		                       f.formname,
+		                       od.deptname
+		                  FROM OA_EAPP_DEPTDOCU d,
+		                       OA_EAPP_DOCUMAS m,
+		                       O0_USER_MAST u,
+		                       OA_EAPP_FORM f,
+		                       (	SELECT deptcode, dp.VALUE  deptname 
+		                       		FROM O0_USER_DEPT , O0_COM_PROPERTY dp 
+		                       		WHERE corcode = #corcode#
+		                       		AND deptname=DP.NAME 	AND dp.LANG=#lang#
+		                       ) od
+		                 WHERE d.corcode = #corcode#
+		                   AND d.deptcode = #deptcode#
+		                   AND d.boxcode = #boxcode#
+		                   AND d.recdate IS NOT NULL
+		                   AND (d.draftno = m.docuno)
+		                   AND (d.sdeptcode = od.deptcode)
+		                   AND m.userid = u.userid
+		                   AND (f.corcode = m.formcorcode AND f.formcode = m.formcode)
+				     <isNotEmpty property="keyword">
+				     	<isNotEmpty property="searchType">
+				     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+				     			<![CDATA[
+				     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' 
+				     			]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="title" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(d.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="username" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     	</isNotEmpty>
+				     </isNotEmpty>
+		                ORDER BY 
+						<isNotEmpty property="sort">
+							<isEqual property="sort" compareValue="formname">
+								<![CDATA[
+									f.formname $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="title">
+								<![CDATA[
+									m.title $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="username">
+								<![CDATA[
+									username $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="regdate">
+								<![CDATA[
+									m.regdate $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="status">
+								<![CDATA[
+									m.status $dir$
+								]]>
+							</isEqual>
+						</isNotEmpty>
+						<isEmpty property="sort">
+							m.regdate DESC
+						</isEmpty>
+		                 ))
+		 WHERE RNUM BETWEEN #startRow#+1 and #startRow#+#endRow#
+	</select>
+
+
+
+		                   
+	<select id="app.doc_BE_list_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.doc_BE_list_totalCount 완료 문서함(BE) totalCount*/
+        SELECT /*+ index(d OA_EAPPDEPTDOCU_PK) */ count(1)
+          FROM OA_EAPP_DEPTDOCU d, OA_EAPP_DOCUMAS m, O0_USER_MAST u, OA_EAPP_FORM f
+         WHERE d.corcode = #corcode#
+           AND d.deptcode = #deptcode#
+           AND d.boxcode = #boxcode#
+           AND d.recdate IS NOT NULL
+           AND (d.docuno = m.docuno)
+           AND m.userid = u.userid
+           AND (f.corcode = m.formcorcode AND f.formcode = m.formcode)
+	     <isNotEmpty property="keyword">
+	     	<isNotEmpty property="searchType">
+	     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+	     			<![CDATA[
+	     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' 
+	     			]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="title" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(d.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="username" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+		     		<![CDATA[
+		     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+		     		]]>
+	     		</isEqual>
+	     	</isNotEmpty>
+	     </isNotEmpty>
+	</select>
+
+	<select id="app.doc_BE_list" resultClass="AppDocList" parameterClass="AppDocList">
+		/*app.doc_BE_list 완료 문서함(BE) 조회*/
+		select docuno,
+		       corcode,
+		       boxcode,
+		       deptcode,
+		       userid,
+		       title,
+		       attfilenum,
+			   TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') "regdate",
+		       status,
+		       lastapp,
+		       username,
+		       formname,
+			   seqdocuno,
+		   	   important,
+			   secret
+		  from (select rownum rnum,
+		               docuno,
+		               corcode,
+		               boxcode,
+		               deptcode,
+		               userid,
+		               title,
+		               attfilenum,
+		               regdate,
+		               status,
+		               lastapp,
+		               username,
+		               formname,
+					   seqdocuno,
+					   important,
+					   secret
+		          from (SELECT d.docuno,
+		                       d.corcode,
+		                       d.boxcode,
+		                       d.deptcode,
+		                       m.userid,
+		                       m.title,
+		                       m.attfilenum,
+		                       m.regdate,
+		                       m.status,
+		                       m.lastapp,
+		                       u.name username,
+		                       f.formname,
+							   seqdocuno,
+							   to_number(substr(seqdocuno, instr(seqdocuno,'-',-1)+1)) AS seqnum,
+							   important,
+							   secret
+		                  FROM OA_EAPP_DEPTDOCU d, OA_EAPP_DOCUMAS m, O0_USER_MAST u, OA_EAPP_FORM f
+		                 WHERE d.corcode = #corcode#
+		                   AND d.deptcode = #deptcode#
+		                   AND d.boxcode = #boxcode#
+		                   AND d.recdate IS NOT NULL
+		                   AND (d.docuno = m.docuno)
+		                   AND m.userid = u.userid
+		                   AND (f.corcode = m.formcorcode AND f.formcode = m.formcode)
+				     <isNotEmpty property="keyword">
+				     	<isNotEmpty property="searchType">
+				     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+				     			<![CDATA[
+				     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' 
+				     			]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="title" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(d.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="username" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="formname" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     	</isNotEmpty>
+				     </isNotEmpty>
+		                ORDER BY 
+						<isNotEmpty property="sort">
+							<isEqual property="sort" compareValue="formname">
+								<![CDATA[
+									f.formname $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="title">
+								<![CDATA[
+									m.title $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="username">
+								<![CDATA[
+									username $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="regdate">
+								<![CDATA[
+									m.regdate $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="status">
+								<![CDATA[
+									m.status $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="seqdocuno">
+								<![CDATA[
+									seqnum $dir$
+								]]>
+							</isEqual>
+						</isNotEmpty>
+						<isEmpty property="sort">
+							d.recdate DESC
+						</isEmpty>
+		                 ))
+		 WHERE RNUM BETWEEN #startRow#+1 and #startRow#+#endRow#
+	</select>
+
+	<select id="app.doc_C_list_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.doc_C_list_totalCount 휴지통(C) totalCount*/
+        SELECT count(1)
+          FROM (SELECT -p.docuno docuno,
+                       m.title,
+                       m.attfilenum,
+                       m.regdate,
+                       m.status,
+                       u.name username,
+                       m.nextapp
+                  FROM OA_EAPP_TRASHPRIDOCU p, OA_EAPP_DOCUMAS m, O0_USER_MAST u
+                 WHERE  p.userid = #userid#
+                   AND (m.docuno = p.docuno)
+                   AND  m.userid = u.userid
+		     <isNotEmpty property="keyword">
+		     	<isNotEmpty property="searchType">
+		     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+		     			<![CDATA[
+		     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+		     			]]>
+		     		</isEqual>
+		     		<isEqual property="searchType" compareValue="title" prepend="AND">
+			     		<![CDATA[
+			     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+			     		]]>
+		     		</isEqual>
+		     		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+			     		<![CDATA[
+			     			LOWER(d.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+			     		]]>
+		     		</isEqual>
+		     		<isEqual property="searchType" compareValue="username" prepend="AND">
+			     		<![CDATA[
+			     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+			     		]]>
+		     		</isEqual>
+		     	</isNotEmpty>
+		     </isNotEmpty>
+                 GROUP BY -p.docuno,
+                          m.title,
+                          m.attfilenum,
+                          m.regdate,
+                          m.status,
+                          u.name,
+                          m.nextapp
+                )
+		      
+	</select>
+
+	<select id="app.doc_C_list" resultClass="AppDocList" parameterClass="AppDocList">
+		/*app.doc_C_list 휴지통(C) 조회*/
+		SELECT docuno,
+		       title,
+		       attfilenum,
+		       TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI') regdate,
+		       status,
+		       username,
+		       nextapp
+				, important, secret, formname
+		  FROM (SELECT ROWNUM AS RNUM,
+		               -docuno docuno,
+		               title,
+		               attfilenum,
+		               regdate,
+		               status,
+		               username,
+		               nextapp
+						, important, secret, formname
+		          FROM (SELECT -p.docuno docuno,
+		                       m.title,
+		                       m.attfilenum,
+		                       m.regdate,
+		                       m.status,
+		                       u.name username,
+		                       m.nextapp
+								, m.important, m.secret, f.formname
+		                  FROM OA_EAPP_TRASHPRIDOCU p, OA_EAPP_DOCUMAS m, O0_USER_MAST u, OA_EAPP_FORM f
+		                 WHERE p.userid = #userid#
+		                   AND (m.docuno = p.docuno)
+		                   AND  m.userid = u.userid
+						   AND (m.formcode = f.formcode and f.corcode=m.formcorcode )
+				     <isNotEmpty property="keyword">
+				     	<isNotEmpty property="searchType">
+				     		<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+				     			<![CDATA[
+				     				LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+				     			]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="title" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="docuno" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(d.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     		<isEqual property="searchType" compareValue="username" prepend="AND">
+					     		<![CDATA[
+					     			LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+					     		]]>
+				     		</isEqual>
+				     	</isNotEmpty>
+				     </isNotEmpty>
+		                 GROUP BY -p.docuno,
+		                          m.title,
+		                          m.attfilenum,
+		                          m.regdate,
+		                          m.status,
+		                          u.name,
+		                          m.nextapp
+								, m.important, m.secret , f.formname
+		                 ORDER BY 
+						<isNotEmpty property="sort">
+							<isEqual property="sort" compareValue="formname">
+								<![CDATA[
+									f.formname $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="title">
+								<![CDATA[
+									m.title $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="username">
+								<![CDATA[
+									username $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="regdate">
+								<![CDATA[
+									m.regdate $dir$
+								]]>
+							</isEqual>
+							<isEqual property="sort" compareValue="status">
+								<![CDATA[
+									m.status $dir$
+								]]>
+							</isEqual>
+						</isNotEmpty>
+						<isEmpty property="sort">
+							m.regdate DESC
+						</isEmpty>
+		                )
+		       )
+		 WHERE RNUM BETWEEN #startRow#+1 and #startRow#+#endRow#
+		 ORDER BY RNUM
+	</select>
+
+	<select id="app.doc_AK_list_totalCount" resultClass="int" parameterClass="AppDocList">
+		/*app.doc_AK_list_totalCount 대외공문함 total*/
+		SELECT  COUNT(*)
+		  FROM  (SELECT p.docuno,
+						m.title title,
+						m.attfilenum attfilenum,
+						TO_CHAR(m.regdate, 'YYYY-MM-DD HH24:MI') regdate,
+						m.status status,
+						u.name username,
+						m.seqdocuno seqdocuno
+				   FROM OA_EAPP_PRIDOCU p,
+						OA_EAPP_DOCUMAS m,
+						O0_USER_MAST    u,
+						OA_EAPP_FORM f,
+						OA_EAPP_ENFORCE e
+				  WHERE  p.userid = #userid#
+					AND  p.boxcode like 'AD%'
+					AND  m.status = 'C'
+					AND  ( m.docuno = p.docuno)
+					AND  m.userid = u.userid
+					AND  (f.corcode = m.formcorcode AND f.formcode = m.formcode)
+					AND  m.userid = e.userid
+					AND  m.docuno = e.docuno
+					<isNotEmpty property="keyword">
+						<isNotEmpty property="searchType">
+							<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+								<![CDATA[
+													LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+												]]>
+							</isEqual>
+							<isEqual property="searchType" compareValue="title" prepend="AND">
+								<![CDATA[
+													LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+												]]>
+							</isEqual>
+							<isEqual property="searchType" compareValue="username" prepend="AND">
+								<![CDATA[
+													LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+												]]>
+							</isEqual>
+							<isEqual property="searchType" compareValue="formname" prepend="AND">
+								<![CDATA[
+													LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+												]]>
+							</isEqual>
+						</isNotEmpty>
+					</isNotEmpty>
+				) m
+				LEFT OUTER JOIN OA_EAPP_AGENTDOCU A ON (m.docuno = A.docuno AND A.chargeid = #userid#)
+	</select>
+
+	<select id="app.doc_AK_list" resultClass="hashmap" parameterClass="AppDocList">
+		/*app.doc_AK_list 시행문(대외공문함) 조회*/
+		SELECT  "docuno",  "title",  "attfilenum",  "regdate" ,  "status",  "username",  "nextapp",  "nextappname",  "seqdocuno",  "formname" ,  "important",  "term",  "secret" , rev "rev", "filename"
+		  FROM  (SELECT docuno "docuno",
+						title "title",
+						attfilenum "attfilenum",
+						TO_CHAR(regdate,'YYYY-MM-DD HH24:MI') "regdate" ,
+						status "status",
+						username "username",
+						nextapp "nextapp",
+						nextappname "nextappname",
+						seqdocuno "seqdocuno",
+						formname "formname",
+						important "important",
+						term "term",
+						secret "secret",
+						filename "filename"
+				   FROM (SELECT rownum rnum,
+								docuno,
+								title,
+								attfilenum,
+								regdate,
+								status,
+								username,
+								nextapp,
+								nextappname,
+								seqdocuno,
+								formname,
+								important,
+								term,
+								secret,
+								filename
+						   FROM (SELECT m.docuno,
+										title,
+										attfilenum,
+										regdate,
+										status,
+										username,
+										nextapp,
+										nextappname,
+										seqdocuno,
+										formname,
+										important,
+										term,
+										secret,
+										filename
+								   FROM (SELECT docuno,
+												title title,
+												attfilenum attfilenum,
+												regdate regdate,
+												status status,
+												username,
+												nextapp nextapp,
+												u1.name nextappname,
+												seqdocuno,
+												formname formname,
+												important,
+												term,
+												secret,
+												filename
+										   FROM (SELECT p.docuno,
+														m.title title,
+														m.attfilenum attfilenum,
+														m.regdate regdate,
+														m.status status,
+														u.name username,
+														m.nextapp nextapp,
+														m.seqdocuno seqdocuno,
+														f.formname formname,
+														important,
+														term,
+														secret,
+														e.signfilename filename
+												   FROM OA_EAPP_PRIDOCU p,
+														OA_EAPP_DOCUMAS m,
+														O0_USER_MAST    u,
+														OA_EAPP_FORM f,
+														OA_EAPP_ENFORCE e
+												  WHERE  p.userid = #userid#
+													AND  p.boxcode like 'AD%'
+													AND  m.status = 'C'
+													AND (m.docuno = p.docuno)
+													AND  m.userid = u.userid
+													AND (f.corcode =  m.formcorcode AND f.formcode = m.formcode)
+													AND  m.userid = e.userid
+													AND  m.docuno = e.docuno
+												<isNotEmpty property="keyword">
+													<isNotEmpty property="searchType">
+														<isEqual property="searchType" compareValue="total" prepend="AND" open="(" close=")">
+															<![CDATA[
+																LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%' OR LOWER(p.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+															]]>
+														</isEqual>
+														<isEqual property="searchType" compareValue="title" prepend="AND">
+															<![CDATA[
+																LOWER(m.title) LIKE '%'||LOWER(#keyword#)||'%'
+															]]>
+														</isEqual>
+														<isEqual property="searchType" compareValue="docuno" prepend="AND">
+															<![CDATA[
+																LOWER(p.docuno) LIKE '%'||LOWER(#keyword#)||'%'
+															]]>
+														</isEqual>
+														<isEqual property="searchType" compareValue="username" prepend="AND">
+															<![CDATA[
+																LOWER(u.name) LIKE '%'||LOWER(#keyword#)||'%'
+															]]>
+														</isEqual>
+														<isEqual property="searchType" compareValue="formname" prepend="AND">
+															<![CDATA[
+																LOWER(f.formname) LIKE '%'||LOWER(#keyword#)||'%'
+															]]>
+														</isEqual>
+													</isNotEmpty>
+												</isNotEmpty>
+												)m
+												LEFT OUTER JOIN O0_USER_MAST u1 ON (m.nextapp = u1.userid)
+										) m
+										LEFT OUTER JOIN OA_EAPP_AGENTDOCU A ON (m.docuno = A.docuno AND A.chargeid = #userid#)
+										ORDER BY
+										<isNotEmpty property="sort">
+											<isEqual property="sort" compareValue="title">
+												<![CDATA[
+													m.title $dir$
+												]]>
+											</isEqual>
+											<isEqual property="sort" compareValue="regdate">
+												<![CDATA[
+													m.regdate $dir$
+												]]>
+											</isEqual>
+											<isEqual property="sort" compareValue="username">
+												<![CDATA[
+													username $dir$
+												]]>
+											</isEqual>
+											<isEqual property="sort" compareValue="formname">
+												<![CDATA[
+													formname $dir$
+												]]>
+											</isEqual>
+											<isEqual property="sort" compareValue="seqdocuno">
+												<![CDATA[
+													seqdocuno $dir$
+												]]>
+											</isEqual>
+										</isNotEmpty>
+										<isEmpty property="sort">
+											m.regdate DESC
+										</isEmpty>
+								)
+						)
+				  WHERE rnum BETWEEN #startRow#+1 AND #startRow#+#endRow#
+			 	) m
+				LEFT OUTER JOIN  ( SELECT docuno, MAX(rev) rev FROM OA_EAPP_DOCUMODIFY  GROUP BY docuno ) modi  ON (m."docuno"=modi.docuno)
+	</select>
+
+<!-- OA_EAPP_TRASHPRIDOCU  -->
+	<insert id="app.insertTrash" parameterClass="AppDocList">
+		INSERT INTO  OA_EAPP_TRASHPRIDOCU
+			(userid,	docuno, 		boxcode	)
+		VALUES
+			(#userid#, 	#docuno#, 		#boxcode# )
+	</insert>
+
+
+	<select id="app.getBoxCodeFromTrashBox" parameterClass="AppDocList" resultClass="String">
+		select boxcode
+		from OA_EAPP_TRASHPRIDOCU
+		where userid=#userid#
+		 and docuno=#docuno#
+	</select>
+
+	<delete id="app.deleteTrash" parameterClass="AppDocList">
+		DELETE FROM OA_EAPP_TRASHPRIDOCU
+		WHERE DOCUNO= #docuno#
+		and boxcode=#boxcode#
+		and userid = #userid#
+	</delete>
+
+	<select id="app.save_docu_info" parameterClass="AppSaveDocuInfo" resultClass="hashmap">
+		/*전자결재 기록물관리 단위업무 조회*/
+		<![CDATA[		
+		SELECT OES.corcode         
+		     , OES.boxcode         
+		     , OES.doccode         
+		     , OES.formcode
+		     , (SELECT formname
+          		  FROM OA_EAPP_FORM
+         		 WHERE formcode = OES.formcode) "FORMNAME"  
+         	 , (SELECT value
+         	 	  FROM O0_COM_PROPERTY
+         	 	 WHERE name = OESB.boxname
+               	   AND lang = #lang# ) "BOXNAME"
+		     , OES.title           
+		     , OES.userid          
+		     , OES.regdate         
+		     , OES.attfilenum      
+		     , OES.opinion         
+		     , OES.confirm         
+		     , OES.user_authority  
+		 FROM (SELECT rownum rnum, OESA.*
+          		 FROM (SELECT *
+                  		 FROM OA_EAPP_SAVEDOCU
+              		 ORDER BY Regdate DESC) OESA) OES, OA_EAPP_SAVEDOCUBOX OESB
+		WHERE OES.boxcode = OESB.boxcode
+		  AND OES.rnum BETWEEN #start# AND #limit#
+		]]>
+		<isNotEmpty property="treecode">
+			<isEqual property="treecode" compareValue="-1" prepend="AND">
+			<![CDATA[
+				confirm = 'X'
+			]]>		 
+			</isEqual>			
+			<isEqual property="treecode" compareValue="1" prepend="AND">
+			<![CDATA[
+				confirm IS NULL
+			]]>		 
+			</isEqual>
+			<isEqual property="treecode" compareValue="2" prepend="AND">
+			<![CDATA[
+				confirm = 'Y'
+			]]>		 
+			</isEqual>
+			<isEqual property="treecode" compareValue="3" prepend="AND">
+			<![CDATA[
+				confirm = 'N'
+			]]>		 
+			</isEqual>
+			<isGreaterThan property="treecode" compareValue="3" prepend="AND">
+			<![CDATA[
+				confirm = 'Y'			
+				AND OES.boxcode = (SELECT boxcode 
+						  		     FROM OA_EAPP_SAVEDOCUBOX
+								    WHERE treecode = #treecode#)
+			]]>						
+			</isGreaterThan>
+		</isNotEmpty>
+		<isEmpty property="treecode" prepend="AND">
+		<![CDATA[
+			confirm IS NULL
+		]]>	
+		</isEmpty>							 
+	</select>
+	
+	<select id="app.workboxChange" parameterClass="AppSaveDocuInfo" resultClass="hashmap">
+		/*기록물관리 단위업무 리스트 조회*/
+		<![CDATA[
+		SELECT corcode         
+		     , boxcode		      
+         	 , (SELECT value
+         	 	  FROM O0_COM_PROPERTY
+         	 	 WHERE name = OESB.boxname
+               	   AND lang = #lang#) "BOXNAME"
+		 FROM OA_EAPP_SAVEDOCUBOX OESB
+		WHERE treeup = 4
+		]]>									 
+	</select>
+	
+	<update id="app.workboxChangeGo" parameterClass="AppSaveDocuInfo">
+		/*단위업무 변경 업데이트*/
+		UPDATE OA_EAPP_SAVEDOCU
+    	   SET boxcode = #boxcode#
+  		 WHERE corcode = #corcode#
+    	   AND doccode = #doccode#
+	</update>
+	
+	<delete id="app.selectDelDocu" parameterClass="AppSaveDocuInfo">
+		/*선택문서 삭제*/
+	<![CDATA[
+		DELETE 
+		  FROM OA_EAPP_SAVEDOCU
+		 WHERE corcode  = #corcode#
+		   AND doccode  = #doccode#
+	]]>
+	</delete>
+	
+	<update id="app.save_docu_add" parameterClass="AppSaveDocuInfo">
+		/*기록물관리 편철확정 업데이트*/
+		UPDATE OA_EAPP_SAVEDOCU 
+   		   SET confirm = 'Y' 
+ 		 WHERE corcode = #corcode#
+   		   AND boxcode  = #boxcode#
+   		   AND doccode  = #doccode#
+	</update>
+	
+	<update id="app.save_docu_cancel" parameterClass="AppSaveDocuInfo">
+		/*기록물관리 편철확정취소 업데이트*/
+		UPDATE OA_EAPP_SAVEDOCU 
+   		   SET confirm = 'N' 
+ 		 WHERE corcode = #corcode#
+   		   AND boxcode  = #boxcode#
+   		   AND doccode  = #doccode#
+	</update>
+	
+	<select id="app.save_docu_tree" parameterClass="AppSaveDocuTree" resultClass="hashmap">
+		/*전자결재 기록물관리 트리조회*/
+	<![CDATA[
+		SELECT (SELECT value
+  				  FROM O0_COM_PROPERTY
+ 				 WHERE name = (SELECT boxname 
+                  FROM OA_EAPP_SAVEDOCUBOX
+                 WHERE treecode = OAS.treecode
+                   AND corcode = #corcode#)
+   				   AND lang = #lang#) "text"
+	     	 , treecode   "id"
+	     	 , boxcode	  "boxcode"		       
+	     	 , treeup     "treeup"
+	     	 , childcnt   "childcnt"
+	     	 , 'folder'   "cls"
+	     	 , 'normal'   "iconCls"
+	     	 , CASE
+				WHEN childcnt > 0 THEN 0
+				WHEN childcnt <= 0 THEN 1
+			   END "leaf"     
+	  	  FROM OA_EAPP_SAVEDOCUBOX OAS
+		 WHERE corcode = #corcode#
+		   AND treeup = #treecode#
+ 	  ORDER BY treecode ASC
+ 	 ]]>
+ 	</select>
+ 	
+ 	<insert id="app.saveDocuAddkey" parameterClass="AppSaveDocuTree">
+	<![CDATA[
+		INSERT INTO
+			O0_COM_PROPERTY (
+					lang,
+					name,
+					value)
+		VALUES (
+			#lang#,
+			#key#,
+			#boxname#)
+	]]>
+		<selectKey keyProperty="treecode" resultClass="String" type="post">
+		<![CDATA[
+			SELECT
+				COUNT(*)
+			FROM
+				O0_COM_PROPERTY
+			WHERE
+				name = #key#
+		]]>
+		</selectKey>
+	</insert>
+
+	<insert id="app.saveDocuAdd" parameterClass="AppSaveDocuTree">
+		<selectKey keyProperty="treecode" resultClass="String">
+	<![CDATA[
+			SELECT
+				MAX (TO_NUMBER(treecode)) + 1
+			FROM
+				OA_EAPP_SAVEDOCUBOX
+			WHERE
+				corcode = #corcode#
+	]]>
+		</selectKey>
+	<![CDATA[
+		INSERT INTO
+			OA_EAPP_SAVEDOCUBOX (
+					corcode,
+					boxcode,
+					boxname,
+					treecode,
+					treeup,
+					childcnt,
+					created_by,
+					creation_date,
+					last_updated_by,
+					last_update_date )
+		VALUES (
+			#corcode#,
+			#boxcode#,
+			#boxname#,
+			#treecode#,
+			#treeup#,
+			#childcnt#,
+			#userid#,
+			SYSDATE,
+			#userid#,
+			SYSDATE)
+	]]>
+	</insert>
+	
+	<update id="app.saveDocuNameModify" parameterClass="AppSaveDocuTree">
+	<![CDATA[
+		UPDATE
+			O0_COM_PROPERTY
+		SET
+			value = #boxname#
+		WHERE
+			name = (SELECT boxname FROM OA_EAPP_SAVEDOCUBOX WHERE treecode = #treecode# AND corcode = #corcode#)
+			AND lang = #lang#
+	]]>
+	</update>
+
+	<update id="app.saveDocuModify" parameterClass="AppSaveDocuTree">
+		<![CDATA[
+		UPDATE
+			OA_EAPP_SAVEDOCUBOX
+		SET
+			childcnt = #childcnt#
+		WHERE
+			treecode = #treecode#
+			AND corcode = #corcode#
+	]]>
+	</update>
+	
+	<select id="app.getSaveDocu" parameterClass="String" resultClass="String">
+		SELECT doccode
+	  	  FROM OA_EAPP_SAVEDOCU
+		 WHERE  doccode = #value#
+	</select>
+	
+	<select id="app.getBoxcode" parameterClass="AppSaveDocuTree" resultClass="String">
+		/*BOXCODE MAX값 조회*/
+	<![CDATA[   		
+   		SELECT boxcode
+  		  FROM (SELECT rownum as rnum             
+             , OES.boxcode as boxcode
+          FROM (SELECT TO_NUMBER(REPLACE(boxcode,'BOX','')) as boxorder
+                     , boxcode
+                     , corcode
+                     , treeup
+                  FROM OA_EAPP_SAVEDOCUBOX
+                 ORDER BY boxorder ASC)OES
+         WHERE CORCODE = #corcode#
+           AND TREEUP = #treeup#
+         ORDER BY rnum ASC)
+		 WHERE rnum = (SELECT MAX(rownum)
+		                 FROM OA_EAPP_SAVEDOCUBOX
+		                WHERE CORCODE = #corcode#
+		                  AND TREEUP = #treeup#)
+	]]>
+   	</select>
+   	
+   	<select id="app.treeUpdeletecheck" parameterClass="AppSaveDocuTree" resultClass="int">
+   		/*자식노드 유무를 판별하기위한 카운트*/
+	<![CDATA[
+		SELECT
+			COUNT(*)
+		FROM
+			OA_EAPP_SAVEDOCUBOX
+		WHERE	treeup = #treecode#
+		  AND corcode = #corcode#
+	]]>
+	</select>
+
+	<delete id="app.propertydelete" parameterClass="AppSaveDocuTree">
+		/*프로퍼티 삭제*/
+	<![CDATA[
+		DELETE 
+		  FROM O0_COM_PROPERTY
+		 WHERE name = (SELECT boxname
+		                 FROM OA_EAPP_SAVEDOCUBOX
+		                WHERE treecode = #treecode#
+				  		  AND corcode  = #corcode#)
+	]]>
+	</delete>
+
+	<delete id="app.docuboxdelete" parameterClass="AppSaveDocuTree">
+		/*기록물철 트리박스코드 삭제*/
+	<![CDATA[
+		DELETE FROM
+			OA_EAPP_SAVEDOCUBOX
+		WHERE
+			treecode = #treecode#
+			AND corcode = #corcode#
+	]]>
+	</delete>
+
+
+	<insert id="app.insertSaveDoc" parameterClass="AppDocuInfo">
+		INSERT INTO  OA_EAPP_SAVEDOCU
+			(corcode,	boxcode, 		doccode, 		formcode, 	title,
+			userid, 	regdate, 		attfilenum		)
+		VALUES
+			(#corcode#, #boxcode#, 		#docuno#, 		#formCode#, 	#title#,
+			#userid#, 	to_date(#regdate#, 'YYYY-MM-DD HH24:MI:SS'), 		#attfilenum#	)
+	</insert>
+
+	<select id="app.getsavelinecount" parameterClass="AppDocuInfo" resultClass="string">
+	<![CDATA[
+		SELECT linecode "linecode"
+  		FROM OA_EAPP_SAVELINE s,
+         O0_USER_DEPT d,
+         O0_COM_PROPERTY dp,
+         O0_COM_CODE gc,
+         O0_COM_PROPERTY gp
+  		WHERE registerid = #registerid#
+         AND s.DEPTCODE = d.DEPTCODE
+         AND d.DEPTNAME = DP.NAME
+         AND dp.LANG = #lang#
+         AND s.GRADECODE = gc.CODE_ID
+         AND gc.CODE_NM = GP.NAME
+         AND gp.LANG = #lang#
+  		GROUP BY linecode
+  		ORDER BY linecode
+	]]>
+	</select>
+
+	<select id="app.getsaveline" parameterClass="AppDocuInfo" resultClass="hashmap">
+	<![CDATA[
+SELECT linecode "linecode",
+s.userid "userid",
+username "name",
+s.deptcode "deptcode",
+dp.VALUE "deptname",
+s.gradecode "gradecode",
+GP.VALUE "gradename",
+linename "linename",
+tg.value "signkind",
+s.appspec "signkindVal",
+apppos "apppos",
+modifyauth "modifyauth",
+apppara "apppara"
+FROM OA_EAPP_SAVELINE s
+inner join O0_USER_mast m
+on s.USERID=m.USERID
+inner join O0_USER_DEPT d
+on m.CORCODE = d.corcode AND s.DEPTCODE = d.DEPTCODE
+inner join O0_COM_PROPERTY dp
+on d.DEPTNAME = DP.NAME AND dp.LANG = #lang#
+inner join O0_COM_CODE gc
+on s.GRADECODE = gc.CODE_ID
+inner join O0_COM_PROPERTY gp
+on gc.CODE_NM = GP.NAME AND gp.LANG = #lang#
+INNER JOIN OA_EAPP_GUBUN tg
+on s.APPSPEC =tg.APPSPEC AND tg.LANG=#lang#
+where s.linecode = #linecode# AND s.registerid = #registerid#
+ORDER BY linecode, apppos
+	]]>
+	</select>
+
+	<select id="app.getsavedeptcount" parameterClass="AppDocuInfo" resultClass="string">
+	<![CDATA[
+		SELECT linecode "linecode"
+  		FROM OA_EAPP_SAVEDEPT
+ 		WHERE register = #registerid#
+ 		GROUP BY linecode
+ 		ORDER BY linecode
+ 	]]>
+	</select>
+
+	<select id="app.getsavedept" parameterClass="AppDocuInfo" resultClass="hashmap">
+	<![CDATA[
+		SELECT linecode "linecode", deptcode "deptcode", corcode "corcode", deptname "deptname"
+  		FROM OA_EAPP_SAVEDEPT
+ 		WHERE linecode = #linecode# AND register = #registerid#
+ 		ORDER BY linecode
+ 	]]>
+	</select>
+
+	<select id="app.getsavecircucount" parameterClass="AppDocuInfo" resultClass="string">
+	<![CDATA[
+		SELECT linecode "linecode"
+  		FROM OA_EAPP_SAVECIRCU
+ 		WHERE registerid = #registerid#
+ 		GROUP BY linecode
+ 		ORDER BY linecode
+ 	]]>
+	</select>
+
+	<select id="app.getsavecircu" parameterClass="AppDocuInfo" resultClass="hashmap">
+	<![CDATA[
+		SELECT linecode "linecode", userid "userid", username "username", deptcode "deptcode", gradecode "gradecode"
+  		FROM OA_EAPP_SAVECIRCU
+ 		WHERE linecode = #linecode# AND registerid = #registerid#
+ 		ORDER BY linecode
+ 	]]>
+	</select>
+
+	<delete id="app.deletesaveline" parameterClass="AppDocuInfo">
+	<![CDATA[
+		DELETE FROM OA_EAPP_SAVELINE WHERE linecode = #linecode# AND registerid = #registerid#
+	]]>
+	</delete>
+
+	<delete id="app.deletesavedept" parameterClass="AppDocuInfo">
+	<![CDATA[
+		DELETE FROM OA_EAPP_SAVEDEPT WHERE linecode = #linecode# AND register = #registerid#
+	]]>
+	</delete>
+
+	<delete id="app.deletesavecircu" parameterClass="AppDocuInfo">
+	<![CDATA[
+		DELETE FROM OA_EAPP_SAVECIRCU WHERE linecode = #linecode# AND registerid = #registerid#
+	]]>
+	</delete>
+
+	<!--<insert id="app.boxadd" parameterClass="AppSaveDocuTree">
+		<selectKey type="pre" resultClass="int" keyProperty="boxcount">
+		<![CDATA[
+			SELECT count(*) FROM OA_EAPP_DOCUBOX WHERE treeup = #treeup#
+		]]>
+		</selectKey>
+	<![CDATA[
+		INSERT INTO OA_EAPP_DOCUBOX
+		VALUES (#corcode#,
+				#treeup# || (#boxcount# + 1),
+				#userid#,
+				#boxname#,
+				#treeup# || (#boxcount# + 1),
+				#treeup#,
+				#childcnt#)
+	]]>
+	</insert>-->
+	<!-- 기본키문제 수정(기존 selectkey를 이용해 생성하던 boxcode를 java단에서 생성하도록 수정-->
+	<insert id="app.boxadd" parameterClass="AppSaveDocuTree">
+		<selectKey type="post" resultClass="int">
+			<![CDATA[
+			  SELECT count(1) FROM OA_EAPP_DOCUBOX WHERE userid=#userid# and boxcode=#boxcode#
+			]]>
+		</selectKey>
+		<![CDATA[
+			INSERT INTO OA_EAPP_DOCUBOX (corcode, boxcode, userid, boxname, treecode, treeup, childcnt)
+			VALUES (#corcode#,
+					#boxcode#,
+					#userid#,
+					#boxname#,
+					#treecode#,
+					#treeup#,
+					#childcnt#)
+  		]]>
+	</insert>
+
+	<update id="app.boxmodify" parameterClass="AppSaveDocuTree">
+	<![CDATA[
+		UPDATE
+			OA_EAPP_DOCUBOX
+		SET
+	]]>
+		<isNotEmpty property="boxname">
+	<![CDATA[
+			boxname = #boxname#
+	]]>
+		</isNotEmpty>
+		<isEmpty property="boxname">
+	<![CDATA[
+			childcnt = #childcnt#
+	]]>
+		</isEmpty>
+		<![CDATA[
+		WHERE
+			treecode = #treecode#
+			AND corcode = #corcode#
+	]]>
+	</update>
+
+	<delete id="app.boxdelete" parameterClass="AppSaveDocuTree">
+	<![CDATA[
+		DELETE FROM
+			OA_EAPP_DOCUBOX
+		WHERE
+			treecode = #treecode#
+			AND corcode = #corcode#
+	]]>
+	</delete>
+
+	<!--  OA_EAPP_DOCUMODIFY  ****************************************************** -->
+	<insert id="app.insertModifytDocu" parameterClass="AppModifyCommand">
+		INSERT INTO  OA_EAPP_DOCUMODIFY
+			(corcode,	docuno,		rev, 	userid,		modifydate,		memo)
+		VALUES
+			(#corcode#,	#docuno#,	#rev#, 	#userid#,	sysdate,	#memo#)
+	</insert>
+
+	<select id="app.getRevNo" resultClass="String" parameterClass="AppModifyCommand">
+		select COUNT(rev)+1
+		from OA_EAPP_DOCUMODIFY
+		where docuno=#docuno#
+	</select>
+
+	<select id="app.getModifyInfo" resultClass="hashmap" parameterClass="AppModifyCommand"><![CDATA[
+		SELECT "docuno", "rev", "userid", "username", "modifydate", "memo"
+		FROM
+		(
+				SELECT docuno "docuno", '0' "rev", mas.USERID "userid", U.NAME "username", TO_CHAR(mas.REGDATE, 'YYYY-MM-DD HH24:MI') "modifydate", '' "memo"
+				FROM OA_EAPP_DOCUMAS mas, O0_USER_MAST u
+				WHERE docuno=#docuno# AND mas.USERID=u.USERID
+			UNION ALL
+				SELECT docuno "docuno", rev "rev", m.userid "userid", u.name "username", TO_CHAR(modifydate, 'YYYY-MM-DD HH24:MI') "modifydate", memo "memo"
+				FROM OA_EAPP_DOCUMODIFY m, O0_USER_MAST u
+				WHERE docuno=#docuno#		and  m.USERID=u.USERID
+		)
+		order by "rev"
+	]]></select>
+
+
+
+	<!--  OA_EAPP_ABSENCE  ****************************************************** -->
+	<select id="app.getAgentList" resultClass="hashmap" parameterClass="AppDocList"><![CDATA[
+		SELECT a.userid "userid", u.name "name"
+		FROM OA_EAPP_ABSENCE a , O0_USER_MAST u
+		WHERE agentId=#userid#
+		AND  sysdate between sdate and edate
+		AND aflag ='y'
+		 AND a.userid=u.userid
+	]]></select>
+
+	<select id="app.isNowAbsence" resultClass="int" parameterClass="AppDocList">
+		SELECT  count(1)
+		FROM OA_EAPP_ABSENCE
+		WHERE  userid=#userid# and aflag='y'
+		AND sysdate between sdate and edate
+	</select>
+
+
+	<select id="app.abslistcount" parameterClass="com.pns.gw.app.command.AppAbsCommand" resultClass="int">
+	<![CDATA[
+		SELECT 	count(1)
+		FROM	OA_EAPP_ABSENCE
+		WHERE	userid = #userid#
+	]]>
+	</select>
+
+	<select id="app.abslist" parameterClass="com.pns.gw.app.command.AppAbsCommand" resultClass="hashmap">
+	<![CDATA[
+		SELECT
+			*
+		FROM
+			(SELECT
+				rownum-1 num,
+				abscode "abscode",
+				userid "userid",
+				TO_CHAR(sdate, 'YYYY-MM-dd') "sdate",
+				TO_CHAR(sdate, 'HH24:MI') "stime",
+                TO_CHAR(edate, 'YYYY-MM-dd') "edate",
+                TO_CHAR(edate, 'HH24:MI') "etime",
+				location "location",
+				phone "phone",
+				content "content",
+				aflag "aflag",
+				agentid "agentid",
+				agentname "agentname",
+				agentdept "agentdept",
+				agentdeptname "agentdeptname",
+				abstype "abstype",
+				(SELECT absname FROM OA_EAPP_ABSENCE_TYPE eat WHERE eat.abscode = abstype) "absname",
+				check_eapp "check_eapp",
+				 (SELECT title FROM OA_EAPP_DOCUMAS m WHERE m.DOCUNO=check_eapp) "title"
+			FROM
+				OA_EAPP_ABSENCE
+			WHERE
+				userid = #userid#
+			ORDER BY abscode ASC)
+		WHERE num BETWEEN #start# AND #start#+#limit#-1
+	]]>
+	</select>
+
+
+	<select id="app.getAbsData" parameterClass="com.pns.gw.app.command.AppAbsCommand" resultClass="hashmap">
+	<![CDATA[
+		SELECT
+			abscode "abscode",
+			a.userid "userid",
+            u.NAME "name",
+            (SELECT value FROM O0_COM_PROPERTY WHERE d.deptname = name AND lang = #lang#) "deptname",
+            (SELECT value FROM O0_COM_PROPERTY WHERE cc.code_nm = name AND lang = #lang#) "gradename",
+			TO_CHAR(sdate, 'YYYY-MM-dd') "sdate",
+			TO_CHAR(sdate, 'HH24:MI') "stime",
+            TO_CHAR(edate, 'YYYY-MM-dd') "edate",
+            TO_CHAR(edate, 'HH24:MI') "etime",
+			location "location",
+			phone "phone",
+			content "content",
+			aflag "aflag",
+			agentid "agentid",
+			agentname "agentname",
+			agentdept "agentdept",
+			agentdeptname "agentdeptname",
+			abstype "abstype",
+			(SELECT absname FROM OA_EAPP_ABSENCE_TYPE eat WHERE eat.abscode = abstype) "absname",
+			check_eapp "check_eapp"
+		FROM
+			OA_EAPP_ABSENCE a, O0_USER_MAST u,
+            O0_USER_DEPT d,
+            O0_USER_GRADE g, O0_COM_CODE cc
+		WHERE a.userid =#userid# AND a.USERID=u.USERID
+		AND	abscode=#abscode#
+        AND u.DEPTCODE=d.DEPTCODE
+        AND u.GRADECODE = g.GRADECODE AND g.gradecode = cc.code_id
+	]]>
+	</select>
+
+	<select id="app.getABSUserInfo" parameterClass="AppDocuInfo" resultClass="hashmap">
+	<![CDATA[
+		SELECT m.NEXTAPP "userid",
+			U.NAME "name",
+			u.DEPTCODE "deptcode",
+ 			(SELECT value FROM O0_COM_PROPERTY WHERE d.deptname = name AND lang = #lang#) "deptname",
+ 			u.GRADECODE "gradecode",
+  			(SELECT value FROM O0_COM_PROPERTY WHERE cc.code_nm = name AND lang = #lang#) "gradename"
+		FROM OA_EAPP_DOCUMAS m, O0_USER_MAST u, O0_USER_DEPT d,
+			O0_USER_GRADE g, O0_COM_CODE cc
+		WHERE m.DOCUNO=#docuno#
+			AND m.NEXTAPP IN (SELECT USERID FROM OA_EAPP_ABSENCE WHERE  AGENTID = #userid# AND AFLAG = 'y' AND sysdate between sdate and edate)
+			AND m.NEXTAPP = u.USERID
+			AND u.DEPTCODE=d.DEPTCODE
+			AND u.GRADECODE = g.GRADECODE AND g.gradecode = cc.code_id
+	]]>
+	</select>
+
+	<select id="app.abstypelist" resultClass="hashmap">
+	<![CDATA[
+		SELECT
+			abscode "abscode",
+			absname "absname"
+		FROM
+			OA_EAPP_ABSENCE_TYPE
+	]]>
+	</select>
+
+	<insert id="app.absadd" parameterClass="com.pns.gw.app.command.AppAbsCommand">
+		<selectKey type="pre" resultClass="int" keyProperty="count">
+	<![CDATA[
+			SELECT NVL(MAX(TO_NUMBER(abscode)),0)+1 FROM OA_EAPP_ABSENCE
+	]]>
+		</selectKey>
+	<![CDATA[
+		INSERT INTO OA_EAPP_ABSENCE (
+				abscode,
+				userid,
+				sdate,
+				edate,
+				location,
+				phone,
+				content,
+				agentid,
+				agentname,
+				agentdept,
+				agentdeptname,
+				abstype)
+		VALUES (#count#,
+				#userid#,
+				TO_DATE(#sdate#, 'YYYY-MM-DD HH24:MI'),
+				TO_DATE(#edate#, 'YYYY-MM-DD HH24:MI'),
+				#location#,
+				#phone#,
+				#content#,
+				#agentid#,
+				#agentname#,
+				#agentdept#,
+				#agentdeptname#,
+				#abstype#)
+	]]>
+	</insert>
+
+	<update id="app.absmodify" parameterClass="com.pns.gw.app.command.AppAbsCommand">
+	<![CDATA[
+		UPDATE
+			OA_EAPP_ABSENCE
+		SET
+			sdate = TO_DATE(#sdate#, 'YYYY-MM-DD HH24:MI'),
+			edate = TO_DATE(#edate#, 'YYYY-MM-DD HH24:MI'),
+			location = #location#,
+			phone = #phone#,
+			content = #content#,
+			agentid = #agentid#,
+			agentname = #agentname#,
+			agentdept = #agentdept#,
+			agentdeptname = #agentdeptname#,
+			abstype = #abstype#
+		WHERE
+			abscode = #abscode#
+			AND userid = #userid#
+	]]>
+	</update>
+
+	<update id="app.abschange" parameterClass="com.pns.gw.app.command.AppAbsCommand">
+	<![CDATA[
+		UPDATE
+			OA_EAPP_ABSENCE
+		SET
+	]]>
+		<isNotEmpty property="aflag">
+	<![CDATA[
+			aflag = #aflag#
+	]]>
+		</isNotEmpty>
+		<isEmpty property="aflag">
+	<![CDATA[
+			agentid = #agentid#,
+			agentname = #agentname#,
+			agentdept = #agentdept#,
+			agentdeptname = #agentdeptname#
+	]]>
+		</isEmpty>
+	<![CDATA[
+		WHERE
+			abscode = #abscode#
+			AND userid = #userid#
+	]]>
+	</update>
+	<update id="app.updateEAppCode" parameterClass="com.pns.gw.app.command.AppAbsCommand">
+		UPDATE		OA_EAPP_ABSENCE
+		SET		check_eapp=#check_eapp#
+		WHERE
+			abscode = #abscode#
+			AND userid = #userid#
+	</update>
+
+	<delete id="app.absdelete" parameterClass="com.pns.gw.app.command.AppAbsCommand">
+	<![CDATA[
+		DELETE FROM
+			OA_EAPP_ABSENCE
+		WHERE
+			abscode = #abscode#
+			AND userid = #userid#
+	]]>
+	</delete>
+
+	<select	id="app.precheckpassword" parameterClass="com.pns.gw.global.Command" resultClass="String">
+	<![CDATA[
+		SELECT
+				addcol
+		FROM
+				O0_USER_MAST
+		WHERE
+				corcode =#corcode#
+		AND 	userid= #userid#
+	]]>
+	</select>
+
+	<update id="app.passwordchange" parameterClass="com.pns.gw.global.Command">
+	<![CDATA[
+		UPDATE
+			O0_USER_MAST
+		SET
+			addcol = #passwd2#
+		WHERE
+			corcode = #corcode#
+			AND userid = #userid#
+	]]>
+		<isNull property="addcol">
+			<![CDATA[
+				AND (SELECT passwd FROM O0_USER_MAST WHERE corcode=#corcode# AND userid=#userid#) = #passwd#
+			]]>
+		</isNull>
+		<isNotNull property="addcol">
+			<![CDATA[
+				AND addcol = #passwd#
+			]]>
+		</isNotNull>
+	</update>
+
+	<select id="app.displaystatus" parameterClass="com.pns.gw.global.Command" resultClass="string">
+	<![CDATA[
+		SELECT display_p "display" FROM OA_EAPP_ADMINSETTING WHERE corcode = #corcode#
+	]]>
+	</select>
+
+	<select id="app.displaystatus_agaj" parameterClass="com.pns.gw.global.Command" resultClass="string">
+	<![CDATA[
+		SELECT display_ag_aj "display" FROM OA_EAPP_ADMINSETTING WHERE corcode = #corcode#
+	]]>
+	</select>
+
+	<update id="app.displaystatuschange" parameterClass="com.pns.gw.global.Command">
+	<![CDATA[
+		UPDATE OA_EAPP_ADMINSETTING SET display_p = #value# WHERE corcode = #corcode#
+	]]>
+	</update>
+
+	<update id="app.displaystatuschange_docubox" parameterClass="com.pns.gw.global.Command">
+	<![CDATA[
+		UPDATE OA_EAPP_ADMINSETTING SET display_ag_aj = #value# WHERE corcode = #corcode#
+	]]>
+	</update>
+
+
+	<select id="app.editorlist" resultClass="hashmap">
+	<![CDATA[
+		SELECT obj_type "type", obj_nm "name" FROM O0_COM_OBJ WHERE obj_cl = 1
+	]]>
+	</select>
+
+	<select id="app.selectededitor" parameterClass="string" resultClass="int">
+	<![CDATA[
+		SELECT
+			(SELECT obj_type FROM O0_COM_OBJ WHERE obj_type = editor_type)
+		FROM
+			OA_EAPP_ADMINSETTING
+		WHERE
+			corcode = #corcode#
+	]]>
+	</select>
+
+	<update id="app.editorchange" parameterClass="com.pns.gw.global.Command">
+	<![CDATA[
+		UPDATE OA_EAPP_ADMINSETTING SET editor_type = #value# WHERE corcode = #corcode#
+	]]>
+	</update>
+
+	<select id="app.signlist" parameterClass="com.pns.gw.global.Command" resultClass="hashmap">
+	<![CDATA[
+		SELECT
+			signcode "signcode",
+			signname "signname",
+			signfilename "filename"
+		FROM
+			OA_EAPP_COMSIGN
+		WHERE
+			corcode = #corcode#
+	]]>
+	</select>
+
+	<insert id="app.signupload" parameterClass="com.pns.gw.app.command.AppImageCommand">
+		<![CDATA[
+		INSERT INTO
+			OA_EAPP_COMSIGN
+			(corcode,
+			signcode,
+			signname,
+			signfilename)
+		VALUES
+			(#corcode#,
+			#signcode#,
+			#signname#,
+			#filename#)
+	]]>
+		<selectKey type="post" resultClass="int">
+			<![CDATA[
+			SELECT COUNT(*) FROM OA_EAPP_COMSIGN WHERE signcode = #signcode#
+	]]>
+		</selectKey>
+	</insert>
+
+	<delete id="app.signdelete" parameterClass="com.pns.gw.app.command.AppImageCommand">
+	<![CDATA[
+		DELETE FROM
+			OA_EAPP_COMSIGN
+		WHERE
+			corcode = #corcode#
+			AND signcode = #signcode#
+	]]>
+	</delete>
+
+	<select id="app.deptmanagerlist" parameterClass="com.pns.gw.global.Command" resultClass="hashmap">
+	<![CDATA[
+		SELECT
+			um.userid "userid",
+			um.name "name",
+			um.deptcode "deptcode",
+			um.gradecode "gradecode",
+			um.mobphone "mobphone",
+			um.corphone "corphone",
+			um.email "email",
+			(SELECT value FROM O0_COM_PROPERTY WHERE ud.deptname = name AND lang = #lang#) "deptname",
+			(SELECT value FROM O0_COM_PROPERTY WHERE cc.code_nm = name AND lang = #lang#) "gradename",
+			CASE
+				WHEN (SELECT COUNT(*) FROM OA_EAPP_DEPTDOCMANAGER ed WHERE ed.userid = um.userid) != '0' THEN 1
+				ELSE 0
+			END "manager"
+		FROM
+			O0_USER_MAST um,
+			O0_USER_DEPT ud,
+			O0_USER_GRADE ug,
+			O0_COM_CODE cc,
+			O0_CORPORATION c
+		WHERE
+			um.gradecode = ug.gradecode
+			AND um.deptcode = ud.deptcode
+			AND ug.gradecode = cc.code_id
+			AND um.corcode = ud.corcode
+			AND ud.corcode = ug.corcode
+			AND um.corcode = c.corcode
+			AND um.corcode = #corcode#
+			AND um.deptcode = #deptcode#
+	]]>
+	</select>
+
+	<update id="app.adddeptmanager" parameterClass="com.pns.gw.global.Command">
+	<![CDATA[
+INSERT INTO
+      OA_EAPP_DEPTDOCMANAGER
+        (corcode,
+        userid,
+        deptcode)
+select #corcode#,
+        #userid#,deptcode
+FROM O0_USER_MAST WHERE userid = #userid#
+	]]>
+	</update>
+
+	<delete id="app.deldeptmanager" parameterClass="com.pns.gw.global.Command">
+	<![CDATA[
+		DELETE FROM
+			OA_EAPP_DEPTDOCMANAGER
+		WHERE
+
+	]]>
+		<iterate property="useridarray" conjunction="OR">
+	<![CDATA[
+			userid = #useridarray[]#
+	]]>
+		</iterate>
+	</delete>
+
+	<select id="app.vaclist" parameterClass="com.pns.gw.global.Command" resultClass="hashmap">
+	<![CDATA[
+		SELECT
+			abscode "abscode",
+			absname "absname",
+			userid "userid",
+			TO_CHAR(regdate, 'YYYY-MM-dd HH24:MI') "regdate",
+			TO_CHAR(deldate, 'YYYY-MM-dd HH24:MI') "deldate",
+			use "use"
+		FROM
+			OA_EAPP_ABSENCE_TYPE
+		ORDER BY regdate ASC
+	]]>
+	</select>
+
+	<update id="app.addvac" parameterClass="com.pns.gw.app.command.AppAbsCommand">
+	<![CDATA[
+INSERT INTO OA_EAPP_ABSENCE_TYPE (abscode, absname, regdate, use, userid) 
+SELECT 
+nvl(MAX(abscode),0)+1 , #absname#, sysdate, 'y', #userid#
+FROM OA_EAPP_ABSENCE_TYPE
+	]]>
+	</update>
+
+	<update id="app.changevacuse" parameterClass="com.pns.gw.app.command.AppAbsCommand">
+	<![CDATA[
+		UPDATE OA_EAPP_ABSENCE_TYPE SET use = #aflag# WHERE abscode = #abscode#
+	]]>
+	</update>
+
+	<select id="app.deletevaccheck" parameterClass="com.pns.gw.app.command.AppAbsCommand" resultClass="int">
+	<![CDATA[
+		SELECT COUNT(*) FROM OA_EAPP_ABSENCE WHERE abstype = #abscode#
+	]]>
+	</select>
+
+	<update id="app.deletevac" parameterClass="com.pns.gw.app.command.AppAbsCommand">
+	<![CDATA[
+		UPDATE
+			OA_EAPP_ABSENCE_TYPE
+		SET
+			use = 'n',
+			deldate = sysdate
+		WHERE
+			abscode = #abscode#
+	]]>
+	</update>
+	
+	<!-- 양식명으로 코드와 폼명찾기  -->
+  <select id="app.getFindFormInfoByFormname" parameterClass="AppDocuInfo" resultClass="AppDocuInfo"><![CDATA[
+    select 
+	formCode ,fileName
+	from OA_EAPP_FORM
+	where formname = #formname# and corcode=#corcode#
+  ]]></select>
+
+<!--
+  	-deptcode
+-choicedeptname
+  	 -->
+  	<select id="app.getFindFormInfoByFormcode" parameterClass="com.pns.gw.app.command.FormCommand" resultClass="com.pns.gw.app.command.FormCommand"><![CDATA[
+    select classcode,formname,preserve,description,reception
+	,formcode,getdata,modify_yn
+	from OA_EAPP_FORM
+	where corcode=#corcode# and formCode=#formcode#
+  	]]></select>
+  	
+  	<!-- 해당폼코드로 등록된데이타 건수, 삭제시 삭제 못하게 하려고 사용 -->
+	<select id="app.documasCountByFormcode" parameterClass="com.pns.gw.app.command.FormCommand" resultClass="int">
+	    select COUNT(*) from OA_EAPP_DOCUMAS
+		where FORMCORCODE=#corcode# and FORMCODE=#formcode#
+	</select>
+
+	<select id="app.getHasLineCount" parameterClass="AppDocuInfo" resultClass="int">
+		SELECT COUNT(*) FROM OA_EAPP_APP WHERE DOCUNO=#docuno#
+	</select>
+
+	<select id="app.getLineUserInfo" parameterClass="AppDocuInfo" resultClass="hashmap">
+		SELECT  corcode "corcode",
+		 		userid "userid",
+		  		deptcode "deptcode",
+		   		gradecode "gradecode"
+		   FROM O0_USER_MAST WHERE USERID=#userid#
+	</select>
+
+	<select id="app.getWeekData" parameterClass="hashmap" resultClass="hashmap">
+		<![CDATA[
+			SELECT 	userid "userid",
+					TO_CHAR(registdate,  'YYYY-MM-DD') "registdate",
+					destination "destination",
+					personaldist "personaldist",
+					workdist "workdist",
+					sumdist "sumdist",
+					totalsumdist "totalsumdist"
+			  FROM OW_DAYLY_CONTENTS
+			 WHERE CORCODE = #corcode#
+			   AND USERID = #userid#
+			   AND REGISTDATE >= to_date(#weekdate#, 'yyyy-mm-dd')
+			   AND REGISTDATE < to_date(#weekdate#, 'yyyy-mm-dd')+7
+			ORDER BY REGISTDATE
+   	  	]]>
+	</select>
+
+	<select id="app.getAppInfo" parameterClass="String" resultClass="hashmap">
+		<![CDATA[
+			SELECT 	t1.USERID "userid",
+				    t2.NAME "name",
+				    appstatus "appstatus",
+				    appday "appday",
+				    apppos "apppos"
+			FROM
+					OA_EAPP_APP t1
+			INNER JOIN O0_USER_MAST t2 ON t1.USERID =t2.USERID
+			WHERE DOCUNO=#docuno#
+			ORDER BY APPPOS
+  		]]>
+	</select>
+
+	<select id="app.nextAppCount" parameterClass="AppDocuInfo" resultClass="int">
+		<![CDATA[
+			SELECT 	COUNT(*)
+			FROM 	OA_EAPP_APP
+			WHERE 	DOCUNO=#docuno#
+			AND 	APPPOS > (SELECT apppos
+								FROM OA_EAPP_APP
+							   WHERE DOCUNO=#docuno#
+								 AND USERID=#userid# )
+		]]>
+	</select>
+
+	<select id="app.getCircularUserId" parameterClass="AppLineInfo" resultClass="hashmap"><![CDATA[
+    SELECT userid "userid"
+    FROM OA_EAPP_APP
+    WHERE docuno = #docuno#
+      AND apppos <= (#apppos#+1)
+      AND userid != #userid#
+  	]]></select>
+
+	<select id="app.getUserContact" parameterClass="String" resultClass="hashmap">
+		SELECT  NVL(email,' ') "email",
+                NVL(corphone,' ') "corphone",
+                NVL(fax,' ') "fax",
+                userid      "drafterid",
+                name         "draftername",
+                TO_CHAR(sysdate, 'yyyy-mm-dd') "draftdate",
+                (SELECT value FROM O0_COM_PROPERTY WHERE (SELECT code_nm FROM O0_COM_CODE WHERE um.gradecode = code_id) = name AND lang = 'ko') "draftergrade",
+                (SELECT value FROM O0_COM_PROPERTY WHERE name=(select deptname from O0_USER_DEPT where CORCODE=um.corcode and DEPTCODE=um.deptcode) AND lang='ko') "drafterdept"
+        FROM    O0_USER_MAST um
+        WHERE    USERID=#userid#
+	</select>
+
+	<select id="app.getDocuReceiveList" parameterClass="AppDocuInfo" resultClass="String">
+		/*리시버 rcvtest */
+		SELECT (SELECT VALUE
+                  FROM O0_COM_PROPERTY
+                 WHERE name = (SELECT deptname FROM O0_USER_DEPT WHERE deptcode = ed.deptcode)
+                   AND lang =  #lang#) "deptlist"
+          FROM OA_EAPP_DEPTDOCU ed
+         WHERE docuno = #docuno# AND ed.deptcode != (SELECT deptcode from O0_USER_MAST WHERE userid=#userid#)
+	</select>
+
+	<select id="app.getFormReceiveList" parameterClass="AppDocuInfo" resultClass="String">
+		/*양식 수신부서 */
+		SELECT (SELECT VALUE
+                  FROM O0_COM_PROPERTY
+                 WHERE name = (SELECT deptname FROM O0_USER_DEPT WHERE deptcode = er.deptcode)
+                   AND lang = #lang#) "deptlist"
+          FROM OA_EAPP_RECEIVEDEPT er
+         WHERE corcode=#corcode# AND  formcode=#formCode#
+	</select>
+
+	<select id="app.enforceCheck" parameterClass="hashmap" resultClass="int">
+		SELECT COUNT(*)
+		  FROM OA_EAPP_ENFORCE
+		 WHERE docuno=#docuno#
+		   AND userid=#userid#
+	</select>
+
+	<insert id="app.enforceInsert" parameterClass="hashmap">
+		<selectKey resultClass="int" type="post">
+			SELECT COUNT(*) FROM OA_EAPP_ENFORCE WHERE userid=#userid# AND docuno=#docuno#
+		</selectKey>
+		INSERT INTO OA_EAPP_ENFORCE(USERID,DOCUNO,SIGNFILENAME,CHANGEDATE)
+					values(#userid#, #docuno#, #signfilename#, sysdate)
+	</insert>
+
+	<update id="app.appPasswdReset" parameterClass="String">
+
+		UPDATE O0_USER_MAST
+		        SET addcol=passwd
+		WHERE userid=#value#
+	</update>
+
+	<!-- ************************************	-->
+	<!-- ************************************	-->
+	<!-- ************************************	-->
+	<!--		도면결재 관련 		-->
+	<!-- ************************************	-->
+	<!-- ************************************	-->
+	<!-- ************************************	-->
+	<select id="app.drgList"  resultClass="hashmap"><![CDATA[
+			SELECT
+				dwg_code "dwg_code",
+					lcd "lcd",
+					title "title",
+					url "url",
+					register "register",
+					remark1 "remark1",
+					remark2 "remark2",
+					remark3 "remark3"
+			 FROM OA_EAPP_DRAW
+	]]></select>
+
+	<insert id="app.drawLink" parameterClass="AppDocuInfo">
+		INSERT INTO  OA_EAPP_SAVEDRAWLINK
+        	(docuno,	dwg_code, 	lcd, 	title, 	url)
+			SELECT  #docuno#, dwg_code, lcd, title, url FROM OA_EAPP_DRAW WHERE dwg_code =#dwg_code#
+	</insert>
+
+
+	<select id="app.getDrawDoc" parameterClass="String" resultClass="hashmap"><![CDATA[
+			SELECT
+				docuno "docuno",
+					dwg_code "dwg_code",
+					lcd "lcd",
+					title "title",
+					url "url"
+			 FROM OA_EAPP_SAVEDRAWLINK
+			 WHERE docuno=#docuno#
+	]]></select>
+
+	<select id="app.getDeptPathInfo" parameterClass="SimpleDeptInfoCommand" resultClass="String"><![CDATA[
+		select path from O0_USER_DEPT
+		where CORCODE=#corcode# and DEPTCODE=#deptcode#
+  ]]></select>
+	
+	<select id="app.getFormInfo" parameterClass="AppDocuInfo" resultClass="AppDocuInfo"><![CDATA[
+		select fileName,formname from OA_EAPP_FORM
+		where CORCODE=#corcode# and FORMCODE=#formCode#
+  ]]></select>
+
+    <insert id="app.erpinsertAppInfo" parameterClass="hashmap">
+		INSERT INTO  OA_EAPP_APP
+			(docuno, userid, deptcode, gradecode, appspec, apppos, appstatus, appday, modifyauth, apppara )
+		VALUES
+			( #docuno#,  #userid#,  #deptcode#,  #gradecode#,  #appspec#,  #apppos#,  #appstatus#, #appday#, #modifyauth#,  #apppara#)
+	</insert>
+
+    <insert id="app.erpinsertAppInfosysdate" parameterClass="hashmap">
+		INSERT INTO  OA_EAPP_APP
+			(docuno, userid, deptcode, gradecode, appspec, apppos, appstatus, appday, modifyauth, apppara )
+		VALUES
+			( #docuno#,  #userid#,  #deptcode#,  #gradecode#,  #appspec#,  #apppos#,  #appstatus#, sysdate, #modifyauth#,  #apppara#)
+	</insert>
+
+    <insert id="app.erpEappPridocu" parameterClass="hashmap">
+		INSERT INTO  OA_EAPP_PRIDOCU
+			(docuno, boxcode, userid)
+		VALUES
+			( #docuno#,  #boxcode#,#userid#)
+	</insert>
+
+    <insert id="app.erpEappDeptdocu" parameterClass="hashmap">
+		INSERT INTO  OA_EAPP_DEPTDOCU
+			(corcode, docuno, boxcode, deptcode, scorcode, sdeptcode, recdocuno, suserid, recdate, status, draftno )
+		VALUES
+			(#corcode#, #docuno#, #boxcode#, #deptcode#, #scorcode#, #sdeptcode#, #recdocuno#, #suserid#, #recdate#, #status#, #draftno# )
+	</insert>
+	
+	<insert id="app.erpEappDeptdocu1" parameterClass="hashmap">
+		INSERT INTO  OA_EAPP_DEPTDOCU
+			(corcode, docuno, boxcode, deptcode, scorcode, sdeptcode, recdocuno, suserid, recdate, status, draftno )
+		VALUES
+			(#corcode#, #docuno#, #boxcode#, #deptcode#, #scorcode#, #sdeptcode#, #recdocuno#, #suserid#, #recdate#, #status#, #draftno# )
+	</insert>
+
+    <insert id="app.insertErpAttachFile" parameterClass="hashmap">
+		INSERT INTO  OA_EAPP_ATTACHFILE
+        	(corcode, docuno, filecode, filesize, orifilename,newfilename)
+        VALUES
+			(#corcode#, #docuno#,#filecode#, #filesize#, #orifilename#,	#newfilename#)
+	</insert>
+
+    <insert id="app.erpSignDataInsert" parameterClass="hashmap">
+        <selectKey resultClass="int" type="post"><![CDATA[
+			SELECT COUNT(*) FROM ERP_DAERYUK_DATA WHERE docuno=#docuno#
+		]]></selectKey>
+        INSERT INTO ERP_DAERYUK_DATA
+        (erp_data_id, docuno, userid, datatype, appcnt,sdte, edte, sabun, hangmok_code,reg_date, halfday_1, halfday_2,seq,company)
+        VALUES
+        (ERP_DATA_ID_SEQ.NEXTVAL, #docuno#, #userid#, #datatype#, #appcnt#, #sdte#, #edte#, #sabun#, #hangmok_code#,sysdate ,#halfday_1#,#halfday_2#,#seq#,#company#)
+    </insert>
+
+    <select id="app.sendfilemail" parameterClass="AppDocuInfo" resultClass="hashmap"><![CDATA[
+		SELECT corcode "corcode" , filecode "filecode", filesize "filesize", orifilename "orifilename", newfilename "newfilename"
+		FROM OA_EAPP_ATTACHFILE
+		WHERE docuno=#docuno#
+	]]></select>
+	
+	<select id="app.getOrgPass" resultClass="String" parameterClass="String">
+		SELECT orgpass
+		FROM OA_EAPP_DOCUMAS
+		where  docuno =  #docuno#
+	</select>
+	
+	<select id="app.getErpReceiveInfo" parameterClass="AppDocuInfo" resultClass="hashmap"><![CDATA[
+		SELECT corcode "corcode", deptcode "code", deptname "text"
+		FROM  OA_EAPP_RECEIVEDEPT
+		where formcode=#formCode#
+		and corcode=#corcode#
+		AND DOCUNO= '-'
+		]]></select>
+	
+
+</sqlMap>
