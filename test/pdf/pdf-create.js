@@ -1,13 +1,13 @@
 const puppeteer = require("puppeteer");
+const logger = require("../../logger");
 
-let sessionId = '358BBECDF53219F5A5C2571444E294FD';
-let docuno = '202302011511310502';
+let sessionId = "358BBECDF53219F5A5C2571444E294FD";
+let docuno = "202302011511310502";
 
 (async () => {
-
   const browser = await puppeteer.launch({
     headless: true,
-    args: ['--no-sandbox']
+    args: ["--no-sandbox"],
   });
   const page = await browser.newPage();
 
@@ -22,18 +22,16 @@ let docuno = '202302011511310502';
   await page.setCookie(...cookies);
 
   // Website URL to export as pdf
-  const website_url =
-    `http://gw.drcc.co.kr/office/app/appPreview.do?docuno=${docuno}&mode=read&opprint=false&attachprint=false`;
+  const website_url = `http://gw.drcc.co.kr/office/app/appPreview.do?docuno=${docuno}&mode=read&opprint=false&attachprint=false`;
 
   await page.goto(website_url, { waitUntil: "networkidle0" });
-
-  //   await page.emulateMediaType("screen");
 
   const pdf = await page.pdf({
     path: "result6.pdf",
     printBackground: false,
     format: "A3",
   });
+  logger.info("pdf : ", pdf);
 
   await browser.close();
 })();
