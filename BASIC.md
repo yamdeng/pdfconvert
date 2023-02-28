@@ -4,3 +4,6 @@
 
 2.file-move
 -node test/basic/file-move.js
+
+3.argument.js
+-node test/basic/argument.js

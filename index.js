@@ -1,10 +1,28 @@
-const puppeteer = require("puppeteer");
+const process = require("process");
+const logger = require("./logger");
+let baseSearchYear = "";
+let baseDocuno = "";
+if (process.argv && process.argv.length) {
+  if (process.argv.length > 2) {
+    baseSearchYear = process.argv[2];
+    if (process.argv.length > 3) {
+      baseDocuno = process.argv[3];
+    }
+  }
+}
+
+logger.info("======= mig start =======");
+logger.info("baseSearchYear : ", baseSearchYear);
+logger.info("baseDocuno : ", baseDocuno);
+
+// 1.페이징 쿼리 조회 시작 기준이되는 작업을 완료한 docuno를 테이블을 조회해서 가져온다 : max(docuno)
+// table : year, last_docuno ---> update query로 수행 ---> 사전에  dml.sql로 2014 ~ 2023까지 미리 데이터 넣어 놓음
+// table : 성공에 대한 정보를 넣음
 
 (async () => {
-
   const browser = await puppeteer.launch({
     headless: true,
-    args: ['--no-sandbox']
+    args: ["--no-sandbox"],
   });
 
   // Create a new page
