@@ -8,7 +8,8 @@ const migPath = {};
 // PDF 떨굴 앞의 경로
 // /Users/yongsungahn/pdf, D:\\mig-data\\pdf
 // office5 os server : G:\\mig-data\\pdf
-migPath.PREFIX_PATH_PDF_BODY = "G:\\mig-data\\pdf";
+// office5 os server share folder : \\\\192.9.200.163\\mig-data\\pdf
+migPath.PREFIX_PATH_PDF_BODY = "\\\\192.9.200.163\\mig-data\\pdf";
 
 // 기존 첨부파일의 경로 : prefix
 // /Users/yongsungahn/attach/old, D:\\mig-data\\attach\\old
