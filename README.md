@@ -5,3 +5,15 @@ office6 운영서버	61.40.65.14 : administrator / Tkddn2363
 office6 oracle 설치 서버	61.40.65.15 : administrator / Tkddn2363
 office6 oracle db	61.40.65.15:1521:orcl : gwdb / tkddn2363
 office6 web	http://61.40.65.14/office6 admingw / Speed66^^
+
+
+#.office6 file old path
+D:\SpeedOffice\data\C_DAERYUK\app\temp
+
+#.office5 file new path
+G:\mig-data\pdf\{year}\
+G:\mig-data\attach
+
+#.office6 file new path
+D:\mig-data\pdf\{year}\
+D:\mig-data\attach
