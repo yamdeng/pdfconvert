@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer");
+const path = require("path");
 
 const migPath = require("../../mig-path");
 const prefixPdfPath = migPath.PREFIX_PATH_PDF_BODY;
@@ -39,7 +40,7 @@ let docunoArray = [
 
     await page.goto(website_url, { waitUntil: "networkidle0" });
     const docunoYear = docuno.substring(0, 4);
-    const pdfCreateFullPath = `${prefixPdfPath}/${docunoYear}/${docuno}.pdf`;
+    const pdfCreateFullPath = `${prefixPdfPath}${path.sep}${docunoYear}${path.sep}${docuno}.pdf`;
     await page.pdf({
       path: pdfCreateFullPath,
       printBackground: false,
