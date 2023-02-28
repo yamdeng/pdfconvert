@@ -21,3 +21,15 @@
 
  5.delete
   -node test/oracle/delete.js
+
+ 6.insert many execute
+  -node test/oracle/insert-many.js
+
+ 7.multie connection
+  -node test/oracle/multiple/connection-m.js
+
+ 8.multie select ---> insert
+  -node test/oracle/multiple/select-to-insert-single.js
+
+ 9.multie select ---> insert many
+  -node test/oracle/multiple/select-to-insert-many.js
