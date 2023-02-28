@@ -1,6 +1,7 @@
 // 61.40.65.3 : GW5_OFFICE / tkfkarhk8 : orcl
 
 const oracledb = require('oracledb');
+const config = require("../../config");
 
 // connection basic info
 const password = 'tkfkarhk8';
@@ -9,7 +10,7 @@ const serverIp = '61.40.65.3';
 const serviceName = 'orcl';
 const connectString = serverIp + '/' + serviceName;
 
-const oracleClientInstallPath = 'C:\\Project\\instantclient_21_9';
+const oracleClientInstallPath = config.ORACLE_CLIENT_PATH;
 
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 oracledb.initOracleClient({ libDir: oracleClientInstallPath });

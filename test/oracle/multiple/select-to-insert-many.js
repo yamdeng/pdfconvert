@@ -2,7 +2,8 @@
 // 61.40.65.15:1521:orcl : gwdb / tkddn2363
 
 const oracledb = require('oracledb');
-const oracleClientInstallPath = 'C:\\Project\\instantclient_21_9';
+const config = require("../../../config");
+const oracleClientInstallPath = config.ORACLE_CLIENT_PATH;
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 oracledb.initOracleClient({ libDir: oracleClientInstallPath });
 
