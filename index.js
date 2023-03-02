@@ -218,7 +218,7 @@ const jobMaxCount = config.JOB_MAX_COUNT;
             );
             await connection2.execute(
               `INSERT INTO OFFICE5_MIG_ATTACH (DOCUNO, FILECODE, FILESIZE, ORIFILENAME, NEWFILENAME)
-               VALUES (:DOCUNO, :FILECODE, :FILESIZE, :ORIFILENAME, :ORIFILENAME)`,
+               VALUES (:DOCUNO, :FILECODE, :FILESIZE, :ORIFILENAME, :NEWFILENAME)`,
                fileAttachInfo,
                { autoCommit: true }
             );
