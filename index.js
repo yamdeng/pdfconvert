@@ -43,9 +43,9 @@ logger.info("======= mig start =======");
 logger.info("baseSearchYear : ", baseSearchYear);
 logger.info("baseDocuno : ", baseDocuno);
 
-const sessionId = "358BBECDF53219F5A5C2571444E294FD";
-const pageSize = 1000;
-const jobMaxCount = 1;
+const sessionId = config.SESSION_ID;
+const pageSize = config.PAGE_SIZE;
+const jobMaxCount = config.JOB_MAX_COUNT;
 
 (async () => {
 
@@ -67,6 +67,9 @@ const jobMaxCount = 1;
 
   } catch(e) {
     logger.error("oracle connection error : ", e);
+    if(connection1) {
+      connection1.close();
+    }
     return;
   }
   // multiple connection setting end
@@ -94,6 +97,12 @@ const jobMaxCount = 1;
     logger.error("browser init error : ", e);
     if(browser) {
       await browser.close();
+    }
+    if(connection1) {
+      connection1.close();
+    }
+    if(connection2) {
+      connection2.close();
     }
     return;
   }
@@ -123,16 +132,16 @@ const jobMaxCount = 1;
       // 2.마지막 문서번호 기준으로 1000개 단위로 문서 마스터 정보 가져오기
       const step02Sql = `SELECT *
         FROM (
-        SELECT m.docuno, m.userid, u.name AS USERNAME, m.deptcode, d.deptname, m.formcode, f.FORMNAME, m.regdate, m.title, m.ATTFILENUM, m.status, m.content
+        SELECT m.docuno, m.userid, u.name AS USERNAME, m.deptcode, d.deptname, m.formcode, f.FORMNAME, m.regdate, m.title, m.ATTFILENUM, m.status
         FROM OA_EAPP_DOCUMAS M
           INNER JOIN (
             SELECT docuno AS DOCUNO 
             FROM OA_EAPP_DEPTDOCU
-            WHERE docuno > :lastDocuno
+            WHERE docuno is not null and docuno > :lastDocuno
             UNION
             SELECT DRAFTNO AS DOCUNO
             FROM OA_EAPP_DEPTDOCU
-            WHERE docuno > :lastDocuno
+            WHERE DRAFTNO is not null and DRAFTNO > :lastDocuno
           ) DOC_NUMBER ON M.DOCUNO = DOC_NUMBER.DOCUNO
           LEFT OUTER JOIN O0_USER_MAST u ON m.USERID = u.USERID
           LEFT OUTER JOIN O0_USER_DEPT d ON m.DEPTCODE = d.DEPTCODE
@@ -148,7 +157,7 @@ const jobMaxCount = 1;
         );
 
         office5DocMasterList = step02DbResult.rows;
-        logger.info('office5DocMasterList size : ', office5DocMasterList.length);
+        logger.info('office5DocMasterList size : ' + office5DocMasterList.length);
 
     } catch(e) {
       logger.error("step 0 error : ", e);
@@ -173,7 +182,7 @@ const jobMaxCount = 1;
     });
 
     // 문서 단위 실행 반복문
-    for(let docListIndex=0; docListIndex<office5DocMasterList.length; office5DocMasterList++) {
+    for(let docListIndex=0; docListIndex<office5DocMasterList.length; docListIndex++) {
 
       // 문서 1건 단위 실행 start
       const docMasterInfo = office5DocMasterList[docListIndex];
@@ -202,10 +211,10 @@ const jobMaxCount = 1;
           for(let fileAttachListIndex; fileAttachList<fileAttachList.length; fileAttachList++) {
             const fileAttachInfo = fileAttachList[fileAttachListIndex];
             const { NEWFILENAME } = fileAttachInfo;
-            fs.copyFileSync(
-              `${oldPath}/${NEWFILENAME}`,
-              `${newPath}/${NEWFILENAME}`
-            );
+            // fs.copyFileSync(
+            //   `${oldPath}/${NEWFILENAME}`,
+            //   `${newPath}/${NEWFILENAME}`
+            // );
             await connection2.execute(
               `INSERT INTO OFFICE5_MIG_ATTACH (DOCUNO, FILECODE, FILESIZE, ORIFILENAME, NEWFILENAME)
                VALUES (:DOCUNO, :FILECODE, :FILESIZE, :ORIFILENAME, :ORIFILENAME)`,
@@ -231,7 +240,7 @@ const jobMaxCount = 1;
         const privateBoxSearchSql = `SELECT op.docuno, op.boxcode, op.userid, u.name AS username
         FROM OA_EAPP_PRIDOCU op
           LEFT OUTER JOIN O0_USER_MAST u ON op.userid = u.USERID
-        WHERE op.DOCUNO = = :docuno `;
+        WHERE op.DOCUNO = :docuno`;
         const privateBoxSearchDbResult = await connection1.execute(
           privateBoxSearchSql,
           [DOCUNO],
@@ -255,17 +264,16 @@ const jobMaxCount = 1;
           LEFT OUTER JOIN O0_USER_DEPT d1 ON od.DEPTCODE = d1.DEPTCODE
           LEFT OUTER JOIN O0_USER_DEPT d2 ON od.SDEPTCODE = d2.DEPTCODE
           LEFT OUTER JOIN O0_USER_MAST u ON od.SUSERID = u.USERID
-        WHERE od.DOCUNO = :docuno or od.DRAFTNO = :docuno` ;
+        WHERE od.DOCUNO = :docuno` ;
         const deptBoxSearchDbResult = await connection1.execute(
           deptBoxSearchSql,
-          [DOCUNO, DOCUNO],
+          [DOCUNO],
         );
 
         docUnitStep = 7; // step7.부서함 이관
         let deptBoxList = [];
         if(deptBoxSearchDbResult && deptBoxSearchDbResult.rows && deptBoxSearchDbResult.rows.length) {
           deptBoxList = deptBoxSearchDbResult.rows;
-
           // 부서명 변환
           deptBoxList.forEach(info => {
             if(info.DEPTNAME) {
@@ -300,20 +308,20 @@ const jobMaxCount = 1;
 
         docUnitStep = 9; // 마스터 정보 office6 table insert
         await connection2.execute(
-          `INSERT INTO OFFICE5_MIG_APP (DOCUNO, USERID, USERNAME, DEPTCODE, DEPTNAME, FORMCODE, FORMNAME, REGDATE, TITLE, CONTENT, ATTFILENUM, STATUS)
-          VALUES(:DOCUNO, :USERID, :USERNAME, :DEPTCODE, :DEPTNAME, :FORMCODE, :FORMNAME, :REGDATE, :TITLE, :CONTENT, :ATTFILENUM, :STATUS)`,
+          `INSERT INTO OFFICE5_MIG_APP (DOCUNO, USERID, USERNAME, DEPTCODE, DEPTNAME, FORMCODE, FORMNAME, REGDATE, TITLE, ATTFILENUM, STATUS)
+          VALUES(:DOCUNO, :USERID, :USERNAME, :DEPTCODE, :DEPTNAME, :FORMCODE, :FORMNAME, :REGDATE, :TITLE, :ATTFILENUM, :STATUS)`,
           docMasterInfo,
           { autoCommit: true }
         );
         
         docUnitStep = 10; // office5에 완료 정보 저장
-        await connection2.execute(
+        await connection1.execute(
           `INSERT INTO OFFICE5_MIG_JOB_SUCCESS (DOCUNO)
           VALUES(:DOCUNO)`,
           { DOCUNO: DOCUNO },
           { autoCommit: true }
         );
-
+        logger.info(`${DOCUNO} job success!!!`);
       } catch(e) {
         logger.error(`{${DOCUNO} singunit error, step${docUnitStep} : `, e);
         try {
@@ -323,7 +331,7 @@ const jobMaxCount = 1;
             {
               DOCUNO: DOCUNO,
               JOBSTEP: docUnitStep,
-              ERRORMESSAGE: 'ERRORMESSAGE aaa'
+              ERRORMESSAGE: e.stack
             },
             { autoCommit: true }
           );
@@ -338,6 +346,12 @@ const jobMaxCount = 1;
 
   if(browser) {
     await browser.close();
+  }
+  if(connection1) {
+    connection1.close();
+  }
+  if(connection2) {
+    connection2.close();
   }
   
   logger.info(`${baseSearchYear} 년도 작업 complete`);
