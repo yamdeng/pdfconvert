@@ -194,7 +194,7 @@ const jobMaxCount = config.JOB_MAX_COUNT;
       try {
 
         docUnitStep = 1; // step1. OA_EAPP_ATTACHFILE 테이블 조회
-        const fileAttachSearchSql = `SELECT * 
+        const fileAttachSearchSql = `SELECT DOCUNO, FILECODE, FILESIZE, ORIFILENAME, NEWFILENAME
         FROM OA_EAPP_ATTACHFILE A
           WHERE docuno = :docuno `;
         const fileAttachSearchDbResult = await connection1.execute(
