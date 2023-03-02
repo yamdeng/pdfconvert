@@ -4,8 +4,9 @@ const config = {};
 
 /* 경로는 window, mac의 폴더 구분자가 틀림 */
 
-// oracle client install path
-config.ORACLE_CLIENT_PATH = "C:\\instantclient_21_9";
+// oracle client install path local : C:\\instantclient_21_9 
+// oracle client install path real : ''
+config.ORACLE_CLIENT_PATH = "";
 
 // 쿼리 페이징 size
 config.PAGE_SIZE = 1000;
