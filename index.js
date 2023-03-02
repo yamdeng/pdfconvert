@@ -208,7 +208,7 @@ const jobMaxCount = config.JOB_MAX_COUNT;
           logger.info(`${DOCUNO} doc attach count different`);
         }
         if(fileAttachList && fileAttachList.length) {
-          for(let fileAttachListIndex; fileAttachListIndex<fileAttachList.length; fileAttachListIndex++) {
+          for(let fileAttachListIndex=0; fileAttachListIndex<fileAttachList.length; fileAttachListIndex++) {
             const fileAttachInfo = fileAttachList[fileAttachListIndex];
             const { NEWFILENAME } = fileAttachInfo;
             fs.copyFileSync(
