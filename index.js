@@ -211,10 +211,10 @@ const jobMaxCount = config.JOB_MAX_COUNT;
           for(let fileAttachListIndex; fileAttachList<fileAttachList.length; fileAttachList++) {
             const fileAttachInfo = fileAttachList[fileAttachListIndex];
             const { NEWFILENAME } = fileAttachInfo;
-            // fs.copyFileSync(
-            //   `${oldPath}/${NEWFILENAME}`,
-            //   `${newPath}/${NEWFILENAME}`
-            // );
+            fs.copyFileSync(
+              `${oldPath}/${NEWFILENAME}`,
+              `${newPath}/${NEWFILENAME}`
+            );
             await connection2.execute(
               `INSERT INTO OFFICE5_MIG_ATTACH (DOCUNO, FILECODE, FILESIZE, ORIFILENAME, NEWFILENAME)
                VALUES (:DOCUNO, :FILECODE, :FILESIZE, :ORIFILENAME, :ORIFILENAME)`,
