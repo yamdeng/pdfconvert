@@ -2,23 +2,24 @@
 
 const moment = require("moment");
 const { createLogger, transports, format } = require("winston");
+const { combine, timestamp, label, printf } = format;
 const winston = require('winston');
+const myFormat = printf(({ level, message, label, timestamp }) => {
+  return `${timestamp} ${level} : ${message}`;
+});
 
 const logger = createLogger({
   level: "debug",
-  format:format.combine(format.timestamp({ format: moment().format('YYYY-MM-DD HH:mm:ss.SSS') }),format.json()),
+  format: combine(
+    timestamp(),
+    myFormat
+  ),
   transports: [
       new (winston.transports.Console)({
-        timestamp: function() {
-            return moment().format('YYYY-MM-DD HH:mm:ss.SSS');
-        },
         level: 'debug'
     }),
     new transports.File({
-      filename: "logs/mig.log",
-      timestamp() {
-          return moment().format('YYYY-MM-DD HH:mm:ss.SSS');
-      }
+      filename: "logs/mig.log"
     })
   ]
 });

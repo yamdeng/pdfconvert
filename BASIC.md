@@ -7,3 +7,9 @@
 
 3.argument.js
 -node test/basic/argument.js
+
+4.try.js
+-node test/basic/try.js
+
+5.logger.js
+-node test/basic/logger.js

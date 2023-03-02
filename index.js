@@ -341,6 +341,7 @@ const jobMaxCount = config.JOB_MAX_COUNT;
       }
       // 문서 1건 단위 실행 end
     }
+    logger.info(`jobNumber${(jobNumber+1)} for end!!!`)
   };
   // job 1000 * 100 = 100,000 기준 for end
 
