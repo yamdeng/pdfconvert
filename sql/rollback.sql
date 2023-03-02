@@ -2,6 +2,7 @@
 UPDATE OFFICE5_MIG_NUMBER
 set LAST_DOCUNO = '201308141601440068';
 delete from OFFICE5_MIG_JOB_SUCCESS;
+delete from OFFICE5_MIG_JOB_FAIL;
 
 -- office5 single rollback
 delete
