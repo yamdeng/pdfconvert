@@ -10,6 +10,11 @@ WHERE userid = 'ijeong22';
 
 -- 부서함 매핑 테이블
 SELECT *
+FROM OA_EAPP_PRIDOCU;
+WHERE BOXCODE ='BX';
+
+-- 부서함 매핑 테이블
+SELECT *
 FROM OA_EAPP_DEPTDOCU;
 WHERE BOXCODE ='BX';
 
@@ -40,3 +45,29 @@ SELECT *
 SELECT *
 FROM OA_EAPP_ATTACHFILE
 WHERE FILECODE  = 'ERPCODE';
+
+-- 부서문서함의 전체 docuno
+select *
+from  (
+    SELECT docuno AS DOCUNO 
+    FROM OA_EAPP_DEPTDOCU
+    WHERE docuno > '201307080855190133'
+    UNION
+    SELECT DRAFTNO AS DOCUNO
+    FROM OA_EAPP_DEPTDOCU
+    WHERE docuno > '201307080855190133'
+) DOC_NUMBER;
+
+
+-- 오직 개인함에만 존재하는 문서 확인
+SELECT count(*)
+FROM OA_EAPP_PRIDOCU
+WHERE docuno NOT IN (
+	SELECT docuno
+    FROM OA_EAPP_DEPTDOCU
+    WHERE docuno IS NOT null
+) AND docuno NOT IN (
+	SELECT draftno
+    FROM OA_EAPP_DEPTDOCU
+    WHERE draftno IS NOT null
+);

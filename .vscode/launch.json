@@ -11,7 +11,8 @@
       "type": "node",
       "request": "launch",
       "name": "프로그램 시작",
-      "program": "${workspaceFolder}/test/pdf/pdf-create-multi.js",
+      "program": "${workspaceFolder}/index.js",
+      "args": ["2022", ""],
       "env": {
         "NODE_ENV": "development",
         "PORT": "8080",

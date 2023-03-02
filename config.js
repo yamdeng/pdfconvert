@@ -7,4 +7,7 @@ const config = {};
 // oracle client install path
 config.ORACLE_CLIENT_PATH = "C:\\instantclient_21_9";
 
+// 쿼리 페이징 size
+config.PAGE_SIZE = 10;
+
 module.exports = config;

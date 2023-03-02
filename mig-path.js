@@ -14,11 +14,12 @@ migPath.PREFIX_PATH_PDF_BODY = "\\\\192.9.200.163\\mig-data\\pdf";
 // 기존 첨부파일의 경로 : prefix
 // /Users/yongsungahn/attach/old, D:\\mig-data\\attach\\old
 // office5 os server : D:\\SpeedOffice\\data\\C_DAERYUK\\app\\temp
-migPath.PREFIX_PATH_OLD_ATTACH = "G:\\mig-data\\old";
+migPath.PREFIX_PATH_OLD_ATTACH = "D:\\SpeedOffice\\data\\C_DAERYUK\\app\\temp";
 
 // copy할 첨부파일의 경로 : prefix
 // /Users/yongsungahn/attach/new, D:\\mig-data\\attach\\new
 // office5 os server : G:\\mig-data\\attach
-migPath.PREFIX_PATH_NEW_ATTACH = "G:\\mig-data\\attach";
+// office5 os server share folder : \\\\192.9.200.163\\mig-data\\attach
+migPath.PREFIX_PATH_NEW_ATTACH = "\\\\192.9.200.163\\mig-data\\attach";
 
 module.exports = migPath;
