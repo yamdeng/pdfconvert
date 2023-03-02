@@ -2,6 +2,7 @@ const process = require("process");
 const oracledb = require('oracledb');
 const puppeteer = require("puppeteer");
 const path = require("path");
+const fs = require("fs");
 const logger = require("./logger");
 const config = require('./config');
 const migPath = require('./mig-path');
