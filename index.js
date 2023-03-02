@@ -213,7 +213,7 @@ const jobMaxCount = config.JOB_MAX_COUNT;
             const fileAttachInfo = fileAttachList[fileAttachListIndex];
             const { NEWFILENAME } = fileAttachInfo;
             fs.copyFileSync(
-              `${oldPath}${path.sep}${NEWFILENAME}`,
+              `${oldPath}${path.sep}${DOCUNO}${path.sep}${NEWFILENAME}`,
               `${newPath}${path.sep}${NEWFILENAME}`
             );
             await connection2.execute(
