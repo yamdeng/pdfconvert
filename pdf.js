@@ -109,7 +109,7 @@ const sessionId = config.SESSION_ID;
         printBackground: false,
         format: "A3",
       });
-      logger.error(`${DOCUNO} number pdf success!!!`);
+      logger.info(`${DOCUNO} number pdf success!!!`);
     }
     // 반복문 end
   } catch (e) {
