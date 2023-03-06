@@ -35,3 +35,68 @@ where docuno = ''
 select *
 from OFFICE5_MIG_ATTACH
 where NEWFILENAME = 'aa.pdf'
+
+
+----- final query
+
+
+-- 1.list query
+SELECT *
+FROM (
+	SELECT
+	row_number() over (ORDER BY m.docuno ASC) docorder_number,
+	M.DOCUNO, M.USERID, M.USERNAME, M.FORMNAME, M.REGDATE, M.TITLE, M.STATUS, DEPT_BOX.BOXCODE, DEPT_BOX.DEPTNAME,
+	(SELECT COUNT(*) FROM OFFICE5_MIG_ATTACH ATTACH WHERE DOCUNO = M.DOCUNO) AS ATTACHNUM
+	FROM OFFICE5_MIG_APP M
+		INNER JOIN (
+			SELECT docuno, BOXCODE, DEPTNAME
+			FROM OFFICE5_BOX_DEPT
+			UNION 
+			SELECT draftno, BOXCODE, DEPTNAME
+			FROM OFFICE5_BOX_DEPT
+		) DEPT_BOX
+			ON M.docuno = DEPT_BOX.docuno
+	WHERE 1=1
+		AND DEPT_BOX.deptname = '부서명'
+		AND DEPT_BOX.deptname LIKE '%경영%'
+		AND M.username LIKE '%윤종찬%'
+		AND M.title LIKE '%휴가%'
+) WHERE docorder_number BETWEEN 0 AND 5 ORDER BY docorder_number;
+
+
+-- 1-2.count query
+SELECT count(*)
+	FROM OFFICE5_MIG_APP M
+		INNER JOIN (
+			SELECT docuno, BOXCODE, DEPTNAME
+			FROM OFFICE5_BOX_DEPT
+			UNION 
+			SELECT draftno, BOXCODE, DEPTNAME
+			FROM OFFICE5_BOX_DEPT
+		) DEPT_BOX
+			ON M.docuno = DEPT_BOX.docuno
+	WHERE 1=1
+		AND DEPT_BOX.deptname = '부서명'
+		AND DEPT_BOX.deptname LIKE '%경영%'
+		AND M.username LIKE '%윤종찬%'
+		AND M.title LIKE '%휴가%';
+
+	
+-- 2.doc master single info
+SELECT
+	row_number() over (ORDER BY m.docuno ASC) docorder_number,
+	M.DOCUNO, M.USERID, M.USERNAME, M.FORMNAME, M.REGDATE, M.TITLE, M.STATUS,
+	(SELECT COUNT(*) FROM OFFICE5_MIG_ATTACH ATTACH WHERE DOCUNO = M.DOCUNO) AS ATTACHNUM
+	FROM OFFICE5_MIG_APP M
+	WHERE M.DOCUNO = '';
+
+-- 3.doc attach list
+SELECT DOCUNO, FILECODE, FILESIZE, ORIFILENAME, NEWFILENAME
+  FROM OFFICE5_MIG_ATTACH
+ WHERE DOCUNO = '';
+
+
+-- 4.file only detail info
+SELECT DOCUNO, FILECODE, FILESIZE, ORIFILENAME, NEWFILENAME
+FROM OFFICE5_MIG_ATTACH
+WHERE DOCUNO = '' AND NEWFILENAME = 'F1641261852751.pdf';s
