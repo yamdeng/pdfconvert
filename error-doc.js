@@ -294,11 +294,6 @@ const sessionId = config.SESSION_ID;
       }
 
       docUnitStep = 8; // step9.max_number 테이블에 최신화
-      await connection1.execute(
-        `UPDATE OFFICE5_MIG_NUMBER SET LAST_DOCUNO = '${DOCUNO}' WHERE YEAR = '${baseSearchYear}' AND SAVE_TYPE = 'M'`,
-        [],
-        { autoCommit: true }
-      );
 
       docUnitStep = 9; // 마스터 정보 office6 table insert
       await connection2.execute(
@@ -346,5 +341,5 @@ const sessionId = config.SESSION_ID;
     connection2.close();
   }
 
-  logger.info(`${baseSearchYear} 년도 작업 complete`);
+  logger.info(`error-doc complete`);
 })();
