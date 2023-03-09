@@ -61,7 +61,7 @@ Error: ORA-00001: 무결성 제약 조건(GWDB.OFFICE5_MIG_ATTACH_PK)에 위배�
     at async G:\Project\pdfconvert\index.js:221:13
 SELECT *
 FROM OFFICE5_MIG_JOB_FAIL omjf
-WHERE ERRORMESSAGE LIKE '%GWDB.OFFICE5_MIG_ATTACH_PK%';
+WHERE ERRORMESSAGE LIKE 'Error: ORA-00001: 무결성 제약 조건(GWDB.OFFICE5_MIG_ATTACH_PK%';
 
 
 ### error case 6. step : 3
