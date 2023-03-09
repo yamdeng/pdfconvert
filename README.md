@@ -20,3 +20,17 @@ http://61.40.65.14/office6/mig/pdf-download.do?DOCUNO=201711241557330082
 http://61.40.65.14/office6/mig/attach-download.do?DOCUNO=201711241557330082&NEWFILENAME=F1511506796444.xlsx
 
 http://61.40.65.14/office6/mig/doc-list.do?start=0&limit=10&deptAllSearchYn=Y
+
+==========
+
+SELECT \*
+FROM OA_EAPP_DOCUMAS oed
+WHERE docuno in(
+'201411211410420843',
+'201408251728170509'
+);
+
+-- 201411211410420843
+-- 201408251728170509
+
+http://gw.drcc.co.kr/office/app/appPreview.do?docuno=201411191431150996

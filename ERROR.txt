@@ -1,0 +1,78 @@
+### error case all
+
+SELECT *
+FROM OFFICE5_MIG_JOB_FAIL omjf
+WHERE ERRORMESSAGE NOT LIKE 'Error: ENOENT%' AND ERRORMESSAGE NOT LIKE 'Error: net::ERR_CONNECTION_REFUSED%'
+AND ERRORMESSAGE NOT LIKE 'TimeoutError: Navigation timeout%' AND ERRORMESSAGE NOT LIKE 'TimeoutError: waiting for%'
+AND ERRORMESSAGE NOT LIKE 'Error: ORA-00001: 무결성 제약 조건(GWDB.OFFICE5_MIG_ATTACH_PK%' AND ERRORMESSAGE NOT LIKE 'Error: net::ERR_CONNECTION_RESET%';
+
+### error case 1. step : 2
+Error: ENOENT: no such file or directory, copyfile 'D:\SpeedOffice\data\C_DAERYUK\app\temp\202206241027200325\F1656030395733.xlsx' -> '\\192.9.200.163\mig-data\attach\F1656030395733.xlsx'
+    at Object.copyFileSync (node:fs:2847:3)
+    at G:\Project\pdfconvert\index.js:215:16
+
+SELECT *
+FROM OFFICE5_MIG_JOB_FAIL omjf
+WHERE ERRORMESSAGE LIKE 'Error: ENOENT%';
+
+
+### error case 2. step : 3
+Error: net::ERR_CONNECTION_REFUSED at http://gw.drcc.co.kr/office/app/appPreview.do?docuno=201608261848090949
+    at navigate (G:\Project\pdfconvert\node_modules\puppeteer-core\lib\cjs\puppeteer\common\Frame.js:238:23)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Frame.goto (G:\Project\pdfconvert\node_modules\puppeteer-core\lib\cjs\puppeteer\common\Frame.js:207:21)
+    at async CDPPage.goto (G:\Project\pdfconvert\node_modules\puppeteer-core\lib\cjs\puppeteer\common\Page.js:439:16)
+    at async G:\Project\pdfconvert\index.js:232:9
+
+SELECT *
+FROM OFFICE5_MIG_JOB_FAIL omjf
+WHERE ERRORMESSAGE LIKE 'Error: net::ERR_CONNECTION_REFUSED%';
+
+
+### error case 3. step : 3
+TimeoutError: Navigation timeout of 30000 ms exceeded
+    at LifecycleWatcher._LifecycleWatcher_createTimeoutPromise (G:\Project\pdfconvert\node_modules\puppeteer-core\lib\cjs\puppeteer\common\LifecycleWatcher.js:174:12)
+    at async Frame.goto (G:\Project\pdfconvert\node_modules\puppeteer-core\lib\cjs\puppeteer\common\Frame.js:207:21)
+    at async CDPPage.goto (G:\Project\pdfconvert\node_modules\puppeteer-core\lib\cjs\puppeteer\common\Page.js:439:16)
+    at async G:\Project\pdfconvert\index.js:232:9
+
+SELECT *
+FROM OFFICE5_MIG_JOB_FAIL omjf
+WHERE ERRORMESSAGE LIKE 'TimeoutError: Navigation timeout%';
+
+
+### error case 4. step : 3
+TimeoutError: waiting for Page.printToPDF failed: timeout 30000ms exceeded
+    at waitWithTimeout (G:\Project\pdfconvert\node_modules\puppeteer-core\lib\cjs\puppeteer\common\util.js:283:26)
+    at CDPPage.createPDFStream (G:\Project\pdfconvert\node_modules\puppeteer-core\lib\cjs\puppeteer\common\Page.js:763:60)
+    at CDPPage.pdf (G:\Project\pdfconvert\node_modules\puppeteer-core\lib\cjs\puppeteer\common\Page.js:772:37)
+    at G:\Project\pdfconvert\index.js:235:20
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+
+SELECT *
+FROM OFFICE5_MIG_JOB_FAIL omjf
+WHERE ERRORMESSAGE LIKE 'TimeoutError: waiting for%';
+
+
+### error case 5. step : 2
+Error: ORA-00001: 무결성 제약 조건(GWDB.OFFICE5_MIG_ATTACH_PK)에 위배됩니다
+    at async G:\Project\pdfconvert\index.js:221:13
+SELECT *
+FROM OFFICE5_MIG_JOB_FAIL omjf
+WHERE ERRORMESSAGE LIKE '%GWDB.OFFICE5_MIG_ATTACH_PK%';
+
+
+### error case 6. step : 3
+Error: net::ERR_CONNECTION_RESET at http://gw.drcc.co.kr/office/app/appPreview.do?docuno=201609051652490074
+    at navigate (G:\Project\pdfconvert\node_modules\puppeteer-core\lib\cjs\puppeteer\common\Frame.js:238:23)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Frame.goto (G:\Project\pdfconvert\node_modules\puppeteer-core\lib\cjs\puppeteer\common\Frame.js:207:21)
+    at async CDPPage.goto (G:\Project\pdfconvert\node_modules\puppeteer-core\lib\cjs\puppeteer\common\Page.js:439:16)
+    at async G:\Project\pdfconvert\index.js:232:9
+
+SELECT *
+FROM OFFICE5_MIG_JOB_FAIL omjf
+WHERE ERRORMESSAGE LIKE 'Error: net::ERR_CONNECTION_RESET%';
