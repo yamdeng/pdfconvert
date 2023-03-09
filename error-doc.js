@@ -123,15 +123,6 @@ const sessionId = config.SESSION_ID;
     // 1.office5 error table 조회
     const listSql = `SELECT m.docuno, m.userid, u.name AS USERNAME, m.deptcode, d.deptname, m.formcode, f.FORMNAME, m.regdate, m.title, m.ATTFILENUM, m.status
         FROM OA_EAPP_DOCUMAS M
-          INNER JOIN (
-            SELECT docuno AS DOCUNO 
-            FROM OA_EAPP_DEPTDOCU
-            WHERE docuno is not null and docuno > :lastDocuno
-            UNION
-            SELECT DRAFTNO AS DOCUNO
-            FROM OA_EAPP_DEPTDOCU
-            WHERE DRAFTNO is not null and DRAFTNO > :lastDocuno
-          ) DOC_NUMBER ON M.DOCUNO = DOC_NUMBER.DOCUNO
           LEFT OUTER JOIN O0_USER_MAST u ON m.USERID = u.USERID
           LEFT OUTER JOIN O0_USER_DEPT d ON m.DEPTCODE = d.DEPTCODE
           LEFT OUTER JOIN OA_EAPP_FORM f ON m.FORMCODE  = f.FORMCODE
