@@ -48,7 +48,7 @@ FROM
 		SELECT
 			row_number() over (
 				ORDER BY
-					m.docuno ASC
+					m.regdate DESC
 			) docorder_number,
 			M.DOCUNO,
 			M.USERID,
@@ -128,7 +128,7 @@ WHERE
 SELECT
 	row_number() over (
 		ORDER BY
-			m.docuno ASC
+			m.regdate desc
 	) docorder_number,
 	M.DOCUNO,
 	M.USERID,
