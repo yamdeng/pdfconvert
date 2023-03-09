@@ -56,6 +56,8 @@ if (errorCase === "1") {
   searchLikeSqlStr = "Error: net::ERR_CONNECTION_RESET";
 }
 
+const sessionId = config.SESSION_ID;
+
 (async () => {
   // multiple connection setting start
   let connection1;
