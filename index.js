@@ -214,16 +214,27 @@ const jobMaxCount = config.JOB_MAX_COUNT;
           ) {
             const fileAttachInfo = fileAttachList[fileAttachListIndex];
             const { NEWFILENAME } = fileAttachInfo;
-            fs.copyFileSync(
-              `${oldPath}${path.sep}${DOCUNO}${path.sep}${NEWFILENAME}`,
-              `${newPath}${path.sep}${NEWFILENAME}`
-            );
-            await connection2.execute(
-              `INSERT INTO OFFICE5_MIG_ATTACH (DOCUNO, FILECODE, FILESIZE, ORIFILENAME, NEWFILENAME)
-               VALUES (:DOCUNO, :FILECODE, :FILESIZE, :ORIFILENAME, :NEWFILENAME)`,
-              fileAttachInfo,
-              { autoCommit: true }
-            );
+            let fileCopySuccess = true;
+            try {
+              fs.copyFileSync(
+                `${oldPath}${path.sep}${DOCUNO}${path.sep}${NEWFILENAME}`,
+                `${newPath}${path.sep}${NEWFILENAME}`
+              );
+            } catch (e) {
+              logger.error(
+                `{${DOCUNO}, ${NEWFILENAME} file copy error, step${docUnitStep} : `,
+                e
+              );
+              fileCopySuccess = false;
+            }
+            if (fileCopySuccess) {
+              await connection2.execute(
+                `INSERT INTO OFFICE5_MIG_ATTACH (DOCUNO, FILECODE, FILESIZE, ORIFILENAME, NEWFILENAME)
+                 VALUES (:DOCUNO, :FILECODE, :FILESIZE, :ORIFILENAME, :NEWFILENAME)`,
+                fileAttachInfo,
+                { autoCommit: true }
+              );
+            }
           }
         }
 
