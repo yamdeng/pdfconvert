@@ -174,3 +174,62 @@ FROM
 WHERE
 	DOCUNO = ''
 	AND NEWFILENAME = 'F1641261852751.pdf';
+
+-- page select query
+SELECT
+	*
+FROM
+	(
+		SELECT
+			ROW_NUMBER() OVER (
+				ORDER BY
+					m.regdate DESC
+			) docorder_number,
+			M.DOCUNO,
+			M.USERID,
+			M.USERNAME,
+			M.FORMNAME,
+			M.REGDATE,
+			M.TITLE,
+			M.STATUS,
+			DEPT_BOX.BOXCODE,
+			DEPT_BOX.DEPTNAME,
+			(
+				SELECT
+					COUNT(*)
+				FROM
+					OFFICE5_MIG_ATTACH ATTACH
+				WHERE
+					DOCUNO = M.DOCUNO
+			) AS ATTACHNUM
+		FROM
+			OFFICE5_MIG_APP M
+			INNER JOIN (
+				SELECT
+					docuno,
+					BOXCODE,
+					DEPTNAME
+				FROM
+					OFFICE5_BOX_DEPT
+				UNION
+				SELECT
+					draftno,
+					BOXCODE,
+					DEPTNAME
+				FROM
+					OFFICE5_BOX_DEPT
+			) DEPT_BOX ON M.docuno = DEPT_BOX.docuno
+		WHERE
+			1 = 1 --		AND M.DOCUNO LIKE '' || '2016' || '%'
+			AND to_char(M.REGDATE, 'YYYY') = '2016'
+			AND (
+				M.TITLE LIKE '%' || '' || '%'
+				OR M.username LIKE '%' || '' || '%'
+				OR DEPT_BOX.deptname LIKE '%' || '' || '%'
+			)
+	)
+WHERE
+	docorder_number BETWEEN 1
+	AND 1 + 10 - 1
+ORDER BY
+	docorder_number
