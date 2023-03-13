@@ -20,7 +20,14 @@ const serverIp = "61.40.65.3";
 const serviceName = "orcl";
 const connectString = serverIp + "/" + serviceName;
 
-logger.info("======= pdf-error start =======");
+let baseSearchYear = "";
+if (process.argv && process.argv.length) {
+  if (process.argv.length > 2) {
+    baseSearchYear = process.argv[2];
+  }
+}
+
+logger.info(`======= pdf-error ${baseSearchYear} start =======`);
 
 const sessionId = config.SESSION_ID;
 
@@ -76,7 +83,8 @@ const sessionId = config.SESSION_ID;
   try {
     // 1.년도 기준 작업완료된 docno 목록 가져오기
     const successDocSearchSql = `SELECT DOCUNO
-    FROM OFFICE5_PDF_ERROR`;
+    FROM OFFICE5_PDF_ERROR A
+      WHERE docuno LIKE '${baseSearchYear}%'`;
     const docListDbResult = await connection1.execute(successDocSearchSql, []);
 
     const docList = docListDbResult.rows;
@@ -99,7 +107,7 @@ const sessionId = config.SESSION_ID;
     }
     // 반복문 end
   } catch (e) {
-    logger.error("pdf convert error : ", e);
+    logger.error("pdf-error convert error : ", e);
   }
 
   if (browser) {
