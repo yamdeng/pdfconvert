@@ -4,7 +4,6 @@ const migPath = {};
 
 /* 경로는 window, mac의 폴더 구분자가 틀림 */
 
-
 // PDF 떨굴 앞의 경로
 // /Users/yongsungahn/pdf, D:\\mig-data\\pdf
 // office5 os server : G:\\mig-data\\pdf
@@ -21,5 +20,7 @@ migPath.PREFIX_PATH_OLD_ATTACH = "D:\\SpeedOffice\\data\\C_DAERYUK\\app\\temp";
 // office5 os server : G:\\mig-data\\attach
 // office5 os server share folder : \\\\192.9.200.163\\mig-data\\attach
 migPath.PREFIX_PATH_NEW_ATTACH = "\\\\192.9.200.163\\mig-data\\attach";
+
+migPath.PREFIX_PATH_PTY_FILE_BACKUP = "G:\\pdf-error\\pty\\backup";
 
 module.exports = migPath;
