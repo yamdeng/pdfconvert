@@ -1,0 +1,112 @@
+#Edit Property
+#Sun Mar 12 00:24:01 KST 2023
+linkcode=
+@S일반;0;1;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/kbjang.jpg&filename=kbjang.jpgkbjang.jpg" style="width:49.5pt; height:36.pt;">
+op5=
+op4=
+op3=
+op2=
+op1=
+@S일반;1;0;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/drpcs.jpg&filename=drpcs.jpg" style="width:49.5pt; height:36.pt;">
+참조=
+@S일반;1;1;결재일자;=2018.5.4
+@S일반;0;4;결재일자;=2018.5.4
+문서번호=null-00209
+docuno=201805041433160150
+@S일반;0;4;직위/이름;=이순성<br>(전무)
+orisedocuno=201805021427240605
+@SSOURDOCU=201805021427240605
+SUBDEPT=false
+@SAPPRECU;NU1=0
+@SAPPRECU;NU0=0
+@S일반;0;0;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/cbm32.jpg&filename=cbm32.jpg" style="width:49.5pt; height:36.pt;">
+@S일반;1;3;직위/이름;=
+FILELIST=
+FILECNT=
+@SOPINION;1;4=
+@SOPINION;1;3=
+@S일반;0;2;직위/이름;=조문석<br>(이사)
+@SOPINION;1;2=
+@SOPINION;1;1=
+SELRECU=
+@SOPINION;1;0=
+SELRECT=
+@SOPINION;0;4=
+savedoccode=
+@SOPINION;0;3=
+@SOPINION;0;2=
+@SOPINION;0;1=
+@SOPINION;0;0=
+comment=
+제목=기초질서지키기 캠페인 재홍보 안내의 件
+DOCLIST=
+@SATTFILE;NU1=0
+@SATTFILE;NU0=0
+DOCCNT=
+@S일반;1;1;직위/이름;=최재정<br>(이사)
+@P발송일자=2018.5.4
+@S일반;1;4;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/chkim.jpg&filename=chkim.jpgchkim.jpg" style="width:49.5pt; height:36.pt;">
+FILESIZE=
+@S일반;0;0;직위/이름;=최병민<br>(과장)
+@S일반;1;0;결재일자;=2023.3.12
+@S일반;0;3;결재일자;=
+fname=/SpeedOffice/data/C_DAERYUK/app/dsrc/Z3DVGQFLHA08.htm
+@SAPPRECT;NU1=0
+@SAPPRECT;NU0=1
+SEQDOCUNO=
+@SAPPLINE;NU1=3
+@SAPPLINE;NU0=4
+@SAPPLINEPOS=1
+@SAPPMARKPOS=3
+@S일반;0;4;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/sslee.jpg&filename=sslee.jpgsslee.jpg" style="width:49.5pt; height:36.pt;">
+important=false
+formCode=DVGQFLHA08
+~본문=
+@S일반;0;2;결재일자;=2018.5.4
+@SAPPLINE;1;4=
+@SFORMCODE=DVGQFLHA08
+@SAPPLINE;1;3=
+@SAPPLINE;1;2=C_DAERYUK;기술연구소;chkim;P;김충한;전무;21006;5
+@S일반;1;3;서명;=<img SRC="/office/resources/img/app/sign/slash.13.mark" style="width:49.5pt; height:36.pt;">
+@SAPPLINE;1;1=C_DAERYUK;기술연구소;jjchoi;P;최재정;이사;21008;1
+@SAPPLINE;1;0=C_DAERYUK;31;hjkwak;P;곽현주;과장대우;21016;0;P
+@SAPPLINE;0;4=
+@SAPPRECT;0;0=C_DAERYUK;;총무팀
+@SAPPLINE;0;3=C_DAERYUK;공장장;sslee;P;이순성;전무;21006;5
+@SAPPLINE;0;2=C_DAERYUK;경리팀;mscho0720;P;조문석;이사;21008;2
+@SAPPLINE;0;1=C_DAERYUK;총무팀;kbjang;P;남해룡;부장;21010;1
+@SAPPLINE;0;0=C_DAERYUK;33;cbm32;P;최병민;과장;21015;0;P
+@SAPPLINE;HU1=0
+@SAPPLINE;HU0=0
+@S일반;1;4;결재일자;=2018.5.4
+@S일반;0;3;서명;=<img SRC="/office/resources/img/app/sign/slash.03.mark" style="width:49.5pt; height:36.pt;">
+STITLE=기초질서지키기&nbsp;캠페인&nbsp;홍보&nbsp;활동의&nbsp;件
+@S일반;1;4;직위/이름;=김충한<br>(전무)
+comment_text=
+@S일반;0;3;직위/이름;=
+@S일반;1;2;서명;=<img SRC="/office/resources/img/app/sign/slash.12.mark" style="width:49.5pt; height:36.pt;">
+ori_text=<P&nbsp;style="MARGIN-LEFT:&nbsp;8em"><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕">1.&nbsp;평소&nbsp;귀&nbsp;부서의 적극적인&nbsp;협조에&nbsp;항상&nbsp;감사드립니다.   </SPAN></P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"> </P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕">2.&nbsp;당사&nbsp;임직원의&nbsp;근로기강을&nbsp;상기시키고&nbsp;확고한&nbsp;사내기초질서를&nbsp;확립시키고자&nbsp;아래&nbsp;내용과&nbsp;같이&nbsp;</SPAN><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕">홍</SPAN></P><BR><P><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕"><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕">보&nbsp;</SPAN><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕">활동을&nbsp;시행코저&nbsp;</SPAN><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕">하오니 </SPAN><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕">많은&nbsp;협조&nbsp;부탁드립니다.</SPAN></SPAN></P><BR><P> </P><BR><P&nbsp;style="TEXT-ALIGN:&nbsp;center"><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕">○&nbsp;아  &nbsp;래&nbsp;○</SPAN></P><BR><P> </P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕"><STRONG>가.&nbsp;목&nbsp;적</STRONG>&nbsp;:&nbsp;사내기초질서&nbsp;캠페인과&nbsp;관련&nbsp;全&nbsp;임직원의&nbsp;동참을&nbsp;유도하기&nbsp;위함.</SPAN></P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"> </P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕"><STRONG>나.&nbsp;대상자</STRONG>&nbsp;:&nbsp;대륙제관&nbsp;全임직원</SPAN></P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"> </P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕"><STRONG>다.&nbsp;시행일</STRONG>&nbsp;:&nbsp;<STRONG><SPAN&nbsp;style="COLOR:&nbsp;#ff0000">2018.04.24.(화)&nbsp;12:20&nbsp;~&nbsp;12:40(20분간)</SPAN></STRONG></SPAN></P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"> </P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕"><STRONG>라.&nbsp;장&nbsp;소</STRONG>&nbsp;:&nbsp;<SPAN&nbsp;style="COLOR:&nbsp;#ff0000"><STRONG>복지동&nbsp;식당&nbsp;앞</STRONG></SPAN></SPAN></P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"> </P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕"><STRONG>마.&nbsp;시행&nbsp;방법</STRONG>&nbsp;:&nbsp;기초질서지키기&nbsp;동참&nbsp;서명</SPAN></P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"> </P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕"><STRONG>바.&nbsp;캠페인&nbsp;홍보&nbsp;참석&nbsp;대상</STRONG>&nbsp;:&nbsp;총무노무팀&nbsp;전원/관리지원·일반관·에어졸·인쇄·품질·기술부문장/노동조합위원장&nbsp;및&nbsp;사무장&nbsp;이상&nbsp;15명</SPAN></P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"> </P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"><SPAN&nbsp;style="FONT-FAMILY:&nbsp;Batang,바탕">(끝)</SPAN></P><BR><P&nbsp;style="MARGIN-LEFT:&nbsp;8em"> </P><BR><P> </P><BR>
+datatype=
+@S일반;0;1;결재일자;=2018.5.3
+formcorcode=C_DAERYUK
+@S일반;1;2;직위/이름;=
+term=
+@SFORMNAME=협조전 [대륙제관]
+@P발송번호=
+@S일반;0;1;직위/이름;=남해룡<br>(부장)
+DOCNUMLIST=
+@P발송부서=총무팀
+@S일반;0;2;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/mscho0720.jpg&filename=mscho0720.jpgmscho0720.jpg" style="width:49.5pt; height:36.pt;">
+@S일반;1;3;결재일자;=
+@P수신번호=1301
+eappType=
+@S일반;0;0;결재일자;=2018.5.2
+@S일반;1;0;직위/이름;=곽현주<br>(과장대우)
+SDOCUF=P
+@S일반;1;1;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/jjchoi.jpg&filename=jjchoi.jpgjjchoi.jpg" style="width:49.5pt; height:36.pt;">
+secret=false
+@SDOCUMODE=2
+@P수신부서=영업3팀,&nbsp;기술1팀,&nbsp;기획팀,&nbsp;자재팀,&nbsp;경리팀,&nbsp;출하팀,&nbsp;일반관운영팀,&nbsp;에어졸운영팀,&nbsp;기술연구소,&nbsp;품질관리2팀,&nbsp;인쇄운영팀,&nbsp;품질관리1팀,&nbsp;시설관리팀
+@P기안일시=2018-05-02
+@S일반;1;2;결재일자;=
+CLASS.DEBUG=0

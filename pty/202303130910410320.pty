@@ -1,0 +1,146 @@
+#Edit Property
+#Mon Mar 13 09:18:20 KST 2023
+@S일반;1;3;직위/이름;=
+@S개인협조;1000;0;이름;=
+@S개인협조;1000;0;직급;=
+@S개인협조;1001;0;직급;=
+@S개인협조;1001;0;이름;=
+@S개인협조;1002;0;직급;=
+@S개인협조;1002;0;이름;=
+@S개인협조;1000;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10000.mark" align="bottom" border="0" style=" width:49.95pt; height:43.15pt;">
+문서번호=
+@S개인협조;1001;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10010.mark" align="bottom" border="0" style=" width:49.65pt; height:42.95pt;">
+@S일반;0;0;직위/이름;=박덕희<br>(사원)
+@S개인협조;1002;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10020.mark" align="bottom" border="0" style=" width:49.5pt; height:42.8pt;">
+secret=false
+@S개인협조;1000;0;보직;=
+@S개인협조;1001;0;보직;=
+@SDOCUMODE=1
+@SAPPLINEPOS=0
+@S개인협조;1002;0;보직;=
+@SATTFILE;0;3=
+@SATTFILE;0;2=
+SDOCUF=P
+@SATTFILE;0;1=
+@SATTFILE;0;0=
+@S일반;1;0;직위/이름;=
+docuno=202303130910410320
+~본문=
+FILECNT=
+@S일반;0;2;서명;=<img SRC="/office/resources/img/app/sign/slash.02.mark" style="width:49.5pt; height:36.pt;">
+DOCCNT=
+@S일반;1;2;서명;=<img SRC="/office/resources/img/app/sign/slash.12.mark" align="bottom" border="0" style=" width:47.2pt; height:41.9pt;">
+@SAPPRECT;NU0=1
+@S일반;0;4;직위/이름;=
+term=
+@SAPPLINE;1;5=
+@SAPPLINE;1;4=
+@SAPPLINE;1;3=
+@SAPPLINE;1;2=
+@SAPPLINE;1;1=
+@SAPPLINE;1;0=
+@P기안일시=2023-03-13
+@S개인협조;1001;0;부서명;=
+@SSOURDOCU=202303101600100268
+@SAPPMARKPOS=1
+@P수신부서=
+@S개인협조;1002;0;결재일자;=
+DOCLIST=
+op5=
+op4=
+@S일반;1;4;직위/이름;=
+op3=
+op2=
+op1=
+@S일반;0;5;서명;=<img SRC="/office/resources/img/app/sign/slash.05.mark" style="width:49.5pt; height:36.pt;">
+@S일반;0;4;결재일자;=
+@S개인협조;1000;0;직위/이름;=
+SUBDEPT=false
+@S일반;1;5;서명;=<img SRC="/office/resources/img/app/sign/slash.15.mark" align="bottom" border="0" style=" width:47.2pt; height:41.9pt;">
+@S일반;0;1;직위/이름;=남해룡<br>(부장)
+@S일반;0;5;결재일자;=
+@SAPPLINE;NU1=0
+@SAPPLINE;NU0=5
+savedoccode=
+@P기안자부서명=총무팀
+@S일반;0;2;결재일자;=
+@S개인협조;1000;0;보직/이름;=
+@SOPINION;1;5=
+STITLE=2023년&nbsp;3월,&nbsp;4월&nbsp;의약품&nbsp;구입&nbsp;건
+@S일반;0;3;결재일자;=
+@SOPINION;1;4=
+@SAPPLINE;HU0=0
+@SOPINION;1;3=
+@SOPINION;1;2=
+@SOPINION;1;1=
+DOCNUMLIST=
+@SOPINION;1;0=
+@S개인협조;1001;0;직위/이름;=
+@S일반;1;1;직위/이름;=
+formCode=DVFKWLLMQC
+@S일반;0;0;결재일자;=2023.3.13
+@S일반;0;1;서명;=<img SRC="/office/resources/img/app/sign/slash.01.mark" style="width:49.5pt; height:36.pt;">
+@S일반;0;1;결재일자;=
+@S일반;1;1;서명;=<img SRC="/office/resources/img/app/sign/slash.11.mark" align="bottom" border="0" style=" width:47.2pt; height:41.2pt;">
+SELRECU=
+SELRECT=
+@P발송일자=
+@S개인협조;1001;0;보직/이름;=
+시행일자=
+important=false
+@S개인협조;1002;0;부서명;=
+@SFORMNAME=품의서 [대륙제관]
+@S일반;0;5;직위/이름;=박봉준<br>(사장)
+@SAPPRECT;0;0=C_DAERYUK;;총무팀
+@S개인협조;1002;0;보직/이름;=
+@S개인협조;1000;0;결재일자;=
+@S개인협조;1002;0;직위/이름;=
+fname=/SpeedOffice/data/C_DAERYUK/app/dsrc/Z1DVFKWLLMQC.htm
+@S일반;0;4;서명;=<img SRC="/office/resources/img/app/sign/slash.04.mark" style="width:49.5pt; height:36.pt;">
+orisedocuno=202303101600100268
+@S일반;1;4;서명;=<img SRC="/office/resources/img/app/sign/slash.14.mark" align="bottom" border="0" style=" width:47.2pt; height:41.9pt;">
+comment=
+@S일반;0;2;직위/이름;=조문석<br>(상무)
+formcorcode=C_DAERYUK
+@P발송번호=
+@S일반;1;5;직위/이름;=
+datatype=
+@S일반;1;4;결재일자;=
+@S일반;1;5;결재일자;=
+@SAPPLINE;0;5=
+@S일반;1;1;결재일자;=
+@S일반;1;2;직위/이름;=
+@SAPPLINE;0;4=C_DAERYUK;10;bjpark2346;P;박봉준;사장;21004;6
+@SAPPLINE;0;3=C_DAERYUK;20;sslee;P;이순성;부사장;21005;3
+@SAPPLINE;0;2=C_DAERYUK;23;mscho0720;P;조문석;상무;21007;2
+@SAPPLINE;0;1=C_DAERYUK;33;kbjang;P;남해룡;부장;21010;1
+@S일반;1;2;결재일자;=
+@SAPPLINE;0;0=C_DAERYUK;33;hyyang;P;박덕희;사원;21022;0;P
+@S일반;0;0;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/hyyang.jpg&filename=hyyang.jpg" style="width:49.5pt; height:36.pt;">
+@S일반;1;3;결재일자;=
+@SFORMCODE=DVFKWLLMQC
+@S일반;1;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10.mark" align="bottom" border="0" style=" width:47.2pt; height:40.4pt;">
+eappType=
+@SATTFILE;NU0=3
+@S일반;1;0;결재일자;=
+ori_text=<p&nbsp;style="text-align:&nbsp;center;"><font&nbsp;face="Batang"><br></font></p><p&nbsp;style="text-align:&nbsp;center;"><font&nbsp;face="Batang">2023년&nbsp;3</font><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;">월,&nbsp;4월</span><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;">&nbsp;의약품을&nbsp;<span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;">다음과&nbsp;같이&nbsp;구입하고자&nbsp;하오니&nbsp;검토하신&nbsp;후&nbsp;재가&nbsp;요청드립니다.&nbsp;</span></span></p><p&nbsp;style="text-align:&nbsp;center;&nbsp;line-height:&nbsp;1.5;"><span&nbsp;style="font-family:&nbsp;Dotum,돋움;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><br></span></span></p><p&nbsp;style="line-height:&nbsp;1.5;"></p><p&nbsp;style="text-align:&nbsp;center;&nbsp;line-height:&nbsp;1.5;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;다&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;음&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</span></p><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><strong>1.&nbsp;구입일자</strong>&nbsp;:&nbsp;결재&nbsp;후&nbsp;즉시</span></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><br></span></p><p&nbsp;style="line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"></p><p&nbsp;style="line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><strong>2.&nbsp;구입방법</strong>&nbsp;:&nbsp;온라인&nbsp;주문&nbsp;후&nbsp;업체&nbsp;직접&nbsp;배송</span></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><br></span></p><p&nbsp;style="line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"></p><p&nbsp;style="line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><strong>3.&nbsp;구&nbsp;입&nbsp;처</strong>&nbsp;:&nbsp;온케어&nbsp;메디홀(주)</span></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><br></span></p><p&nbsp;style="line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"></p><p&nbsp;style="line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><strong>4.&nbsp;구입내역</strong>&nbsp;:&nbsp;일회용드셍키트&nbsp;외&nbsp;19개&nbsp;항목&nbsp;(세부내역서&nbsp;첨부)</span><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><br></p><p&nbsp;style="line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span><span><strong><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"></span><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;">5.&nbsp;구입예정&nbsp;비용&nbsp;:&nbsp;316,700</span><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;">(VAT포함)&nbsp;</span></strong></span></span></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><strong><br></strong></span></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;"><span><span><strong></strong></span></span>&nbsp;</p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><strong>6.&nbsp;결제방법</strong>:&nbsp;계산서&nbsp;발행&nbsp;후&nbsp;현금결제</span></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><br></span></p><p&nbsp;style="margin-left:&nbsp;4em;"></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"></p><p&nbsp;style="margin-left:&nbsp;4em;"></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><strong>7.&nbsp;월별&nbsp;약품&nbsp;구매&nbsp;누적표&nbsp;(1년)</strong>&nbsp;</span></p></span><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><br></p><table&nbsp;width="700"&nbsp;class="txc-table"&nbsp;style="border:&nbsp;currentColor;&nbsp;border-image:&nbsp;none;&nbsp;width:&nbsp;700px;&nbsp;font-family:&nbsp;굴림;&nbsp;font-size:&nbsp;10pt;&nbsp;border-collapse:&nbsp;collapse;"&nbsp;border="0"&nbsp;cellspacing="0"&nbsp;cellpadding="0"><tbody><tr><td&nbsp;height="36"&nbsp;style="border:&nbsp;0px&nbsp;currentColor;&nbsp;border-image:&nbsp;none;&nbsp;width:&nbsp;65px;&nbsp;height:&nbsp;36.61px;"></td><td&nbsp;height="36"&nbsp;style="border:&nbsp;1px&nbsp;solid&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-image:&nbsp;none;&nbsp;width:&nbsp;75px;&nbsp;height:&nbsp;36.61px;"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">구분</span></p></td><td&nbsp;width="103"&nbsp;height="36"&nbsp;style="width:&nbsp;103.51px;&nbsp;height:&nbsp;36.61px;&nbsp;border-top-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-top-width:&nbsp;1px;&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-top-style:&nbsp;solid;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">&nbsp;월</span></p></td><td&nbsp;width="130"&nbsp;height="36"&nbsp;style="width:&nbsp;130.48px;&nbsp;height:&nbsp;36.61px;&nbsp;border-top-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-top-width:&nbsp;1px;&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-top-style:&nbsp;solid;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">평균&nbsp;금액(원)&nbsp;</span></p></td><td&nbsp;width="112"&nbsp;height="36"&nbsp;style="width:&nbsp;112.13px;&nbsp;height:&nbsp;36.61px;&nbsp;border-top-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-top-width:&nbsp;1px;&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-top-style:&nbsp;solid;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">평균인원(명)&nbsp;</span></p></td><td&nbsp;width="114"&nbsp;height="36"&nbsp;style="width:&nbsp;114.8px;&nbsp;height:&nbsp;36.61px;&nbsp;border-top-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-top-width:&nbsp;1px;&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-top-style:&nbsp;solid;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">1인당&nbsp;비용(원)</span></p></td><td&nbsp;width="188"&nbsp;height="36"&nbsp;style="width:&nbsp;188.46px;&nbsp;height:&nbsp;36.61px;&nbsp;border-top-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-top-width:&nbsp;1px;&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-top-style:&nbsp;solid;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;"&nbsp;colspan="1"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;">비고</span></p></td></tr><tr><td&nbsp;height="32"&nbsp;style="width:&nbsp;65px;&nbsp;height:&nbsp;32.39px;&nbsp;border-right-color:&nbsp;currentColor;&nbsp;border-bottom-color:&nbsp;currentColor;&nbsp;border-left-color:&nbsp;currentColor;&nbsp;border-right-width:&nbsp;0px;&nbsp;border-bottom-width:&nbsp;0px;&nbsp;border-left-width:&nbsp;0px;&nbsp;border-right-style:&nbsp;none;&nbsp;border-bottom-style:&nbsp;none;&nbsp;border-left-style:&nbsp;none;"></td><td&nbsp;height="32"&nbsp;style="width:&nbsp;75px;&nbsp;height:&nbsp;32.39px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-left-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-left-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;border-left-style:&nbsp;solid;"&nbsp;rowspan="1"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">2022년</span></p></td><td&nbsp;width="103"&nbsp;height="32"&nbsp;style="width:&nbsp;103.51px;&nbsp;height:&nbsp;32.39px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">1/2개월</span></p></td><td&nbsp;width="130"&nbsp;height="32"&nbsp;style="width:&nbsp;130.48px;&nbsp;height:&nbsp;32.39px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">401,025</span></p></td><td&nbsp;width="112"&nbsp;height="32"&nbsp;style="width:&nbsp;112.13px;&nbsp;height:&nbsp;32.39px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">&nbsp;399</span></p></td><td&nbsp;width="114"&nbsp;height="32"&nbsp;style="width:&nbsp;114.8px;&nbsp;height:&nbsp;32.39px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">502</span></p></td><td&nbsp;width="188"&nbsp;height="32"&nbsp;style="width:&nbsp;188.46px;&nbsp;height:&nbsp;32.39px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"&nbsp;colspan="1"><p&nbsp;style="text-align:&nbsp;center;"></p></td></tr><tr><td&nbsp;height="85"&nbsp;style="width:&nbsp;65px;&nbsp;height:&nbsp;85px;&nbsp;border-right-color:&nbsp;currentColor;&nbsp;border-bottom-color:&nbsp;currentColor;&nbsp;border-left-color:&nbsp;currentColor;&nbsp;border-right-width:&nbsp;0px;&nbsp;border-bottom-width:&nbsp;0px;&nbsp;border-left-width:&nbsp;0px;&nbsp;border-right-style:&nbsp;none;&nbsp;border-bottom-style:&nbsp;none;&nbsp;border-left-style:&nbsp;none;"&nbsp;rowspan="1"></td><td&nbsp;height="85"&nbsp;style="width:&nbsp;68px;&nbsp;height:&nbsp;187px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-left-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-left-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;border-left-style:&nbsp;solid;"&nbsp;rowspan="2"&nbsp;colspan="1"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">&nbsp;2023년</span></p></td><td&nbsp;width="103"&nbsp;height="85"&nbsp;style="width:&nbsp;103.51px;&nbsp;height:&nbsp;85px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"&nbsp;rowspan="1"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">1월~2월</span><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">&nbsp;</span></p></td><td&nbsp;width="130"&nbsp;height="85"&nbsp;style="width:&nbsp;130.48px;&nbsp;height:&nbsp;85px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"&nbsp;rowspan="1"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">351,900&nbsp;</span></p></td><td&nbsp;width="112"&nbsp;height="85"&nbsp;style="width:&nbsp;112.13px;&nbsp;height:&nbsp;85px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"&nbsp;rowspan="1"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">410</span></p></td><td&nbsp;width="114"&nbsp;height="85"&nbsp;style="width:&nbsp;114.8px;&nbsp;height:&nbsp;85px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"&nbsp;rowspan="1"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;10pt;">429&nbsp;</span></p></td><td&nbsp;width="188"&nbsp;height="85"&nbsp;style="width:&nbsp;188.46px;&nbsp;height:&nbsp;85px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"&nbsp;rowspan="1"&nbsp;colspan="1"><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-size:&nbsp;9pt;">제놀쿨&nbsp;1,600→1,900</span></p><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-size:&nbsp;9pt;">제일탑&nbsp;150</span><span&nbsp;style="font-size:&nbsp;9pt;">→1,7</span><span&nbsp;style="font-size:&nbsp;9pt;">00</span></p><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-size:&nbsp;9pt;">수성&nbsp;거즈&nbsp;3,500</span><span&nbsp;style="font-size:&nbsp;9pt;">→4,200</span></p><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-size:&nbsp;9pt;">탄력붕대&nbsp;11,400</span><span&nbsp;style="font-size:&nbsp;9pt;">→</span><span&nbsp;style="font-size:&nbsp;9pt;">12,500</span></p><p&nbsp;style="text-align:&nbsp;center;"><span&nbsp;style="font-family:&nbsp;Batang,바탕,serif;&nbsp;font-size:&nbsp;9pt;">(물가&nbsp;상승)</span></p></td></tr><tr><td&nbsp;height="85"&nbsp;style="width:&nbsp;65px;&nbsp;height:&nbsp;85px;&nbsp;border-right-color:&nbsp;currentColor;&nbsp;border-bottom-color:&nbsp;currentColor;&nbsp;border-left-color:&nbsp;currentColor;&nbsp;border-right-width:&nbsp;0px;&nbsp;border-bottom-width:&nbsp;0px;&nbsp;border-left-width:&nbsp;0px;&nbsp;border-right-style:&nbsp;none;&nbsp;border-bottom-style:&nbsp;none;&nbsp;border-left-style:&nbsp;none;"&nbsp;rowspan="1">&nbsp;</td><td&nbsp;width="103"&nbsp;height="85"&nbsp;style="width:&nbsp;103.51px;&nbsp;height:&nbsp;85px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"&nbsp;rowspan="1"><p>&nbsp;&nbsp;&nbsp;  &nbsp;3월~4월</p></td><td&nbsp;width="130"&nbsp;height="85"&nbsp;style="width:&nbsp;130.48px;&nbsp;height:&nbsp;85px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"&nbsp;rowspan="1">&nbsp;</td><td&nbsp;width="112"&nbsp;height="85"&nbsp;style="width:&nbsp;112.13px;&nbsp;height:&nbsp;85px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"&nbsp;rowspan="1">&nbsp;</td><td&nbsp;width="114"&nbsp;height="85"&nbsp;style="width:&nbsp;114.8px;&nbsp;height:&nbsp;85px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"&nbsp;rowspan="1">&nbsp;</td><td&nbsp;width="188"&nbsp;height="85"&nbsp;style="width:&nbsp;188.46px;&nbsp;height:&nbsp;85px;&nbsp;border-right-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-bottom-color:&nbsp;rgb(204,&nbsp;204,&nbsp;204);&nbsp;border-right-width:&nbsp;1px;&nbsp;border-bottom-width:&nbsp;1px;&nbsp;border-right-style:&nbsp;solid;&nbsp;border-bottom-style:&nbsp;solid;&nbsp;background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);"&nbsp;rowspan="1"&nbsp;colspan="1">&nbsp;</td></tr></tbody></table><p><br></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[첨부문서&nbsp;1]&nbsp;2023년&nbsp;3월&nbsp;건강관리실&nbsp;약품&nbsp;및&nbsp;소모품&nbsp;재고&nbsp;현황.&nbsp;</span></p><p&nbsp;style="margin-left:&nbsp;4em;"></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[첨부문서&nbsp;2]<span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;">&nbsp;2023년&nbsp;1월&nbsp;건강관리실&nbsp;약품&nbsp;청구&nbsp;견적서(온케어메디홀)</span></span></p><p&nbsp;style="text-align:&nbsp;left;&nbsp;line-height:&nbsp;1.5;&nbsp;margin-left:&nbsp;4em;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;"><span&nbsp;style="font-family:&nbsp;Batang,바탕;&nbsp;font-size:&nbsp;10pt;">[첨부문서&nbsp;3]&nbsp;2023년&nbsp;1월&nbsp;제세동기&nbsp;소모품(배터리)&nbsp;견적서.&nbsp;&nbsp;끝.&nbsp;</span><br></span></p><p><font&nbsp;face="바탕체">&nbsp;</font><br></p><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>
+제목=2023년 3월, 4월 의약품 구입 건
+FILESIZE=
+FILELIST=
+linkcode=
+@S일반;0;3;서명;=<img SRC="/office/resources/img/app/sign/slash.03.mark" style="width:49.5pt; height:36.pt;">
+comment_text=
+@S일반;1;3;서명;=<img SRC="/office/resources/img/app/sign/slash.13.mark" align="bottom" border="0" style=" width:47.2pt; height:41.9pt;">
+@SOPINION;0;5=
+@SAPPRECU;NU0=0
+@S일반;0;3;직위/이름;=이순성<br>(부사장)
+@SOPINION;0;4=
+@SOPINION;0;3=
+@SOPINION;0;2=
+@SOPINION;0;1=
+@SOPINION;0;0=
+@S개인협조;1001;0;결재일자;=
+@S개인협조;1000;0;부서명;=
+SEQDOCUNO=
+CLASS.DEBUG=0
+발신=

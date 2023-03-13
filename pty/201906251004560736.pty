@@ -1,0 +1,58 @@
+#Edit Property
+#Tue Jun 25 10:04:56 KST 2019
+@S일반;1;3;서명;=<img SRC="/office/resources/img/app/sign/slash.13.mark" align="bottom" border="0" style=" width:47.3pt; height:42.0pt;">
+@S일반;0;3;직위/이름;=
+@P기안자부서명=영업부문
+@S일반;0;3;서명;=<img SRC="/office/resources/img/app/sign/slash.03.mark" align="bottom" border="0" style=" width:47.2pt; height:42.7pt;">
+@S일반;1;1;직위/이름;=
+~본문=
+@SAPPLINE;0;0=C_DAERYUK;68;jhju;G;이지현;대리;0;P
+@S일반;0;4;직위/이름;=
+@P기안자이름=이지현
+@S일반;1;2;직위/이름;=
+@S일반;0;5;직위/이름;=
+@S일반;0;1;결재일자;=
+@SFORMNAME=출장보고서 [지에스켐]
+@S일반;0;3;결재일자;=
+@S일반;0;0;결재일자;=
+@S일반;0;5;결재일자;=
+@S일반;0;2;결재일자;=
+@S일반;1;3;직위/이름;=
+@S일반;0;4;결재일자;=
+@S개인협조;1000;0;직위/이름;=
+FILD6=
+FILD5=
+FILD4=
+@S일반;1;2;서명;=<img SRC="/office/resources/img/app/sign/slash.12.mark" align="bottom" border="0" style=" width:47.2pt; height:41.9pt;">
+FILD3=
+@S일반;0;2;서명;=<img SRC="/office/resources/img/app/sign/slash.02.mark" align="bottom" border="0" style=" width:47.2pt; height:42.7pt;">
+FILD2=
+@S일반;1;4;직위/이름;=
+FILD1=
+@S일반;1;5;직위/이름;=
+@S일반;1;5;서명;=<img SRC="/office/resources/img/app/sign/slash.15.mark" align="bottom" border="0" style=" width:47.2pt; height:41.9pt;">
+@S개인협조;1001;0;직위/이름;=
+@S일반;0;5;서명;=<img SRC="/office/resources/img/app/sign/slash.05.mark" align="bottom" border="0" style=" width:47.3pt; height:42.8pt;">
+@S일반;1;1;서명;=<img SRC="/office/resources/img/app/sign/slash.11.mark" align="bottom" border="0" style=" width:47.2pt; height:41.2pt;">
+@S일반;0;1;서명;=<img SRC="/office/resources/img/app/sign/slash.01.mark" align="bottom" border="0" style=" width:47.2pt; height:42.7pt;">
+@S개인협조;1000;0;결재일자;=
+@S일반;1;3;결재일자;=
+@S일반;1;0;결재일자;=
+@S일반;1;5;결재일자;=
+@S일반;1;2;결재일자;=
+@S일반;1;4;결재일자;=
+@S일반;1;1;결재일자;=
+@S개인협조;1002;0;직위/이름;=
+@S일반;1;4;서명;=<img SRC="/office/resources/img/app/sign/slash.14.mark" align="bottom" border="0" style=" width:47.4pt; height:42.0pt;">
+@S일반;0;4;서명;=<img SRC="/office/resources/img/app/sign/slash.04.mark" align="bottom" border="0" style=" width:47.2pt; height:42.7pt;">
+CLASS.DEBUG=0
+@S일반;0;0;직위/이름;=이지현<br>(대리)
+@S일반;1;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10.mark" align="bottom" border="0" style=" width:47.3pt; height:40.5pt;">
+@S일반;0;0;서명;=<img SRC="/office/resources/img/app/sign/slash.00.mark" align="bottom" border="0" style=" width:47.6pt; height:43.0pt;">
+@S일반;0;1;직위/이름;=
+@S일반;0;2;직위/이름;=
+@S개인협조;1002;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10020.mark" align="bottom" border="0" style=" width:49.5pt; height:42.8pt;">
+@S개인협조;1001;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10010.mark" align="bottom" border="0" style=" width:49.5pt; height:42.8pt;">
+@S개인협조;1000;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10000.mark" align="bottom" border="0" style=" width:47.3pt; height:42.8pt;">
+@S일반;1;0;직위/이름;=
+@SFORMCODE=DVGQNXI0EE

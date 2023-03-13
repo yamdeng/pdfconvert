@@ -1,0 +1,128 @@
+#Edit Property
+#Sun Mar 12 00:24:10 KST 2023
+FILD7=추일봉
+linkcode=
+FILD6=610-81-41073
+FILD5=강성산업
+FILD4=지에스켐 211S-527 일반형 세척 450㎖ 외
+FILD3=추민규(gangsung@bill36524.com)
+FILD2=서명훈(mhseo@drcc.co.kr)
+FILD1=영업부
+@S일반;0;1;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/eok9355.jpg&filename=eok9355.jpgeok9355.jpg" style="width:49.5pt; height:36.pt;">
+op5=
+op4=
+op3=
+op2=
+op1=
+@S일반;1;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10.mark" align="bottom" border="0" style=" width:43.0pt; height:44.0pt;">
+@S일반;1;1;결재일자;=
+@S일반;0;4;결재일자;=2018.5.4
+문서번호=null-00190
+docuno=201805041450280654
+@S일반;0;4;직위/이름;=박봉진<br>(이사)
+orisedocuno=201805041444500471
+@SSOURDOCU=201805041444500471
+SUBDEPT=false
+@SAPPRECU;NU0=0
+@S일반;0;0;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/drpcs.jpg&filename=drpcs.jpg" style="width:49.5pt; height:36.pt;">
+@S일반;1;3;직위/이름;=
+FILELIST=
+FILECNT=
+@SOPINION;1;4=
+@SOPINION;1;3=
+@S일반;0;2;직위/이름;=
+@SOPINION;1;2=
+@SOPINION;1;1=
+SELRECU=
+@SOPINION;1;0=
+SELRECT=
+@SOPINION;0;4=
+savedoccode=
+@SOPINION;0;3=
+@SOPINION;0;2=
+@SOPINION;0;1=
+@SOPINION;0;0=
+제목=강성산업 4월 세금계산서 발행 요청 건
+DOCLIST=
+@SATTFILE;NU0=0
+DOCCNT=
+@S일반;1;1;직위/이름;=
+@P발송일자=2018.5.4
+@S일반;1;4;서명;=<img SRC="/office/resources/img/app/sign/slash.14.mark" align="bottom" border="0" style=" width:43.0pt; height:43.8pt;">
+@P기안자부서명=영업1팀(자사제품)
+@P기안자이름=서명훈
+FILESIZE=
+@S일반;0;0;직위/이름;=서명훈<br>(차장)
+@S일반;1;0;결재일자;=
+@S일반;0;3;결재일자;=
+fname=/SpeedOffice/data/C_DAERYUK/app/dsrc/Z2DVGQ4XXR0J.htm
+@SAPPRECT;NU0=1
+SEQDOCUNO=
+@SAPPLINE;NU1=0
+@SAPPLINE;NU0=3
+@SAPPLINEPOS=0
+@SAPPMARKPOS=3
+@S일반;0;4;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/bjpark3124.jpg&filename=bjpark3124.jpgbjpark3124.jpg" style="width:49.5pt; height:36.pt;">
+important=false
+formCode=DVGQ4XXR0J
+@S일반;0;2;결재일자;=
+@SAPPLINE;1;4=
+@SFORMCODE=DVGQ4XXR0J
+@SAPPLINE;1;3=
+@SAPPLINE;1;2=
+@S일반;1;3;서명;=<img SRC="/office/resources/img/app/sign/slash.13.mark" align="bottom" border="0" style=" width:42.9pt; height:43.7pt;">
+@SAPPLINE;1;1=
+@SAPPLINE;1;0=
+@SAPPLINE;0;4=
+@SAPPRECT;0;0=C_DAERYUK;;영업1팀(자사제품)
+@SAPPLINE;0;3=
+@SAPPLINE;0;2=C_DAERYUK;영업부문;bjpark3124;P;박봉진;이사;21008;5
+@SAPPLINE;0;1=C_DAERYUK;영업1팀(자사제품);eok9355;P;이종억;이사;21008;1
+@SAPPLINE;0;0=C_DAERYUK;68;mhseo;P;서명훈;차장;21011;0;P
+@SAPPLINE;HU0=0
+@S일반;1;4;결재일자;=
+STITLE=강성산업&nbsp;4월&nbsp;세금계산서&nbsp;발행&nbsp;요청&nbsp;건
+@S일반;0;3;서명;=<img SRC="/office/resources/img/app/sign/slash.03.mark" style="width:49.5pt; height:36.pt;">
+@S일반;1;4;직위/이름;=
+FILD25=
+FILD24=1번 : 아산공장, 2번 : 진천공장으로 세금계산서 발행 부탁드립니다.
+FILD23=발행일자 : 4월 30일
+FILD22=
+@S일반;0;3;직위/이름;=
+FILD21=
+FILD20=
+@S일반;1;2;서명;=<img SRC="/office/resources/img/app/sign/slash.12.mark" align="bottom" border="0" style=" width:43.0pt; height:43.8pt;">
+datatype=
+@S일반;0;1;결재일자;=2018.5.4
+formcorcode=C_DAERYUK
+@S일반;1;2;직위/이름;=
+term=
+@SFORMNAME=의뢰서 [전자세금계산서 - 지에스켐] 
+@P발송번호=
+@S일반;0;1;직위/이름;=이종억<br>(이사)
+DOCNUMLIST=
+FILD19=
+FILD18=
+FILD17=
+@S일반;0;2;서명;=<img SRC="/office/resources/img/app/sign/slash.02.mark" style="width:49.5pt; height:36.pt;">
+FILD16=17,907,054
+FILD15=1,627,914
+FILD14=16,279,140
+@S일반;1;3;결재일자;=
+FILD13=추일봉
+FILD12=610-81-41073
+FILD11=강성산업
+FILD10=20,568,240
+@S일반;0;0;결재일자;=2023.3.12
+eappType=
+@S일반;1;0;직위/이름;=
+SDOCUF=P
+@S일반;1;1;서명;=<img SRC="/office/resources/img/app/sign/slash.11.mark" align="bottom" border="0" style=" width:42.7pt; height:43.5pt;">
+@SDOCUMODE=1
+secret=false
+@P수신부서=관리팀
+@P기안일시=2018-05-04
+FILD9=1,869,840
+FILD8=18,698,400
+@S일반;1;2;결재일자;=
+CLASS.DEBUG=0

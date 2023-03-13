@@ -1,0 +1,142 @@
+#Edit Property
+#Sun Mar 12 04:31:01 KST 2023
+FILD7=없음
+@S일반;0;5;결재일자;=2019.6.25
+linkcode=
+FILD6=표준견본,컬러지
+@S개인협조;1000;0;직급;=
+FILD5=705매
+FILD4=08:40
+FILD3=3
+FILD2=30041143
+FILD1=KCC(안성)&nbsp;4L환(DDR02987)&nbsp;리뉴얼&nbsp;스포탄&nbsp;공용캔&nbsp;&nbsp;&nbsp;(KCC홍백코팅)&nbsp;인쇄물&nbsp;
+@S일반;0;1;서명;=<img SRC="/office/resources/img/app/sign/slash.01.mark" style="width:49.5pt; height:36.pt;">
+@S개인협조;1000;0;보직/이름;=
+op5=
+op4=
+op3=
+op2=
+op1=
+@S개인협조;1002;0;보직/이름;=
+@S일반;1;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10.mark" align="bottom" border="0" style=" width:47.2pt; height:40.4pt;">
+@S개인협조;1002;0;결재일자;=
+@S개인협조;1001;0;보직;=
+@S일반;1;1;결재일자;=
+@S일반;0;4;결재일자;=
+@S개인협조;1000;0;결재일자;=
+문서번호=null-04260
+docuno=201906251014140149
+@S일반;1;5;서명;=<img SRC="/office/resources/img/app/sign/slash.15.mark" align="bottom" border="0" style=" width:47.2pt; height:41.9pt;">
+@S일반;0;4;직위/이름;=
+orisedocuno=
+@S개인협조;1002;0;부서명;=
+SUBDEPT=false
+@S일반;0;0;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/drpcs.jpg&filename=drpcs.jpg" style="width:49.5pt; height:36.pt;">
+@S일반;1;3;직위/이름;=
+@S일반;1;5;직위/이름;=
+FILELIST=
+FILECNT=
+@S개인협조;1002;0;이름;=
+@S개인협조;1000;0;보직;=
+@S일반;0;2;직위/이름;=
+SELRECU=
+SELRECT=
+@S일반;0;5;서명;=<img SRC="/office/file/download.do?fileloc=C_DAERYUK/sta/sign/srkim.jpg&filename=srkim.jpgsrkim.jpg" style="width:49.5pt; height:36.pt;">
+@S개인협조;1000;0;부서명;=
+savedoccode=
+comment=
+제목=변경&nbsp;일반관&nbsp;검사&nbsp;2019-06-25&nbsp;(30041143)
+DOCLIST=
+@SATTFILE;NU0=0
+DOCCNT=
+@S개인협조;1001;0;직위/이름;=
+@S일반;1;1;직위/이름;=
+@P발송일자=2019.6.25
+@S일반;1;4;서명;=<img SRC="/office/resources/img/app/sign/slash.14.mark" align="bottom" border="0" style=" width:47.2pt; height:41.9pt;">
+@P기안자부서명=품질관리3팀
+FILESIZE=
+@S개인협조;1001;0;이름;=
+@S일반;0;0;직위/이름;=이건승<br>(과장)
+@S일반;1;0;결재일자;=
+@S일반;0;3;결재일자;=
+fname=/SpeedOffice/data/C_DAERYUK/app/dsrc/Z5DVGQJNJTVO.htm
+@SAPPRECT;NU0=1
+SEQDOCUNO=
+@SAPPLINE;NU0=2
+@SAPPMARKPOS=2
+@S일반;0;4;서명;=<img SRC="/office/resources/img/app/sign/slash.04.mark" style="width:49.5pt; height:36.pt;">
+@S일반;1;5;결재일자;=
+important=false
+@S개인협조;1000;0;이름;=
+formCode=DVGQJNJTVO
+~본문=
+@S일반;0;2;결재일자;=
+@SFORMCODE=DVGQJNJTVO
+@S일반;1;3;서명;=<img SRC="/office/resources/img/app/sign/slash.13.mark" align="bottom" border="0" style=" width:47.2pt; height:41.9pt;">
+@S개인협조;1002;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10020.mark" align="bottom" border="0" style=" width:50.2pt; height:43.2pt;">
+FILD30=
+@SAPPRECT;0;0=C_DAERYUK;;품질관리3팀
+@SAPPLINE;0;1=C_DAERYUK;품질관리부문;srkim;P;김성룡;이사;21008;6
+@S개인협조;1001;0;보직/이름;=
+@SAPPLINE;0;0=C_DAERYUK;67;gslee;P;이건승;과장;21015;0;P
+@SAPPLINE;HU0=0
+@S일반;1;4;결재일자;=
+@S개인협조;1001;0;결재일자;=
+@S일반;0;3;서명;=<img SRC="/office/resources/img/app/sign/slash.03.mark" style="width:49.5pt; height:36.pt;">
+STITLE=변경&nbsp;일반관&nbsp;검사&nbsp;2019-06-25&nbsp;(30041143)
+@S일반;1;4;직위/이름;=
+FILD29=인증마크추가&nbsp;및&nbsp;GHS&nbsp;문구&nbsp;수정
+FILD28=2019-06-25
+@S개인협조;1001;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10010.mark" align="bottom" border="0" style=" width:49.6pt; height:42.9pt;">
+FILD27=2018-10-29
+FILD26=03
+comment_text=
+FILD25=합격
+FILD24=180
+FILD23=적합
+@S일반;0;3;직위/이름;=
+FILD22=4H
+@S일반;0;5;직위/이름;=김성룡<br>(이사)
+FILD21=양호
+@S일반;1;2;서명;=<img SRC="/office/resources/img/app/sign/slash.12.mark" align="bottom" border="0" style=" width:47.2pt; height:41.9pt;">
+FILD20=양호
+@S개인협조;1001;0;부서명;=
+ori_text=
+datatype=
+@S개인협조;1002;0;직급;=
+@S일반;0;1;결재일자;=
+formcorcode=C_DAERYUK
+@S일반;1;2;직위/이름;=
+term=
+@SFORMNAME=인쇄반제품 검사보고서
+@P발송번호=
+@S개인협조;1000;0;서명;=<img SRC="/office/resources/img/app/sign/slash.10000.mark" align="bottom" border="0" style=" width:47.3pt; height:42.8pt;">
+@S일반;0;1;직위/이름;=
+@S개인협조;1000;0;직위/이름;=
+DOCNUMLIST=
+FILD19=양호
+FILD18=양호
+FILD17=무
+FILD16=없음
+@S일반;0;2;서명;=<img SRC="/office/resources/img/app/sign/slash.02.mark" style="width:49.5pt; height:36.pt;">
+FILD15=없음
+FILD14=1
+@S일반;1;3;결재일자;=
+FILD13=1
+FILD12=양호
+FILD11=1
+@S개인협조;1001;0;직급;=
+FILD10=무
+@S일반;0;0;결재일자;=2023.3.12
+eappType=
+@S일반;1;0;직위/이름;=
+SDOCUF=P
+@S일반;1;1;서명;=<img SRC="/office/resources/img/app/sign/slash.11.mark" align="bottom" border="0" style=" width:47.2pt; height:41.2pt;">
+secret=false
+@S개인협조;1002;0;직위/이름;=
+@P기안일시=2019-06-25
+@S개인협조;1002;0;보직;=
+FILD9=내수
+FILD8=해당없음
+@S일반;1;2;결재일자;=
+CLASS.DEBUG=0
