@@ -30,4 +30,6 @@ config.ERROR_PDF_DOCNUMBERS = [
   "201408251728170509",
 ];
 
+config.PDF_ERROR_PATH = "\\\\192.9.200.163\\mig-data\\error\\2022";
+
 module.exports = config;

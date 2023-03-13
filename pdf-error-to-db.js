@@ -1,4 +1,5 @@
 const process = require("process");
+const fs = require("fs");
 const oracledb = require("oracledb");
 const logger = require("./logger-error");
 const config = require("./config");
@@ -36,7 +37,7 @@ logger.info("======= pdf-error-to-db start =======");
 
   try {
     // 1.특정 폴더 기준으로 파일 목록을 전체 가져온다
-    const directoryPath = "/Users/yongsungahn/Project/pdfconvert";
+    const directoryPath = config.PDF_ERROR_PATH;
     fs.readdir(directoryPath, function (err, files) {
       if (err) {
         return console.log("Unable to scan directory: " + err);
