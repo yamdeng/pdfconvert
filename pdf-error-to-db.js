@@ -38,26 +38,23 @@ logger.info("======= pdf-error-to-db start =======");
   try {
     // 1.특정 폴더 기준으로 파일 목록을 전체 가져온다
     const directoryPath = config.PDF_ERROR_PATH;
-    fs.readdir(directoryPath, function (err, files) {
-      if (err) {
-        return console.log("Unable to scan directory: " + err);
-      }
-      files.forEach(function (fileName) {
-        console.log(fileName);
-        // '.' 문자까지 기준으로 DOCUNO를 추출한다
-        const DOCUNO = fileName.substring(0, fileName.indexOf("."));
+    const files = fs.readdirSync(directoryPath);
+    for (let fileListIndex = 0; fileListIndex < files.length; fileListIndex++) {
+      const fileName = files[fileListIndex];
+      console.log(fileName);
+      // '.' 문자까지 기준으로 DOCUNO를 추출한다
+      const DOCUNO = fileName.substring(0, fileName.indexOf("."));
 
-        // DOCUNO를 테이블에 insert 한다
-        connection1.execute(
-          `INSERT INTO OFFICE5_PDF_ERROR (DOCUNO)
+      // DOCUNO를 테이블에 insert 한다
+      await connection1.execute(
+        `INSERT INTO OFFICE5_PDF_ERROR (DOCUNO)
         VALUES(:DOCUNO)`,
-          {
-            DOCUNO: DOCUNO,
-          },
-          { autoCommit: true }
-        );
-      });
-    });
+        {
+          DOCUNO: DOCUNO,
+        },
+        { autoCommit: true }
+      );
+    }
   } catch (e) {
     logger.error("error : ", e);
     if (connection1) {
