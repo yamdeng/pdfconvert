@@ -1,5 +1,6 @@
 const process = require("process");
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 const oracledb = require("oracledb");
 const logger = require("./logger-pty");
